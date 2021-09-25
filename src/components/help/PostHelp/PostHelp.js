@@ -54,8 +54,8 @@ const PostHelp = () => {
 
   return (
     <div className="middle" style={{ height: middleHeight ? middleHeight : 'auto', overflowY: 'scroll' }}>
-      {PostHelpData.map(row => (
-        <div className="middle-col">
+      {PostHelpData.map((row, i) => (
+        <div key={i} className="middle-col">
           <div className="middle-col-top">
             <h4>{row.title}</h4>
             {row.req && <Required/>}
