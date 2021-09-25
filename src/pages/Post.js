@@ -7,6 +7,7 @@ import { PostAdd, Gesture, CropOriginal } from '@mui/icons-material'
 import momentAdapter from '@date-io/moment'
 import { updatePostForm, formValid } from '../shared/formValidation'
 import { getTracks } from '../shared/trackRequests'
+import { redundantFilesCheck } from '../shared/bucketRequests'
 
 const Post = ({ history }) => {
   const { user, setUser } = useContext(Context)
@@ -31,6 +32,7 @@ const Post = ({ history }) => {
       setTracks(await getTracks(user, setUser, history))
     }
     handleTracksReq()
+    return () => redundantFilesCheck(user, setUser, history)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
