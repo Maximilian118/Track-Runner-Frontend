@@ -6,7 +6,10 @@ const PostHelp = () => {
   return (
     <div className="middle" style={{ height: middleHeight ? middleHeight : 'auto', overflowY: 'scroll' }}>
       <div className="middle-col">
-        <h4>Title</h4>
+        <div className="middle-col-top">
+          <h4>Title</h4>
+          <p>Required!</p>
+        </div>
         <p>The Title of your Post.</p>
       </div>
       <div className="middle-col">
@@ -26,11 +29,17 @@ const PostHelp = () => {
         <p>The date that you ran. This field is automatically filled with the current date.</p>
       </div>
       <div className="middle-col">
-        <h4>Best Lap</h4>
+        <div className="middle-col-top">
+          <h4>Best Lap</h4>
+          <p>Required!</p>
+        </div>
         <p>Your fastest lap. Required even if you only ran one lap.</p>
       </div>
       <div className="middle-col">
-        <h4>Total Dist</h4>
+        <div className="middle-col-top">
+          <h4>Total Dist</h4>
+          <p>Required!</p>
+        </div>
         <p>The total distance of your run from start to end regardless of laps.</p>
       </div>
       <div className="middle-col">

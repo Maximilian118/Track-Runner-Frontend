@@ -59,6 +59,17 @@
         margin-bottom: 30px;
         box-sizing: border-box;
 
+        .middle-col-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+
+          p {
+            color: $data;
+            margin-bottom: 5px;
+          }
+        }
+
         h4 {
           margin-bottom: 4px;
           color: rgba(0, 0, 0, 0.6);
