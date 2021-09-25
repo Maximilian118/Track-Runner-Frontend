@@ -393,8 +393,8 @@ export const dropZoneText = (usage, canDragDrop, multiple, acceptedFiles, fileRe
   } else {
     // Defaults
     switch (usage) {
-      case "post": text = <h2>Add Images</h2>; break
       case "gpx": text = <h2>Add a GPX File</h2>; break
+      case "post": text = <h2>Add Images</h2>; break
       default: text = <h2>Choose an image<br/>{suffix}</h2>
     }
 
@@ -414,6 +414,22 @@ export const dropZoneText = (usage, canDragDrop, multiple, acceptedFiles, fileRe
   }
   
   return text
+}
+
+export const dropZoneThumb = (thumb, usage) => {
+  let text = <h2 className="thumb-text">Change<br/>Profile Picture</h2>
+
+  switch (usage) {
+    case "gpx": text = <h2 className="thumb-text">Change</h2>; break
+    default: text = <h2 className="thumb-text">Change<br/>Profile Picture</h2>
+  }
+
+  return (
+    <>
+      {typeof thumb === 'string' ? <img alt="Thumbnail" src={thumb}/> : thumb}
+      {text}
+    </>
+  )
 }
 
 export const handleDropZoneError = (setErr, setThumb, setLocalLoading, message, returnValue) => {

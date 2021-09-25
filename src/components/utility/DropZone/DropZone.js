@@ -3,7 +3,7 @@ import './_DropZone.scss'
 import { useDropzone } from 'react-dropzone'
 import { uploadToS3 } from '../../../shared/bucketRequests'
 import { withRouter } from 'react-router-dom'
-import { initFileArr, dropZoneText } from '../../../shared/utility'
+import { initFileArr, dropZoneText, dropZoneThumb } from '../../../shared/utility'
 import { createGeojson } from '../../../shared/geojsonRequests'
 import Spinner from '../Spinner'
 
@@ -63,13 +63,7 @@ const DropZone = ({ user, setUser, calendar, setCalendar, height, usage, history
       {localLoading ? <Spinner/> :
         <>
           {online && <input {...getInputProps()}/>}
-          {thumb ?
-            <>
-              {typeof thumb === 'string' ? <img alt="Thumbnail" src={thumb}/> : thumb}
-              {usage === "profile-picture" && <h2 className="thumb-text">Change<br/>Profile Picture</h2>}
-            </>
-            : dropZoneText(usage, canDragDrop, multiple, acceptedFiles, fileRejections, err)
-          }
+          {thumb ? dropZoneThumb(thumb, usage) : dropZoneText(usage, canDragDrop, multiple, acceptedFiles, fileRejections, err)}
           {canDragDrop && !thumb && online && <div className="can-drag-drop"/>}
           {icon}
         </>
