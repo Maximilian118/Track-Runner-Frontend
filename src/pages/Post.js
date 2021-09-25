@@ -37,7 +37,7 @@ const Post = ({ history }) => {
     handleTracksReq()
     return () => redundantFilesCheck(user, setUser, history)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
+  console.log(form)
   return (
     <div className="model-wrapper">
       <form className="model">
@@ -195,6 +195,7 @@ const Post = ({ history }) => {
                   usage="post" 
                   history={history} 
                   icon={<CropOriginal/>}
+                  multiple
                 />
               </div>
             </div>

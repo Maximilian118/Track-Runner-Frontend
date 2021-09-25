@@ -35,8 +35,8 @@ const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height,
       setLocalLoading(true)
 
       const handleUpload = async () => {
-        const fileArr = await initFileArr(usage, acceptedFiles[0], arrData, setThumb)
-        uploadToS3(fileArr, user, setUser, calendar, setCalendar, setLocalLoading, setErr, setThumb, history)
+        const fileArr = await initFileArr(usage, acceptedFiles, arrData, setThumb)
+        uploadToS3(fileArr, user, setUser, form, setForm, calendar, setCalendar, setLocalLoading, setErr, setThumb, history)
       }
 
       if (acceptedFiles[0].type === "image/jpeg" || acceptedFiles[0].type === "image/png") {

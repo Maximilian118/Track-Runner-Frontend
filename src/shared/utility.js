@@ -177,30 +177,36 @@ export const checkAuth = (errors, setUser, history) => {
 }
 
 // Return an initial array with compressed files for uploadToS3.
-export const initFileArr = async (usage, acceptedFile, arrData, setThumb) => {
+export const initFileArr = async (usage, acceptedFiles, arrData, setThumb) => {
   let fileArr = []
 
   switch(usage) {
+    case "post": fileArr = await Promise.all(acceptedFiles.map(async file => {
+      return {
+        name: "post",
+        blob: await compressImage(file, 0.2),
+      }
+    })); break
     case "profile-picture": fileArr = [
       {
         name: "profile-picture",
-        blob: await compressImage(acceptedFile, 0.5, setThumb),
+        blob: await compressImage(acceptedFiles[0], 0.5, setThumb),
       },
       {
         name: "icon",
-        blob: await compressImage(acceptedFile, 0.05),
+        blob: await compressImage(acceptedFiles[0], 0.05),
       },
     ]; break
     case "track-logo": fileArr = [
       {
         name: "track-logo",
-        blob: await compressImage(acceptedFile, 0.1, setThumb),
+        blob: await compressImage(acceptedFiles[0], 0.1, setThumb),
       },
     ]; break
     default: fileArr = [
       {
         name: "track-logo",
-        blob: await compressImage(acceptedFile, 0.1, setThumb),
+        blob: await compressImage(acceptedFiles[0], 0.1, setThumb),
       },
     ]
   }

@@ -4,7 +4,7 @@ import { useTokens, checkAuth, headers, formatFilename, isDuplicateFile, handleD
 import { updateProfilePicture } from './userRequests'
 import { getTracks, updateTrackLogo } from './trackRequests'
 
-export const uploadToS3 = async (fileArr, user, setUser, calendar, setCalendar, setLocalLoading, setErr, setThumb, history) => {
+export const uploadToS3 = async (fileArr, user, setUser, form, setForm, calendar, setCalendar, setLocalLoading, setErr, setThumb, history) => {
   // Loop through all of the files in fileArr, prepare each filename for s3, conduct checks and retrieve s3 signed URLs.
   // Return fileArr with populated url keys.
   const withSigned = await Promise.all(fileArr.map(async file => {
@@ -15,7 +15,12 @@ export const uploadToS3 = async (fileArr, user, setUser, calendar, setCalendar, 
       return handleDropZoneError(setErr, setThumb, setLocalLoading, "This file name cannot be used. Please change it and try again.", file)
     }
     // Depending on the given filename, conduct duplicate file and file size checks.
-    if (filename.includes("profile-picture")) { // Error checks if profile-picture is in the url.
+    if (filename.includes("post")) { // Error checks if post is in the url.
+      if (file.blob.size > 300000) { // No bigger than 0.2Mb. Allow for slightly over.
+        return handleDropZoneError(setErr, setThumb, setLocalLoading, "Post Image Compression failed. Please try again.", file)
+      }
+
+    } else if (filename.includes("profile-picture")) { // Error checks if profile-picture is in the url.
       if (isDuplicateFile(user.profile_picture, filename)) {
         return handleDropZoneError(setErr, setThumb, setLocalLoading, "This Image is already your Profile Picture.", file)
       } else if (file.blob.size > 600000) { // No bigger than 0.5Mb. Allow for slightly over.
@@ -99,7 +104,13 @@ export const uploadToS3 = async (fileArr, user, setUser, calendar, setCalendar, 
     if (withUploaded.every(file => file.uploaded)) {
       // Depending on file.name, Update database, user context and localStorage with new file urls.
       // NOTE: Do not mistake file.name for file.blob.name!
-      if (withUploaded.every(file => file.name === "profile-picture" || file.name === "icon")) {
+      if (withUploaded.every(file => file.name === "post")) {
+        const imgs = await Promise.all(withUploaded.map(file => file.url))
+        form.imgs.forEach(imgUrl => imgs.unshift(imgUrl))
+        setForm({ ...form, imgs })
+        setLocalLoading(false)
+
+      } else if (withUploaded.every(file => file.name === "profile-picture" || file.name === "icon")) {
         const profile_picture = await withUploaded.find(file => file.name === "profile-picture")
         const icon = await withUploaded.find(file => file.name === "icon")
         updateProfilePicture(user, setUser, profile_picture.url, icon.url, history, setLocalLoading, setErr, setThumb)
