@@ -3,7 +3,7 @@ import { formatFilename, XMLFileToString, headers, checkAuth } from './utility'
 import { populateGeojson } from './requestPopulation'
 import MapBoxStatic from '../components/utility/MapBoxStatic'
 
-export const createGeojson = async (user, setUser, file, setLocalLoading, history, setThumb, width, height) => {
+export const createGeojson = async (user, setUser, form, setForm, file, setLocalLoading, history, setThumb, width, height) => {
   try {
     await axios.post('', {
       variables: {
@@ -22,6 +22,11 @@ export const createGeojson = async (user, setUser, file, setLocalLoading, histor
         checkAuth(res.data.errors, setUser, history)
         process.env.NODE_ENV === 'development' && console.log(res.data.errors[0].message)
       } else {
+        setForm && setForm({
+          ...form,
+          geoID: res.data.data.createGeojson._id,
+        })
+        
         setThumb && setThumb(
           <MapBoxStatic 
             geojson={JSON.parse(res.data.data.createGeojson.geojson)} 

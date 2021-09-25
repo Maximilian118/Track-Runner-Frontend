@@ -19,7 +19,7 @@ const Post = ({ history }) => {
     title: "",
     description: "",
     trackID: "",
-    geojsonID: "",
+    geoID: "",
     lapTime: null,
     distance: null,
     timeOfRun: new Date(),
@@ -176,17 +176,21 @@ const Post = ({ history }) => {
               <div className="middle-row">
                 <DropZone 
                   user={user} 
-                  setUser={setUser} 
+                  setUser={setUser}
+                  form={form}
+                  setForm={setForm}
                   height={56} 
                   usage="gpx" 
-                  history={history} 
+                  history={history}
                   icon={<Gesture/>}
                 />
               </div>
               <div className="middle-row">
                 <DropZone 
                   user={user} 
-                  setUser={setUser} 
+                  setUser={setUser}
+                  form={form}
+                  setForm={setForm}
                   height={56} 
                   usage="post" 
                   history={history} 

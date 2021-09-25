@@ -7,7 +7,7 @@ import { initFileArr, dropZoneText, dropZoneThumb } from '../../../shared/utilit
 import { createGeojson } from '../../../shared/geojsonRequests'
 import Spinner from '../Spinner'
 
-const DropZone = ({ user, setUser, calendar, setCalendar, height, usage, history, style, arrData, multiple, icon }) => {
+const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height, usage, history, style, arrData, multiple, icon }) => {
   const [ localLoading, setLocalLoading ] = useState(false)
   const [ thumb, setThumb ] = useState(usage === "profile-picture" ? user.profile_picture : "")
   const [ err, setErr ] = useState(null)
@@ -42,7 +42,7 @@ const DropZone = ({ user, setUser, calendar, setCalendar, height, usage, history
       if (acceptedFiles[0].type === "image/jpeg" || acceptedFiles[0].type === "image/png") {
         handleUpload()
       } else {
-        createGeojson(user, setUser, acceptedFiles[0], setLocalLoading, history, setThumb, 310, 56)
+        createGeojson(user, setUser, form, setForm, acceptedFiles[0], setLocalLoading, history, setThumb, 310, 56)
       }
 
     } else if (fileRejections.length > 0) {
