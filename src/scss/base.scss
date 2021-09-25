@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+@import "./variables";
+
+h1, h2, h3, h4, h5, h6, p, img {
+  margin: 0;
+  user-select: none;
+  font-weight: 300;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+form {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Ubuntu', sans-serif;
+  background: $background;
+
+  #root {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100%;
+
+    nav {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      position: sticky;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      background: white;
+      border-bottom: 1px solid $color-1;
+
+      .nav {
+        width: 690px;
+        height: 48px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        button {
+          box-shadow: none;
+          min-width: fit-content;
+        }
+      }
+    }
+
+    main {
+      width: 700px;
+      flex-grow: 1;
+      display: flex;
+      box-sizing: border-box;
+      overflow: hidden;
+
+      .page-left, .page-right, .page-outside {
+        display: flex;
+        box-sizing: border-box;
+      }
+
+      .page-left, .page-right {
+        width: 250px;
+        flex-grow: 1;
+        flex-flow: column nowrap;
+      }
+
+      .page-right {
+        width: 450px;
+      }
+
+      .border-radius-bottom {
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+
+      .mapboxgl-control-container {
+        display: none;
+      }
+    }
+    
+    footer {
+      width: 700px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $color-2;
+      flex-shrink: 0;
+      
+      a {
+        color: $color-2;
+        height: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          color: black;
+        }
+      }
+
+      svg {
+        height: 14px;
+        width: 14px;
+      }
+
+      img {
+        height: 14px;
+        opacity: 0.6;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

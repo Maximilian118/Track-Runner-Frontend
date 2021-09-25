@@ -1,0 +1,15 @@
+.nav-right {
+  width: fit-content;
+  height: 48px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  a {
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.7;
+  }
+}

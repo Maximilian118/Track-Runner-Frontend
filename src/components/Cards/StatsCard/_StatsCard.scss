@@ -1,0 +1,29 @@
+@import '../../../scss/variables';
+
+.stats-card {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  background: white;
+  border-top: 1px solid $border;
+
+  .stat {
+    width: 33.33%;
+    height: 50px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    border-bottom: 1px solid $border;
+
+    h6 {
+      margin-bottom: 2px;
+      font-weight: 400;
+    }
+
+    h5 {
+      color: $color-3;
+    }
+  }
+}

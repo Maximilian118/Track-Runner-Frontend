@@ -1,0 +1,28 @@
+@import '../../../scss/variables';
+
+.cal-card-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  .cal-card {
+    width: 660px;
+    height: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  
+    .cal-item {
+      height: 100px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .cal-card::-webkit-scrollbar { /* Chrome, Safari and Opera */
+    display: none;
+  }
+}

@@ -1,0 +1,27 @@
+@import "../../../scss/variables";
+
+.profile-picture-icon {
+  width: 25px;
+  height: 25px;
+  border-radius: 100px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+
+  img {
+    border-radius: 1000px;
+    opacity: 1;
+  }
+}
+
+.initials-icon {
+  border: 1px solid $color-1;
+  background: white;
+
+  p {
+    font-size: 0.6em;
+  }
+}

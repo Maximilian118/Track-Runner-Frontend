@@ -1,0 +1,54 @@
+@import '../../../scss/variables';
+
+.cal-item {
+  width: 100px;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  flex-shrink: 0;
+  margin: 0 5px;
+  background: $empty;
+  box-shadow: $shadow;
+  border-radius: 5px;
+
+  .top {
+    width: 100%;
+    height: 20px;
+    background: white;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 5px;
+    overflow-y: hidden;
+    flex-shrink: 0;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+    h6 {
+      white-space: nowrap;
+    }
+  }
+
+  .top::-webkit-scrollbar { /* Chrome, Safari and Opera */
+    display: none;
+  }
+
+  .img-wrapper {
+    width: 100%;
+    flex-grow: 1;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+    img {
+      width: 100%;
+      align-self: center;
+    }
+  }
+}

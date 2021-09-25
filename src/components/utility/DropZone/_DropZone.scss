@@ -1,0 +1,127 @@
+@import "../../../scss/variables";
+
+.drop-zone {
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: $shadow;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin: 20px;
+  box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  h2 {
+    text-align: center;
+    font-weight: 300;
+    font-size: 1.2em;
+    color: $color-2;
+    cursor: pointer;
+  }
+
+  svg {
+    position: absolute;
+    color: rgba(0, 0, 0, 0.54);
+    right: 0;
+    margin-right: 8px;
+  }
+
+  &:hover, &:focus {
+    box-shadow: $shadow-hover
+  }
+}
+
+.can-drag-drop {
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  border: 2px dashed $color-1;
+  position: absolute;
+
+  &:hover {
+    border: 2px dashed $dashed-hover;
+  }
+}
+
+.profile-picture {
+  border-radius: 100%;
+
+  .can-drag-drop {
+    border-radius: 100%;
+  }
+}
+
+.drag-active {
+  box-shadow: $shadow-hover;
+
+  .can-drag-drop {
+    border: 2px dashed $dashed-hover;
+  }
+}
+
+.thumb {
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+  }
+
+  .thumb-text {
+    opacity: 0;
+    position: absolute;
+    color: $color-3;
+  }
+
+  &:hover {
+    img {
+      opacity: 0.2;
+    }
+
+    .thumb-text {
+      opacity: 1;
+    }
+  }
+}
+
+.offline {
+  cursor: default;
+
+  h2 {
+    cursor: default
+  }
+  
+  &:hover, &:focus {
+    box-shadow: $shadow;
+  }
+}
+
+.gpx, .post {
+  margin: 0;
+  width: 100% !important;
+  box-shadow: none;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  padding: 15px;
+
+  h2 {
+    font-size: 1rem;
+    width: 100%;
+    text-align: start;
+  }
+
+  .can-drag-drop {
+    display: none;
+  }
+
+  &:hover, &:focus {
+    box-shadow: none;
+  }
+
+  &:hover {
+    border: 1px solid black;
+  }
+}

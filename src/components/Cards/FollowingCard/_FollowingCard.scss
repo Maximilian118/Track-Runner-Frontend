@@ -1,0 +1,44 @@
+@import '../../../scss/variables';
+
+.following-card {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  flex-flow: column nowrap;
+  overflow-y: scroll;
+
+  .header, .followed-user {
+    width: 100%;
+    height: 40px;
+    flex-shrink: 0;
+    padding: 0 10px;
+    box-sizing: border-box;
+    align-items: center;
+    display: flex;
+  }
+
+  .header {
+    justify-content: space-between;
+    border-bottom: 1px solid $border;
+  }
+
+  .followed-user {
+    cursor: pointer;
+
+    h5 {
+      margin-left: 10px;
+    }
+  }
+
+  .empty {
+    cursor: default;
+
+    h5 {
+      margin: 0;
+    }
+  }
+
+  .followed-user:nth-child(even) {
+    background: $empty;
+  }
+}

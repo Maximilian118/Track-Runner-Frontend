@@ -1,0 +1,19 @@
+@import '../../scss/variables';
+
+.cal-bar {
+  width: 100vw;
+  height: 110px;
+  display: flex;
+  overflow-y: hidden;
+  box-sizing: border-box;
+  padding: 5px 0;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.cal-bar::-webkit-scrollbar { /* Chrome, Safari and Opera */
+  display: none;
+}
