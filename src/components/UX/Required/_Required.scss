@@ -1,0 +1,18 @@
+@import '../../../scss/variables';
+
+.required {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+
+  p, svg {
+    color: $data;
+  }
+
+  svg {
+    height: 14px;
+    width: 14px;
+    margin: 3px 0 0 5px;
+  }
+}
