@@ -1,0 +1,14 @@
+.help-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 5px;
+  cursor: pointer;
+
+  svg {
+    font-size: 1.2rem;
+    color: rgba(0, 0, 0, 0.54);
+  }:hover {
+    color: black;
+  }
+}
