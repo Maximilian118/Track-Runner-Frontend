@@ -56,6 +56,17 @@ export const updateForm = (e, form, setForm, formError, setFormError) => {
 export const updatePostForm = (e, form, setForm, formError, setFormError) => {
   setForm({...form, [e.target.name]: e.target.value})
   switch (e.target.name) {
+    case "lapTime": if (!e.target.value || /^\d{2}\:\d{2}\:\d{2}$/.test(e.target.value._i)) { // eslint-disable-line no-useless-escape
+      setFormError({
+        ...formError,
+        lapTime: "",
+      })
+    } else {
+      setFormError({
+        ...formError,
+        lapTime: "Invalid Lap Time",
+      })
+    }; break
     case "distance": if (/^[0-9]{1,2}(?:\.[0-9]{1,3})?$/.test(e.target.value) || e.target.value.trim() === "") {
       setFormError({
         ...formError,
@@ -85,7 +96,7 @@ export const formValid = (form, formError) => {
   for (const keys in form) {
     if (form[keys] === "") {
       return false
-    } else if (form[keys] === false) {
+    } else if (!form[keys]) {
       return false
     }
   }

@@ -27,6 +27,7 @@ const Post = ({ history }) => {
     imgs: [],
   })
   const [ formError, setFormError ] = useState({
+    lapTime: "",
     distance: "",
   })
 
@@ -37,7 +38,7 @@ const Post = ({ history }) => {
     handleTracksReq()
     return () => redundantFilesCheck(user, setUser, history)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
-  console.log(form)
+
   return (
     <div className="model-wrapper">
       <form className="model">
@@ -144,12 +145,12 @@ const Post = ({ history }) => {
                   inputFormat="HH:mm:ss"
                   mask="__:__:__"
                   value={form.lapTime}
-                  onChange={(newValue) => {
-                    setForm({
-                      ...form,
-                      lapTime: newValue,
-                    })
-                  }}
+                  onChange={obj => updatePostForm({
+                    target: {
+                      name: "lapTime",
+                      value: obj,
+                    }
+                  }, form, setForm, formError, setFormError)}
                   renderInput={(params) => 
                     <TextField
                       {...params}
@@ -206,7 +207,11 @@ const Post = ({ history }) => {
               startIcon={<PostAdd/>} 
               type="submit"
               className="mui-form-btn"
-              disabled={!formValid(form, formError)}
+              disabled={!formValid({
+                title: form.title,
+                lapTime: form.lapTime,
+                distance: form.distance,
+              }, formError)}
             >
               Post
             </Button>
