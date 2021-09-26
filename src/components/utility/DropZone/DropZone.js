@@ -3,7 +3,7 @@ import './_DropZone.scss'
 import { useDropzone } from 'react-dropzone'
 import { uploadToS3 } from '../../../shared/bucketRequests'
 import { withRouter } from 'react-router-dom'
-import { initFileArr, dropZoneText, dropZoneThumb } from '../../../shared/utility'
+import { initFileArr, dropZoneText, dropZoneThumb } from './DropZoneUtility'
 import { createGeojson } from '../../../shared/geojsonRequests'
 import Spinner from '../Spinner'
 

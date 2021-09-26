@@ -1,6 +1,7 @@
 import axios from "axios"
 import imageCompression from 'browser-image-compression'
-import { useTokens, checkAuth, headers, formatFilename, isDuplicateFile, handleDropZoneError } from './utility'
+import { useTokens, checkAuth, headers, formatFilename, isDuplicateFile } from './utility'
+import { handleDropZoneError } from '../components/utility/DropZone/DropZoneUtility'
 import { updateProfilePicture } from './userRequests'
 import { getTracks, updateTrackLogo } from './trackRequests'
 
