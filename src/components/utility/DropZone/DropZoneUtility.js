@@ -1,3 +1,5 @@
+import { compressImage } from '../../../shared/bucketRequests'
+
 // Return an initial array with compressed files for uploadToS3.
 export const initFileArr = async (usage, acceptedFiles, arrData, setThumb) => {
   let fileArr = []

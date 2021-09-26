@@ -2,7 +2,6 @@ import { logout } from './localStorage'
 import moment from 'moment'
 import * as turf from '@turf/turf'
 import { getCalendar } from './miscRequests'
-import { compressImage } from './bucketRequests'
 
 // Create a calendar based on user.calendars.
 export const createCalendar = (user, setUser, calendar, setCalendar, calScope, history) => {
