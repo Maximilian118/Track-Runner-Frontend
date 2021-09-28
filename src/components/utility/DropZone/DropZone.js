@@ -3,13 +3,13 @@ import './_DropZone.scss'
 import { useDropzone } from 'react-dropzone'
 import { uploadToS3 } from '../../../shared/bucketRequests'
 import { withRouter } from 'react-router-dom'
-import { initFileArr, dropZoneText, dropZoneThumb } from './DropZoneUtility'
+import { initThumbArr, initFileArr, dropZoneText, dropZoneThumb } from './DropZoneUtility'
 import { createGeojson } from '../../../shared/geojsonRequests'
 import Spinner from '../Spinner'
 
 const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height, usage, history, style, arrData, multiple, icon }) => {
   const [ localLoading, setLocalLoading ] = useState(false)
-  const [ thumb, setThumb ] = useState(usage === "profile-picture" ? user.profile_picture : "")
+  const [ thumb, setThumb ] = useState(initThumbArr(user, usage))
   const [ err, setErr ] = useState(null)
 
   // Determine if the window has drag and drop capabilities.
@@ -63,7 +63,7 @@ const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height,
       {localLoading ? <Spinner/> :
         <>
           {online && <input {...getInputProps()}/>}
-          {thumb ? dropZoneThumb(thumb, usage) : dropZoneText(usage, canDragDrop, multiple, acceptedFiles, fileRejections, err)}
+          {thumb.length > 0 ? dropZoneThumb(thumb, usage) : dropZoneText(usage, canDragDrop, multiple, acceptedFiles, fileRejections, err)}
           {canDragDrop && !thumb && online && <div className="can-drag-drop"/>}
           {icon}
         </>

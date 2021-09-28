@@ -1,6 +1,15 @@
 import { compressImage } from '../../../shared/bucketRequests'
 
-// Return an initial array with compressed files for uploadToS3.
+// Return an initial Array of URL Strings to be presented.
+export const initThumbArr = (user, usage) => {
+  if (usage === "profile-picture") {
+    return [user.profile_picture]
+  } else {
+    return []
+  }
+}
+
+// Return an initial Array with compressed files for uploadToS3.
 export const initFileArr = async (usage, acceptedFiles, arrData, setThumb) => {
   let fileArr = []
 
@@ -51,6 +60,19 @@ export const initFileArr = async (usage, acceptedFiles, arrData, setThumb) => {
   }
 }
 
+export const handleDropZoneError = (setErr, setThumb, setLocalLoading, message, returnValue) => {
+  setErr(<h2>{message}</h2>)
+  setThumb([])
+  setLocalLoading(false)
+  return returnValue ? returnValue : message
+}
+
+export const handleDropZoneSuccess = (setErr, setLocalLoading, returnValue) => {
+  setErr(null)
+  setLocalLoading(false)
+  return returnValue ? returnValue : "File uploaded!"
+}
+
 export const dropZoneText = (usage, canDragDrop, multiple, acceptedFiles, fileRejections, err) => {
   const suffix = canDragDrop ? multiple ? "or drag them here" : "or drag it here" : ""
   let text = <h2>Choose an image<br/>{suffix}</h2>
@@ -95,21 +117,8 @@ export const dropZoneThumb = (thumb, usage) => {
 
   return (
     <>
-      {typeof thumb === 'string' ? <img alt="Thumbnail" src={thumb}/> : thumb}
+      <img alt="Thumbnail" src={thumb[0]}/>
       {text}
     </>
   )
-}
-
-export const handleDropZoneError = (setErr, setThumb, setLocalLoading, message, returnValue) => {
-  setErr(<h2>{message}</h2>)
-  setThumb("")
-  setLocalLoading(false)
-  return returnValue ? returnValue : message
-}
-
-export const handleDropZoneSuccess = (setErr, setLocalLoading, returnValue) => {
-  setErr(null)
-  setLocalLoading(false)
-  return returnValue ? returnValue : "File uploaded!"
 }

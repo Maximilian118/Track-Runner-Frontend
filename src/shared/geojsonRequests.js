@@ -1,7 +1,7 @@
 import axios from "axios"
 import { formatFilename, XMLFileToString, headers, checkAuth } from './utility'
 import { populateGeojson } from './requestPopulation'
-import MapBoxStatic from '../components/utility/MapBoxStatic'
+import { getMapBoxStatic } from './miscRequests'
 
 export const createGeojson = async (user, setUser, form, setForm, file, setLocalLoading, history, setThumb, width, height) => {
   try {
@@ -26,16 +26,9 @@ export const createGeojson = async (user, setUser, form, setForm, file, setLocal
           ...form,
           geoID: res.data.data.createGeojson._id,
         })
-        
-        setThumb && setThumb(
-          <MapBoxStatic 
-            geojson={JSON.parse(res.data.data.createGeojson.geojson)} 
-            width={width} 
-            height={height}
-            style={{ borderRadius: 5 }}
-            highRes
-          />
-        )
+
+        setThumb && setThumb([getMapBoxStatic(JSON.parse(res.data.data.createGeojson.geojson), width, height, true)])
+
         process.env.NODE_ENV === 'development' && console.log(res)
       }
   

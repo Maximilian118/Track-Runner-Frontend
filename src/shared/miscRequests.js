@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useTokens, checkAuth, headers, initRoundsString } from './utility'
+import mbxClient from '@mapbox/mapbox-sdk/services/static'
 
 export const createChampionship = async (user, setUser, championship, history) => {
   try {
@@ -130,6 +131,37 @@ export const getCalendar = async (user, setUser, setCalendar, calScope, history)
       user.token && checkAuth(err.response.data.errors, setUser, history)
       process.env.NODE_ENV === 'development' && console.log(err.response.data.errors[0].message)
     })
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const getMapBoxStatic = (geojson, width, height, highRes, withLogo, withAtt) => {
+  try {
+    const mbxStaticClient = mbxClient({ accessToken: process.env.REACT_APP_MAPBOXGL_ACCESS_TOKEN })
+
+    const request = mbxStaticClient.getStaticImage({
+      ownerId: 'track-runner',
+      styleId: 'ckqjpfiyl04t118mugkuokdm6',
+      width: width,
+      height: height,
+      position: 'auto',
+      logo: withLogo ? true : false,
+      attribution: withAtt ? true : false,
+      highRes: highRes ? true : false,
+      overlays: [
+        {
+          path: {
+            strokeColor: "FF0000",
+            strokeWidth: 3,
+            strokeOpacity: 1,
+            coordinates: geojson.features[0].geometry.coordinates.map(coords => [coords[0], coords[1]]),
+          },
+        },
+      ],
+    })
+
+    return request.url()
   } catch (err) {
     console.log(err)
   }

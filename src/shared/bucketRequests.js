@@ -17,7 +17,7 @@ export const uploadToS3 = async (fileArr, user, setUser, form, setForm, calendar
     }
     // Depending on the given filename, conduct duplicate file and file size checks.
     if (filename.includes("post")) { // Error checks if post is in the url.
-      if (file.blob.size > 300000) { // No bigger than 0.2Mb. Allow for slightly over.
+      if (file.blob.size > 350000) { // No bigger than 0.2Mb. Allow for slightly over.
         return handleDropZoneError(setErr, setThumb, setLocalLoading, "Post Image Compression failed. Please try again.", file)
       }
 
@@ -181,7 +181,7 @@ export const compressImage = async (file, fileSize, setThumb) => {
 
   try {
     var compressedFile = await imageCompression(file, options)
-    setThumb && setThumb(URL.createObjectURL(compressedFile))
+    setThumb && setThumb([URL.createObjectURL(compressedFile)])
   } catch (err) {
     process.env.NODE_ENV === 'development' && console.log(err)
   }
