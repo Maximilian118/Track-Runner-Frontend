@@ -3,7 +3,7 @@ import './_DropZone.scss'
 import { useDropzone } from 'react-dropzone'
 import { uploadToS3 } from '../../../shared/bucketRequests'
 import { withRouter } from 'react-router-dom'
-import { initThumbArr, initFileArr, dropZoneText, dropZoneThumb, handleDropZoneError } from './DropZoneUtility'
+import { initThumbArr, initFileArr, dropZoneContent, handleDropZoneError } from './DropZoneUtility'
 import { createGeojson } from '../../../shared/geojsonRequests'
 import Spinner from '../Spinner'
 
@@ -35,7 +35,7 @@ const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height,
       setLocalLoading(true)
 
       const handleUpload = async () => {
-        const fileArr = await initFileArr(usage, acceptedFiles, arrData, setThumb)
+        const fileArr = await initFileArr(usage, acceptedFiles, arrData, thumb, setThumb)
         uploadToS3(fileArr, user, setUser, form, setForm, calendar, setCalendar, setLocalLoading, setErr, setThumb, history)
       }
 
@@ -60,13 +60,16 @@ const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height,
       ${thumb !== "" && `thumb`}
       ${!online && `offline`}
       `})}
-      style={{ height: height ? height : "100%", width: usage === "profile-picture" ? height : 'auto', ...style }}
+      style={{ 
+        ...style,
+        height: height ? height : "100%", 
+        width: usage === "profile-picture" ? height : 'auto', 
+      }}
     >
       {localLoading ? <Spinner/> :
         <>
           {online && <input {...getInputProps()}/>}
-          {thumb.length > 0 ? dropZoneThumb(thumb, usage) : dropZoneText(usage, canDragDrop, multiple, acceptedFiles, fileRejections, err)}
-          {canDragDrop && !thumb && online && <div className="can-drag-drop"/>}
+          {dropZoneContent(usage, thumb, multiple, acceptedFiles, fileRejections, err, canDragDrop)}
           {icon}
         </>
       }

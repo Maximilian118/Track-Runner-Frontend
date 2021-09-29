@@ -2,7 +2,7 @@ import { compressImage } from '../../../shared/bucketRequests'
 
 // Return an initial Array of URL Strings to be presented.
 export const initThumbArr = (user, usage) => {
-  if (usage === "profile-picture") {
+  if (usage === "profile-picture" && user.profile_picture) {
     return [user.profile_picture]
   } else {
     return []
@@ -10,16 +10,29 @@ export const initThumbArr = (user, usage) => {
 }
 
 // Return an initial Array with compressed files for uploadToS3.
-export const initFileArr = async (usage, acceptedFiles, arrData, setThumb) => {
+export const initFileArr = async (usage, acceptedFiles, arrData, thumb, setThumb) => {
   let fileArr = []
+  let thumbArr = []
+
+  const multiple = async () => {
+    fileArr = await Promise.all(acceptedFiles.map(async file => {
+      const compressedImage = await compressImage(file, 0.2)
+      thumbArr.push(URL.createObjectURL(compressedImage))
+
+      return {
+        name: usage,
+        blob: compressedImage,
+      }
+    }))
+
+    setThumb([
+      ...thumb,
+      ...thumbArr,
+    ])
+  }
 
   switch(usage) {
-    case "post": fileArr = await Promise.all(acceptedFiles.map(async file => {
-      return {
-        name: "post",
-        blob: await compressImage(file, 0.2),
-      }
-    })); break
+    case "post": await multiple(); break
     case "profile-picture": fileArr = [
       {
         name: "profile-picture",
@@ -76,7 +89,7 @@ export const handleDropZoneSuccess = (setErr, setLocalLoading, returnValue) => {
 }
 
 // Return JSX <h2/> element for DropZone depending on given component params.
-export const dropZoneText = (usage, canDragDrop, multiple, acceptedFiles, fileRejections, err) => {
+const dropZoneText = (usage, canDragDrop, multiple, acceptedFiles, fileRejections, err) => {
   const suffix = canDragDrop ? multiple ? "or drag them here" : "or drag it here" : ""
   let text = <h2>Choose an image<br/>{suffix}</h2>
 
@@ -111,7 +124,7 @@ export const dropZoneText = (usage, canDragDrop, multiple, acceptedFiles, fileRe
 }
 
 // Return the first item in thumbArr as a Thumbnail for DropZone.
-export const dropZoneThumb = (thumb, usage) => {
+const dropZoneThumb = (thumb, usage) => {
   let text = <h2 className="thumb-text">Change<br/>Profile Picture</h2>
 
   switch (usage) {
@@ -125,4 +138,24 @@ export const dropZoneThumb = (thumb, usage) => {
       {text}
     </>
   )
+}
+
+// Return all items in thumbArr as a Thumbnail for DropZone.
+const dropZoneMultiple = thumb => thumb.map((url, i) => (
+  <div key={i} className="thumb-img-container">
+    <img alt="Run" src={url}/>
+  </div>
+))
+
+// Return JSX depending on DropZone Components params.
+export const dropZoneContent = (usage, thumb, multiple, acceptedFiles, fileRejections, err, canDragDrop) => {
+  if (thumb.length > 0) {
+    if (multiple) {
+      return dropZoneMultiple(thumb)
+    } else {
+      return dropZoneThumb(thumb, usage)
+    }
+  } else {
+    return dropZoneText(usage, canDragDrop, multiple, acceptedFiles, fileRejections, err)
+  }
 }
