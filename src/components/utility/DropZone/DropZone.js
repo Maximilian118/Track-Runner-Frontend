@@ -3,7 +3,7 @@ import './_DropZone.scss'
 import { useDropzone } from 'react-dropzone'
 import { uploadToS3 } from '../../../shared/bucketRequests'
 import { withRouter } from 'react-router-dom'
-import { initThumbArr, initFileArr, dropZoneText, dropZoneThumb } from './DropZoneUtility'
+import { initThumbArr, initFileArr, dropZoneText, dropZoneThumb, handleDropZoneError } from './DropZoneUtility'
 import { createGeojson } from '../../../shared/geojsonRequests'
 import Spinner from '../Spinner'
 
@@ -39,14 +39,16 @@ const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height,
         uploadToS3(fileArr, user, setUser, form, setForm, calendar, setCalendar, setLocalLoading, setErr, setThumb, history)
       }
 
-      if (acceptedFiles[0].type === "image/jpeg" || acceptedFiles[0].type === "image/png") {
+      if (acceptedFiles.every(file => file.type === "image/jpeg" || file.type === "image/png")) {
         handleUpload()
-      } else {
+      } else if (acceptedFiles[0].name.split(".")[1] === "gpx") {
         createGeojson(user, setUser, form, setForm, acceptedFiles[0], setLocalLoading, history, setThumb, 310, 56)
+      } else {
+        handleDropZoneError(setErr, setThumb, setLocalLoading, "Please check file type")
       }
 
     } else if (fileRejections.length > 0) {
-      setThumb("")
+      setThumb([])
     }
   }, [acceptedFiles]) // eslint-disable-line react-hooks/exhaustive-deps
 

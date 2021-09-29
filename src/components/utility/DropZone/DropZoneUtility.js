@@ -60,6 +60,7 @@ export const initFileArr = async (usage, acceptedFiles, arrData, setThumb) => {
   }
 }
 
+// Set all states for DropZone Error state. Optionally return a given value.
 export const handleDropZoneError = (setErr, setThumb, setLocalLoading, message, returnValue) => {
   setErr(<h2>{message}</h2>)
   setThumb([])
@@ -67,12 +68,14 @@ export const handleDropZoneError = (setErr, setThumb, setLocalLoading, message, 
   return returnValue ? returnValue : message
 }
 
+// Set all states for DropZone Success state. Optionally return a given value.
 export const handleDropZoneSuccess = (setErr, setLocalLoading, returnValue) => {
   setErr(null)
   setLocalLoading(false)
   return returnValue ? returnValue : "File uploaded!"
 }
 
+// Return JSX <h2/> element for DropZone depending on given component params.
 export const dropZoneText = (usage, canDragDrop, multiple, acceptedFiles, fileRejections, err) => {
   const suffix = canDragDrop ? multiple ? "or drag them here" : "or drag it here" : ""
   let text = <h2>Choose an image<br/>{suffix}</h2>
@@ -107,6 +110,7 @@ export const dropZoneText = (usage, canDragDrop, multiple, acceptedFiles, fileRe
   return text
 }
 
+// Return the first item in thumbArr as a Thumbnail for DropZone.
 export const dropZoneThumb = (thumb, usage) => {
   let text = <h2 className="thumb-text">Change<br/>Profile Picture</h2>
 
