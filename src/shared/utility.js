@@ -175,6 +175,10 @@ export const checkAuth = (errors, setUser, history) => {
   })
 }
 
+export const endpoint = str => str.substring(str.lastIndexOf("/") + 1)
+export const formatString = str => str.toLowerCase().replace(/[^a-z0-9]/g, "-")
+export const getEndpoint = passed => endpoint(passed.type ? formatString(passed.name) : passed)
+
 // Format name of all files to be uploaded to s3.
 export const formatFilename = (user, file, category) => {
   if (!category) {
@@ -193,22 +197,30 @@ export const formatFilename = (user, file, category) => {
     userID = false
   }
 
-  const date = moment().format().toLowerCase().replace(/[^a-z0-9]/g, "-")
-  const filename = file.name.toLowerCase().replace(/[^a-z0-9]/g, "-")
+  const date = formatString(moment().format()) 
+  const filename = formatString(file.name)
 
   return `${userID ? `${user._id}/` : ""}${category}${date}-${file.size}/${filename}`
 }
 
 // Check for a duplicate filename by comparing the filename endpoints.
 export const isDuplicateFile = (currentFile, newFile) => {
-  const currentF = currentFile.substring(currentFile.lastIndexOf("/") + 1)
-  const newF = newFile.substring(newFile.lastIndexOf("/") + 1)
+  const currentF = endpoint(currentFile)
+  const newF = endpoint(newFile)
 
   if (currentF === newF) {
     return true
   } else {
     return false
   }
+}
+
+// Check for a duplicate filename by comparing two arrays to see if any array items match.
+// Arrays must contain Files or URL Strings.
+export const isDuplicateArrFile = (arr1, arr2) => {
+  const endpoints1 = arr1.map(passed => getEndpoint(passed))
+  const endpoints2 = arr2.map(passed => getEndpoint(passed))
+  return endpoints1.some(str => endpoints2.indexOf(str) >= 0)
 }
 
 // Get the initials of the user.
