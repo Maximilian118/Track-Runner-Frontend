@@ -3,8 +3,7 @@ import './_DropZone.scss'
 import { useDropzone } from 'react-dropzone'
 import { uploadToS3 } from '../../../shared/bucketRequests'
 import { withRouter } from 'react-router-dom'
-import { initThumbArr, initFileArr, dropZoneContent, handleDropZoneError } from './DropZoneUtility'
-import { isDuplicateArrFile } from '../../../shared/utility'
+import { initThumbArr, initFileArr, dropZoneContent, handleDropZonePreReqChecks } from './DropZoneUtility'
 import { createGeojson } from '../../../shared/geojsonRequests'
 import Spinner from '../Spinner'
 
@@ -40,20 +39,13 @@ const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height,
         uploadToS3(fileArr, user, setUser, form, setForm, calendar, setCalendar, setLocalLoading, setErr, setThumb, history)
       }
 
-      // If multiple === true, check for duplicate files between acceptedFiles & form.imgs.
-      if (multiple && isDuplicateArrFile(acceptedFiles, form.imgs)) {
-        return handleDropZoneError(setErr, setThumb, setLocalLoading, "Duplicate File.", null)
+      if (!handleDropZonePreReqChecks(acceptedFiles, form, multiple, setErr, setThumb, setLocalLoading)) { // If checks pass.
+        if (acceptedFiles.every(file => file.type === "image/jpeg" || file.type === "image/png")) { // Do something with the files in acceptedFiles depending on file type.
+          handleUpload()
+        } else if (acceptedFiles[0].name.split(".")[1] === "gpx") {
+          createGeojson(user, setUser, form, setForm, acceptedFiles[0], setLocalLoading, history, setThumb, 310, 56)
+        }
       }
-
-      // Do something with the files in acceptedFiles depending on file type.
-      if (acceptedFiles.every(file => file.type === "image/jpeg" || file.type === "image/png")) {
-        handleUpload()
-      } else if (acceptedFiles[0].name.split(".")[1] === "gpx") {
-        createGeojson(user, setUser, form, setForm, acceptedFiles[0], setLocalLoading, history, setThumb, 310, 56)
-      } else {
-        handleDropZoneError(setErr, setThumb, setLocalLoading, "Please check file types.")
-      }
-
     } else if (fileRejections.length > 0) {
       setThumb([])
     }

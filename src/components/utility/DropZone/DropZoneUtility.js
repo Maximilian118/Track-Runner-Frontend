@@ -1,4 +1,5 @@
 import { compressImage } from '../../../shared/bucketRequests'
+import { isDuplicateArrFile } from '../../../shared/utility'
 
 // Return an initial Array of URL Strings to be presented.
 export const initThumbArr = (user, usage) => {
@@ -86,6 +87,22 @@ export const handleDropZoneSuccess = (setErr, setLocalLoading, returnValue) => {
   setErr(null)
   setLocalLoading(false)
   return returnValue ? returnValue : "File uploaded!"
+}
+
+// Perform error checks before submitting requests.
+export const handleDropZonePreReqChecks = (acceptedFiles, form, multiple, setErr, setThumb, setLocalLoading) => {
+  if (multiple) {
+    if (isDuplicateArrFile(acceptedFiles, form.imgs)) { // Check for duplicate files between acceptedFiles & form.imgs.
+      return handleDropZoneError(setErr, setThumb, setLocalLoading, "Duplicate File.", true)
+    } 
+  }
+
+  // If there is a file in acceptedFiles that doesn't meet the mime type requirements.
+  if (!acceptedFiles.every(file => file.type === "image/jpeg" || file.type === "image/png" || file.name.split(".")[1] === "gpx")) {
+    return handleDropZoneError(setErr, setThumb, setLocalLoading, "Unsupported File Type.", true)
+  }
+
+  return false
 }
 
 // Return JSX <h2/> element for DropZone depending on given component params.
