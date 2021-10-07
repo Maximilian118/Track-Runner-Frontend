@@ -19,15 +19,17 @@ export const initFileArr = async (usage, acceptedFiles, arrData, thumb, setThumb
   let thumbArr = []
 
   const multiple = async () => {
-    fileArr = await Promise.all(acceptedFiles.map(async file => {
+    fileArr = await Promise.all(acceptedFiles.map(async (file, i) => {
       const compressedImage = await compressImage(file, 0.2)
 
       thumbArr.push({
+        i,
         url: URL.createObjectURL(compressedImage),
         uploaded: false,
       })
 
       return {
+        i,
         name: usage,
         blob: compressedImage,
       }
@@ -35,7 +37,7 @@ export const initFileArr = async (usage, acceptedFiles, arrData, thumb, setThumb
 
     setThumb([
       ...thumb,
-      ...thumbArr,
+      ...thumbArr.sort((a, b) => a.i - b.i),
     ])
   }
 

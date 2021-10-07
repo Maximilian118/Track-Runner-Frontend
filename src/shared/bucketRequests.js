@@ -106,22 +106,21 @@ export const uploadToS3 = async (fileArr, user, setUser, form, setForm, calendar
       // Depending on file.name, Update database, user context and localStorage with new file urls.
       // NOTE: Do not mistake file.name for file.blob.name!
       if (withUploaded.every(file => file.name === "post")) {
-        const imgs = await Promise.all(withUploaded.map(file => file.url))
-        
+        const sorted = withUploaded.sort((a, b) => a.i - b.i)
+        const imgs = await Promise.all(sorted.map(file => file.url))
+        form.imgs.forEach(imgUrl => imgs.unshift(imgUrl))
+
         setThumb([
           ...thumb,
-          ...imgs.map(url => {
-            return {
-              url,
-              uploaded: true,
-            }
-          })
+          ...sorted,
         ])
 
-        form.imgs.forEach(imgUrl => imgs.unshift(imgUrl))
-        setForm({ ...form, imgs })
-        setLocalLoading(false)
+        setForm({ 
+          ...form, 
+          imgs,
+        })
 
+        setLocalLoading(false)
       } else if (withUploaded.every(file => file.name === "profile-picture" || file.name === "icon")) {
         const profile_picture = await withUploaded.find(file => file.name === "profile-picture")
         const icon = await withUploaded.find(file => file.name === "icon")
