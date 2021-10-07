@@ -156,6 +156,7 @@ const Post = ({ history }) => {
                       {...params}
                       required
                       className="mui-date-time"
+                      error={!!formError.lapTime}
                       style={{ marginRight: 20 }}
                     />
                   }
