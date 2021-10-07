@@ -27,7 +27,10 @@ export const createGeojson = async (user, setUser, form, setForm, file, setLocal
           geoID: res.data.data.createGeojson._id,
         })
 
-        setThumb && setThumb([getMapBoxStatic(JSON.parse(res.data.data.createGeojson.geojson), width, height, true)])
+        setThumb && setThumb([{
+          url: getMapBoxStatic(JSON.parse(res.data.data.createGeojson.geojson), width, height, true),
+          uploaded: true,
+        }])
 
         process.env.NODE_ENV === 'development' && console.log(res)
       }

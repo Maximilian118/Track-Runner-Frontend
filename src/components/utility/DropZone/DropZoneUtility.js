@@ -4,7 +4,10 @@ import { isDuplicateArrFile } from '../../../shared/utility'
 // Return an initial Array of URL Strings to be presented.
 export const initThumbArr = (user, usage) => {
   if (usage === "profile-picture" && user.profile_picture) {
-    return [user.profile_picture]
+    return [{
+      url: user.profile_picture,
+      uploaded: true,
+    }]
   } else {
     return []
   }
@@ -18,7 +21,11 @@ export const initFileArr = async (usage, acceptedFiles, arrData, thumb, setThumb
   const multiple = async () => {
     fileArr = await Promise.all(acceptedFiles.map(async file => {
       const compressedImage = await compressImage(file, 0.2)
-      thumbArr.push(URL.createObjectURL(compressedImage))
+
+      thumbArr.push({
+        url: URL.createObjectURL(compressedImage),
+        uploaded: false,
+      })
 
       return {
         name: usage,
@@ -151,16 +158,16 @@ const dropZoneThumb = (thumb, usage) => {
 
   return (
     <>
-      <img alt="Thumbnail" src={thumb[0]}/>
+      <img alt="Thumbnail" src={thumb[0].url}/>
       {text}
     </>
   )
 }
 
 // Return all items in thumbArr as a Thumbnail for DropZone.
-const dropZoneMultiple = thumb => thumb.map((url, i) => (
+const dropZoneMultiple = thumb => thumb.map((img, i) => (
   <div key={i} className="thumb-img-container">
-    <img alt="Run" src={url}/>
+    <img alt="Run" src={img.url} style={{ opacity: img.uploaded ? 1 : 0.2 }}/>
   </div>
 ))
 

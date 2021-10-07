@@ -5,7 +5,7 @@ import { handleDropZoneError } from '../components/utility/DropZone/DropZoneUtil
 import { updateProfilePicture } from './userRequests'
 import { getTracks, updateTrackLogo } from './trackRequests'
 
-export const uploadToS3 = async (fileArr, user, setUser, form, setForm, calendar, setCalendar, setLocalLoading, setErr, setThumb, history) => {
+export const uploadToS3 = async (fileArr, user, setUser, form, setForm, calendar, setCalendar, setLocalLoading, setErr, thumb, setThumb, history) => {
   // Loop through all of the files in fileArr, prepare each filename for s3, conduct checks and retrieve s3 signed URLs.
   // Return fileArr with populated url keys.
   const withSigned = await Promise.all(fileArr.map(async file => {
@@ -107,6 +107,17 @@ export const uploadToS3 = async (fileArr, user, setUser, form, setForm, calendar
       // NOTE: Do not mistake file.name for file.blob.name!
       if (withUploaded.every(file => file.name === "post")) {
         const imgs = await Promise.all(withUploaded.map(file => file.url))
+        
+        setThumb([
+          ...thumb,
+          ...imgs.map(url => {
+            return {
+              url,
+              uploaded: true,
+            }
+          })
+        ])
+
         form.imgs.forEach(imgUrl => imgs.unshift(imgUrl))
         setForm({ ...form, imgs })
         setLocalLoading(false)
@@ -181,7 +192,11 @@ export const compressImage = async (file, fileSize, setThumb) => {
 
   try {
     var compressedFile = await imageCompression(file, options)
-    setThumb && setThumb([URL.createObjectURL(compressedFile)])
+    
+    setThumb && setThumb([{
+      url: URL.createObjectURL(compressedFile),
+      uploaded: false,
+    }])
   } catch (err) {
     process.env.NODE_ENV === 'development' && console.log(err)
   }

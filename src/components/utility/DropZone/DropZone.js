@@ -36,7 +36,7 @@ const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height,
 
       const handleUpload = async () => {
         const fileArr = await initFileArr(usage, acceptedFiles, arrData, thumb, setThumb)
-        uploadToS3(fileArr, user, setUser, form, setForm, calendar, setCalendar, setLocalLoading, setErr, setThumb, history)
+        uploadToS3(fileArr, user, setUser, form, setForm, calendar, setCalendar, setLocalLoading, setErr, thumb, setThumb, history)
       }
 
       if (!handleDropZonePreReqChecks(acceptedFiles, form, multiple, setErr, setThumb, setLocalLoading)) { // If checks pass.
