@@ -25,8 +25,13 @@
   svg {
     position: absolute;
     color: rgba(0, 0, 0, 0.54);
-    right: 0;
-    margin-right: 8px;
+    right: 8px;
+  }
+
+  .mui-spinner {
+    svg {
+      right: auto;
+    }
   }
 
   &:hover, &:focus {

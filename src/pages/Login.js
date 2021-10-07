@@ -5,11 +5,9 @@ import { TextField, Button } from '@mui/material'
 import { ExitToApp } from '@mui/icons-material'
 import { updateForm, errorCheck, formValid } from '../shared/formValidation'
 import { login } from '../shared/userRequests'
-import Spinner from '../components/utility/Spinner'
 
 const Login = ({ history }) => {
-  const { user, setUser } = useContext(Context)
-  const [ localLoading, setLocalLoading ] = useState(false)
+  const { user, setUser, setLoading } = useContext(Context)
   const [ backendError, setBackendError ] = useState({
     type: "",
     message: "",
@@ -25,61 +23,58 @@ const Login = ({ history }) => {
 
   const onSubmitHandler = e => {
     e.preventDefault()
-    login(form, user, setUser, setLocalLoading, setBackendError, history)
+    login(form, user, setUser, setLoading, setBackendError, history)
   }
 
   return (
-    <>
-      {localLoading && <Spinner/>}
-      <div className={`model-wrapper ${localLoading && "model-hide"}`}>
-        <form className="model" onSubmit={e => onSubmitHandler(e)}>
-          <div className="top">
-            <h3>Login</h3>
+    <div className="model-wrapper">
+      <form className="model" onSubmit={e => onSubmitHandler(e)}>
+        <div className="top">
+          <h3>Login</h3>
+        </div>
+        <div className="middle">
+          <div className="middle-row">
+            <TextField 
+              required
+              variant="standard"
+              error={!!errorCheck(formError, backendError, "email")}
+              label="Email"
+              name="email"
+              className="mui-text-field"
+              onChange={e => updateForm(e, form, setForm, formError, setFormError)}
+            />
+            {errorCheck(formError, backendError, "email")}
           </div>
-          <div className="middle">
-            <div className="middle-row">
-              <TextField 
-                required
-                variant="standard"
-                error={!!errorCheck(formError, backendError, "email")}
-                label="Email"
-                name="email"
-                className="mui-text-field"
-                onChange={e => updateForm(e, form, setForm, formError, setFormError)}
-              />
-              {errorCheck(formError, backendError, "email")}
-            </div>
-            <div className="middle-row">
-              <TextField 
-                required
-                variant="standard"
-                error={!!errorCheck(formError, backendError, "password")}
-                label="Password" 
-                name="password"
-                type="password" 
-                className="mui-text-field"
-                onChange={e => updateForm(e, form, setForm, formError, setFormError)}
-              />
-              {errorCheck(formError, backendError, "password")}
-            </div>
+          <div className="middle-row">
+            <TextField 
+              required
+              variant="standard"
+              error={!!errorCheck(formError, backendError, "password")}
+              label="Password" 
+              name="password"
+              type="password" 
+              className="mui-text-field"
+              onChange={e => updateForm(e, form, setForm, formError, setFormError)}
+            />
+            {errorCheck(formError, backendError, "password")}
           </div>
-          <div className="bottom">
-            <Button 
-              size="medium" 
-              startIcon={<ExitToApp/>} 
-              type="submit"
-              className="mui-form-btn"
-              disabled={!formValid(form, formError)}
-            >
-              Login
-            </Button>
-          </div>
-        </form>
-        <h6 className="model-outside-txt" style={{ marginTop: 10 }}>I have  
-          <Link to="forgot"><strong>forgotten my password</strong></Link>
-        </h6>
-      </div>
-    </>
+        </div>
+        <div className="bottom">
+          <Button 
+            size="medium" 
+            startIcon={<ExitToApp/>} 
+            type="submit"
+            className="mui-form-btn"
+            disabled={!formValid(form, formError)}
+          >
+            Login
+          </Button>
+        </div>
+      </form>
+      <h6 className="model-outside-txt" style={{ marginTop: 10 }}>I have  
+        <Link to="forgot"><strong>forgotten my password</strong></Link>
+      </h6>
+    </div>
   )
 }
 

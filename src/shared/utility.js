@@ -235,12 +235,12 @@ export const getInitials = user => {
 }
 
 // Handle unknown backend errors.
-export const unknownError = (setBackendError, setLocalLoading) => {
+export const unknownError = (setBackendError, setLoading) => {
   setBackendError({
     type: "email",
     message: "Oops! Something went wrong!"
   })
-  setLocalLoading(false)
+  setLoading(false)
 }
 
 // initialise a geojson ready to be used with Mapbox.

@@ -5,8 +5,8 @@ import { handleDropZoneError, handleDropZoneSuccess } from '../components/utilit
 import { populateUser } from './requestPopulation'
 import { redundantFilesCheck } from './bucketRequests'
 
-export const createUser = async (form, user, setUser, setLocalLoading, setBackendError) => {
-  setLocalLoading(true)
+export const createUser = async (form, user, setUser, setLoading, setBackendError) => {
+  setLoading(true)
 
   try {
     await axios.post('', {
@@ -26,7 +26,6 @@ export const createUser = async (form, user, setUser, setLocalLoading, setBacken
     }).then(async (res) => {
       if (res.data.errors) {
         process.env.NODE_ENV === 'development' && console.log(res.data.errors[0].message)
-        setLocalLoading(false)
       } else {
         setUser(logInSuccess({
           ...res.data.data.createUser,
@@ -36,18 +35,19 @@ export const createUser = async (form, user, setUser, setLocalLoading, setBacken
         process.env.NODE_ENV === 'development' && console.log(res)
       }
   
+      setLoading(false)
     }).catch(err => {
       process.env.NODE_ENV === 'development' && console.log(JSON.parse(err.response.data.errors[0].message))
       setBackendError(JSON.parse(err.response.data.errors[0].message))
-      setLocalLoading(false)
+      setLoading(false)
     })
   } catch {
-    unknownError(setBackendError, setLocalLoading)
+    unknownError(setBackendError, setLoading)
   }
 }
 
-export const login = async (form, user, setUser, setLocalLoading, setBackendError, history) => {
-  setLocalLoading(true)
+export const login = async (form, user, setUser, setLoading, setBackendError, history) => {
+  setLoading(true)
 
   try {
     await axios.post('', {
@@ -65,7 +65,6 @@ export const login = async (form, user, setUser, setLocalLoading, setBackendErro
     }).then(res => {
       if (res.data.errors) {
         process.env.NODE_ENV === 'development' && console.log(res.data.errors[0].message)
-        setLocalLoading(false)
       } else {
         setUser(logInSuccess({
           ...res.data.data.login,
@@ -76,18 +75,19 @@ export const login = async (form, user, setUser, setLocalLoading, setBackendErro
         process.env.NODE_ENV === 'development' && console.log(res)
       }
   
+      setLoading(false)
     }).catch(err => {
       process.env.NODE_ENV === 'development' && console.log(JSON.parse(err.response.data.errors[0].message))
       setBackendError(JSON.parse(err.response.data.errors[0].message))
-      setLocalLoading(false)
+      setLoading(false)
     })
   } catch {
-    unknownError(setBackendError, setLocalLoading)
+    unknownError(setBackendError, setLoading)
   }
 }
 
-export const forgot = async (email, setLocalLoading, setBackendError, histroy) => {
-  setLocalLoading(true)
+export const forgot = async (email, setLoading, setBackendError, histroy) => {
+  setLoading(true)
 
   try {
     await axios.post('', {
@@ -108,15 +108,15 @@ export const forgot = async (email, setLocalLoading, setBackendError, histroy) =
         process.env.NODE_ENV === 'development' && console.log(res)
       }
   
-      setLocalLoading(false)
+      setLoading(false)
       histroy.push("/forgot-success")
     }).catch(err => {
       process.env.NODE_ENV === 'development' && console.log(err)
       setBackendError(JSON.parse(err.response.data.errors[0].message))
-      setLocalLoading(false)
+      setLoading(false)
     })
   } catch {
-    unknownError(setBackendError, setLocalLoading)
+    unknownError(setBackendError, setLoading)
   }
 }
 

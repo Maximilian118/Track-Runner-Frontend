@@ -165,14 +165,14 @@ const dropZoneMultiple = thumb => thumb.map((url, i) => (
 ))
 
 // Return JSX depending on DropZone Components params.
-export const dropZoneContent = (usage, thumb, multiple, acceptedFiles, fileRejections, err, canDragDrop) => {
+export const dropZoneContent = (usage, thumb, multiple, acceptedFiles, fileRejections, err, canDragDrop, localLoading) => {
   if (thumb.length > 0) {
     if (multiple) {
       return dropZoneMultiple(thumb)
     } else {
-      return dropZoneThumb(thumb, usage)
+      return !localLoading && dropZoneThumb(thumb, usage)
     }
   } else {
-    return dropZoneText(usage, canDragDrop, multiple, acceptedFiles, fileRejections, err)
+    return !localLoading && dropZoneText(usage, canDragDrop, multiple, acceptedFiles, fileRejections, err)
   }
 }

@@ -35,7 +35,7 @@ const App = () => {
       <Nav user={user}/>
       <CalendarBar calendar={calendar}/>
       <main>
-        {loading ? <Spinner/> : <Router user={user}/>}
+        {loading ? <Spinner position="vp"/> : <Router user={user}/>}
       </main>
       <Footer/>
     </Context.Provider>

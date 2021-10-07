@@ -31,7 +31,7 @@ export const uploadToS3 = async (fileArr, user, setUser, form, setForm, calendar
     } else if (filename.includes("icon")) { // Error checks if icon is in the url.
       if (isDuplicateFile(user.icon, filename)) {
         return handleDropZoneError(setErr, setThumb, setLocalLoading, "This Image is already your Icon.", file)
-      } else if (file.blob.size > 150000) { // No bigger than 0.15Mb. NOTE: Rarely do the images compress to sub 0.05mb.
+      } else if (file.blob.size > 250000) { // No bigger than 0.15Mb. NOTE: Rarely do the images compress to sub 0.05mb.
         return handleDropZoneError(setErr, setThumb, setLocalLoading, "Icon Compression failed. Please try again.", file)
       }
 

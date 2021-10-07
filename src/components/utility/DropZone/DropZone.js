@@ -62,14 +62,14 @@ const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height,
       style={{ 
         ...style,
         height: height ? height : "100%", 
-        width: usage === "profile-picture" ? height : 'auto', 
+        width: !form ? height : 'auto', 
       }}
     >
-      {localLoading ? <Spinner/> :
+      {
         <>
           {online && <input {...getInputProps()}/>}
-          {dropZoneContent(usage, thumb, multiple, acceptedFiles, fileRejections, err, canDragDrop)}
-          {icon}
+          {dropZoneContent(usage, thumb, multiple, acceptedFiles, fileRejections, err, canDragDrop, localLoading)}
+          {localLoading ? <Spinner size={form && 20} position={form && "icon"}/> : icon}
         </>
       }
     </div>
