@@ -1,5 +1,6 @@
 import { compressImage } from '../../../shared/bucketRequests'
 import { isDuplicateArrFile } from '../../../shared/utility'
+import { Delete } from '@mui/icons-material'
 
 // Return an initial Array of URL Strings to be presented.
 export const initThumbArr = (user, usage) => {
@@ -166,18 +167,33 @@ const dropZoneThumb = (thumb, usage) => {
   )
 }
 
+// Image onClick = Remove Image from thumb, files and form.imgs Arrays.
+const removeImage = (e, img, form, setForm, thumb, setThumb, setFiles) => {
+  e.stopPropagation()
+  
+  const newThumb = thumb.filter(item => item.url !== img.url)
+  setThumb(newThumb)
+  setFiles(newThumb)
+
+  setForm({ 
+    ...form,
+    imgs: form.imgs.filter(url => url !== img.url),
+  })
+}
+
 // Return all items in thumbArr as a Thumbnail for DropZone.
-const dropZoneMultiple = thumb => thumb.map((img, i) => (
-  <div key={i} className="thumb-img-container">
+const dropZoneMultiple = (form, setForm, thumb, setThumb, setFiles) => thumb.map((img, i) => (
+  <div key={i} className="thumb-img-container" onClick={e => removeImage(e, img, form, setForm, thumb, setThumb, setFiles)}>
     <img alt="Run" src={img.url} style={{ opacity: img.uploaded ? 1 : 0.2 }}/>
+    <Delete/>
   </div>
 ))
 
 // Return JSX depending on DropZone Component params.
-export const dropZoneContent = (usage, thumb, multiple, acceptedFiles, fileRejections, err, canDragDrop, localLoading) => {
+export const dropZoneContent = (usage, form, setForm, thumb, setThumb, setFiles, multiple, acceptedFiles, fileRejections, err, canDragDrop, localLoading) => {
   if (thumb.length > 0) {
     if (multiple) {
-      return dropZoneMultiple(thumb)
+      return dropZoneMultiple(form, setForm, thumb, setThumb, setFiles)
     } else {
       return !localLoading && dropZoneThumb(thumb, usage)
     }
