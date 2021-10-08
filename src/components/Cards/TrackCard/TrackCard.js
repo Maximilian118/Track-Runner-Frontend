@@ -2,7 +2,7 @@ import React from 'react'
 import { nextTrack } from '../../../shared/utility'
 import StatsCard from '../StatsCard'
 import LineGraph from '../../Graphs/LineGraph'
-import MapBoxStatic from '../../utility/MapBoxStatic'
+import MapBoxStatic from '../../Utility/MapBoxStatic'
 
 const TrackCard = ({ calendar }) => {
   const track = nextTrack(calendar)

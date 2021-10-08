@@ -1,6 +1,6 @@
 import React from 'react'
 import './_NavIcons.scss'
-import ProfilePicture from '../../utility/ProfilePicture'
+import ProfilePicture from '../../Utility/ProfilePicture'
 import { IconButton } from '@mui/material'
 import { PostAdd, NotificationsNoneOutlined } from '@mui/icons-material'
 import { Link } from 'react-router-dom'

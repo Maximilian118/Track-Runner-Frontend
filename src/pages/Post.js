@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../App'
-import DropZone from '../components/utility/DropZone'
+import DropZone from '../components/Utility/DropZone'
 import { TextField, Autocomplete, InputAdornment, Box, Button } from '@mui/material'
 import { LocalizationProvider, TimePicker, DatePicker } from '@mui/lab'
 import { PostAdd, Gesture, CropOriginal } from '@mui/icons-material'
@@ -8,8 +8,8 @@ import momentAdapter from '@date-io/moment'
 import { updatePostForm, formValid } from '../shared/formValidation'
 import { getTracks } from '../shared/trackRequests'
 import { redundantFilesCheck } from '../shared/bucketRequests'
-import PostHelp from '../components/help/PostHelp'
-import HelpIcon from '../components/help/HelpIcon'
+import PostHelp from '../components/Help/PostHelp'
+import HelpIcon from '../components/Help/HelpIcon'
 
 const Post = ({ history }) => {
   const { user, setUser } = useContext(Context)

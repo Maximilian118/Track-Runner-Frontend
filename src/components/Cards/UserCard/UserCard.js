@@ -1,5 +1,5 @@
 import React from 'react'
-import DropZone from '../../utility/DropZone'
+import DropZone from '../../Utility/DropZone'
 import StatsCard from '../StatsCard'
 import FollowingCard from '../FollowingCard'
 import { userStatsArr } from '../../../shared/utility'
