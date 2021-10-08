@@ -75,7 +75,7 @@ export const uploadToS3 = async (fileArr, user, setUser, form, setForm, calendar
         if (res.data.errors) {
           checkAuth(res.data.errors, setUser, history)
           process.env.NODE_ENV === 'development' && console.log(res.data.errors[0].message)
-          return handleDropZoneError(setErr, setThumb, setLocalLoading, "Could not retrieve request signature... curious...", file)
+          return handleDropZoneError(setErr, setThumb, setLocalLoading, "Could not retrieve request signature. Curious...", file)
         } else {
           process.env.NODE_ENV === 'development' && console.log(res)
           useTokens(user, res.data.data.signS3.tokens, setUser)  
@@ -90,11 +90,11 @@ export const uploadToS3 = async (fileArr, user, setUser, form, setForm, calendar
       }).catch(err => {
         checkAuth(err.response.data.errors, setUser, history)
         process.env.NODE_ENV === 'development' && console.log(err.response.data.errors[0].message)
-        return handleDropZoneError(setErr, setThumb, setLocalLoading, "Could not retrieve request signature... curious...", file)
+        return handleDropZoneError(setErr, setThumb, setLocalLoading, "Could not retrieve request signature. Curious...", file)
       })
     } catch (err) {
       process.env.NODE_ENV === 'development' && console.log(err)
-      return handleDropZoneError(setErr, setThumb, setLocalLoading, "Could not retrieve request signature... curious...", file)
+      return handleDropZoneError(setErr, setThumb, setLocalLoading, "Could not retrieve request signature. Curious...", file)
     }
   }))
 
@@ -132,7 +132,7 @@ export const uploadToS3 = async (fileArr, user, setUser, form, setForm, calendar
         return withUploaded
 
       } else {
-        return handleDropZoneError(setErr, setThumb, setLocalLoading, "Could not find a purpose for these files... hmm", withUploaded)
+        return handleDropZoneError(setErr, setThumb, setLocalLoading, "Could not find a purpose for these files. Hmm...", withUploaded)
       }
     } else {
       return handleDropZoneError(setErr, setThumb, setLocalLoading, "Not all files could be uploaded. Please try again.", withUploaded)

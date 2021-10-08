@@ -102,13 +102,13 @@ export const handleDropZoneSuccess = (setErr, setLocalLoading, returnValue) => {
 export const handleDropZonePreReqChecks = (acceptedFiles, form, multiple, setErr, setThumb, setLocalLoading) => {
   if (multiple) {
     if (isDuplicateArrFile(acceptedFiles, form.imgs)) { // Check for duplicate files between acceptedFiles & form.imgs.
-      return handleDropZoneError(setErr, setThumb, setLocalLoading, "Duplicate File.", true)
+      return handleDropZoneError(setErr, setThumb, setLocalLoading, "Duplicate File", true)
     } 
   }
 
   // If there is a file in acceptedFiles that doesn't meet the mime type requirements.
   if (!acceptedFiles.every(file => file.type === "image/jpeg" || file.type === "image/png" || file.name.split(".")[1] === "gpx")) {
-    return handleDropZoneError(setErr, setThumb, setLocalLoading, "Unsupported File Type.", true)
+    return handleDropZoneError(setErr, setThumb, setLocalLoading, "Unsupported File Type", true)
   }
 
   return false
@@ -173,7 +173,7 @@ const dropZoneMultiple = thumb => thumb.map((img, i) => (
   </div>
 ))
 
-// Return JSX depending on DropZone Components params.
+// Return JSX depending on DropZone Component params.
 export const dropZoneContent = (usage, thumb, multiple, acceptedFiles, fileRejections, err, canDragDrop, localLoading) => {
   if (thumb.length > 0) {
     if (multiple) {
@@ -183,5 +183,20 @@ export const dropZoneContent = (usage, thumb, multiple, acceptedFiles, fileRejec
     }
   } else {
     return !localLoading && dropZoneText(usage, canDragDrop, multiple, acceptedFiles, fileRejections, err)
+  }
+}
+
+// Return JSX for DropZone interactivity.
+export const dropZoneInteract = (getInputProps, multiple, err, setErr) => {
+  if (navigator.onLine) {
+    if (multiple && err) {
+      return (
+        <div className="drop-zone-err" onClick={() => setErr(null)}>
+          <h2>Close</h2>
+        </div>
+      )
+    } else {
+      return <input {...getInputProps()}/>
+    }
   }
 }

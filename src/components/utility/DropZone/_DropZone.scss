@@ -26,6 +26,27 @@
     position: absolute;
     color: rgba(0, 0, 0, 0.54);
     right: 8px;
+    pointer-events: none;
+  }
+
+  .drop-zone-err {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    h2 {
+      display: none;
+    }
+
+    &:hover {
+      background: white;
+      
+      h2 {
+        display: block;
+      }
+    }
   }
 
   .mui-spinner {
@@ -35,7 +56,7 @@
   }
 
   &:hover, &:focus {
-    box-shadow: $shadow-hover
+    box-shadow: $shadow-hover;
   }
 }
 

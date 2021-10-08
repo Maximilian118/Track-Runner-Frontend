@@ -3,13 +3,15 @@ import './_DropZone.scss'
 import { useDropzone } from 'react-dropzone'
 import { uploadToS3 } from '../../../shared/bucketRequests'
 import { withRouter } from 'react-router-dom'
-import { initThumbArr, initFileArr, dropZoneContent, handleDropZonePreReqChecks } from './DropZoneUtility'
+import { initThumbArr, initFileArr, dropZoneContent, dropZoneInteract, handleDropZonePreReqChecks } from './DropZoneUtility'
 import { createGeojson } from '../../../shared/geojsonRequests'
 import Spinner from '../Spinner'
+import { Close } from '@mui/icons-material'
 
 const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height, usage, history, style, arrData, multiple, icon }) => {
   const [ localLoading, setLocalLoading ] = useState(false)
   const [ thumb, setThumb ] = useState(initThumbArr(user, usage))
+  const [ files, setFiles ] = useState([])
   const [ err, setErr ] = useState(null)
 
   // Determine if the window has drag and drop capabilities.
@@ -51,6 +53,17 @@ const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height,
     }
   }, [acceptedFiles]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // If multiple, ensure thumb is populated on error msg close.
+  useEffect(() => {
+    if (multiple && !err) {
+      if (thumb.length !== 0 && thumb !== files) {
+        setFiles(thumb)
+      } else if (thumb.length === 0 && files.length > 0) {
+        setThumb(files)
+      }
+    }
+  }, [multiple, thumb, files, err])
+
   return (
     <div {...getRootProps({className: `
       drop-zone 
@@ -67,9 +80,9 @@ const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height,
     >
       {
         <>
-          {online && <input {...getInputProps()}/>}
+          {dropZoneInteract(getInputProps, multiple, err, setErr)}
           {dropZoneContent(usage, thumb, multiple, acceptedFiles, fileRejections, err, canDragDrop, localLoading)}
-          {localLoading ? <Spinner size={form && 20} position={form && "icon"}/> : icon}
+          {localLoading ? <Spinner size={form && 20} position={form && "icon"}/> : form && err ? <Close/> : icon}
         </>
       }
     </div>
