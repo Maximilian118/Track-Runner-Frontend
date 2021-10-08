@@ -163,3 +163,11 @@
     box-shadow: $shadow;
   }
 }
+
+.drop-zone-error {
+  border: 1px solid $error;
+
+  &:hover {
+    border: 1px solid $error;
+  }
+} 

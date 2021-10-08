@@ -71,6 +71,7 @@ const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height,
       ${isDragActive && `drag-active`} 
       ${thumb !== "" && `thumb`}
       ${!online && `offline`}
+      ${err && `drop-zone-error`}
       `})}
       style={{ 
         ...style,

@@ -185,7 +185,7 @@ const removeImage = (e, img, form, setForm, thumb, setThumb, setFiles) => {
 const dropZoneMultiple = (form, setForm, thumb, setThumb, setFiles) => thumb.map((img, i) => (
   <div key={i} className="thumb-img-container" onClick={e => removeImage(e, img, form, setForm, thumb, setThumb, setFiles)}>
     <img alt="Run" src={img.url} style={{ opacity: img.uploaded ? 1 : 0.2 }}/>
-    <Delete/>
+    <Delete style={{ display: !img.uploaded && 'none' }}/>
   </div>
 ))
 
