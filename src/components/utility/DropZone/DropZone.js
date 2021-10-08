@@ -27,13 +27,10 @@ const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height,
     maxSize: 10000000,
   })
 
-  // Check if app has internet connection.
-  const online = navigator.onLine
-
   // If acceptedFiles has at least one file and there are no fileRejections, set context and thumbnail.
   // Else, nullify user.file context and revert thumbnail state.
   useEffect(() => {
-    if (acceptedFiles.length > 0 && fileRejections.length === 0 && online) {
+    if (acceptedFiles.length > 0 && fileRejections.length === 0 && navigator.onLine) {
       setLocalLoading(true)
 
       const handleUpload = async () => {
@@ -41,7 +38,7 @@ const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height,
         uploadToS3(fileArr, user, setUser, form, setForm, calendar, setCalendar, setLocalLoading, setErr, thumb, setThumb, history)
       }
 
-      if (!handleDropZonePreReqChecks(acceptedFiles, form, multiple, setErr, setThumb, setLocalLoading)) { // If checks pass.
+      if (!handleDropZonePreReqChecks(acceptedFiles, setErr, form, thumb, setThumb, multiple, setLocalLoading)) { // If checks pass.
         if (acceptedFiles.every(file => file.type === "image/jpeg" || file.type === "image/png")) { // Do something with the files in acceptedFiles depending on file type.
           handleUpload()
         } else if (acceptedFiles[0].name.split(".")[1] === "gpx") {
@@ -70,7 +67,7 @@ const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height,
       ${usage} 
       ${isDragActive && `drag-active`} 
       ${thumb !== "" && `thumb`}
-      ${!online && `offline`}
+      ${!navigator.onLine && `offline`}
       ${err && `drop-zone-error`}
       `})}
       style={{ 
@@ -79,13 +76,9 @@ const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height,
         width: !form ? height : 'auto', 
       }}
     >
-      {
-        <>
-          {dropZoneInteract(getInputProps, multiple, err, setErr)}
-          {dropZoneContent(usage, form, setForm, thumb, setThumb, setFiles, multiple, acceptedFiles, fileRejections, err, canDragDrop, localLoading)}
-          {localLoading ? <Spinner size={form && 20} position={form && "icon"}/> : form && err ? <Close/> : icon}
-        </>
-      }
+      {dropZoneInteract(getInputProps, multiple, err, setErr)}
+      {dropZoneContent(usage, form, setForm, thumb, setThumb, setFiles, multiple, acceptedFiles, fileRejections, err, canDragDrop, localLoading)}
+      {localLoading ? <Spinner size={form && 20} position={form && "icon"}/> : form && err ? <Close/> : icon}
     </div>
   )
 }

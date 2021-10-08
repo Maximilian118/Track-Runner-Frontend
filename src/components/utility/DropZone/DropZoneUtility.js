@@ -100,9 +100,11 @@ export const handleDropZoneSuccess = (setErr, setLocalLoading, returnValue) => {
 }
 
 // Perform error checks before submitting requests.
-export const handleDropZonePreReqChecks = (acceptedFiles, form, multiple, setErr, setThumb, setLocalLoading) => {
+export const handleDropZonePreReqChecks = (acceptedFiles, setErr, form, thumb, setThumb, multiple, setLocalLoading) => {
   if (multiple) {
-    if (isDuplicateArrFile(acceptedFiles, form.imgs)) { // Check for duplicate files between acceptedFiles & form.imgs.
+    if (acceptedFiles.length + thumb.length > 5) {
+      return handleDropZoneError(setErr, setThumb, setLocalLoading, "Woah there! 5 Images Maximum", true)
+    } else if (isDuplicateArrFile(acceptedFiles, form.imgs)) { // Check for duplicate files between acceptedFiles & form.imgs.
       return handleDropZoneError(setErr, setThumb, setLocalLoading, "Duplicate File", true)
     } 
   }
