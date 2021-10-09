@@ -11,11 +11,9 @@ export const populateUser = `
   likes
   posts {
     _id
-    title
-    description
-    img
-    created_at
-    updated_at
+  }
+  events {
+    _id
   }
   tracks {
     _id
@@ -62,9 +60,42 @@ export const populateUser = `
     calendars
     championships
   }
-  events {
+`
+
+// Post population template literal.
+export const populatePost = `
+  _id
+  user {
     _id
+    name
+    email
+    icon
   }
+  title
+  description
+  track {
+    _id
+    name
+    country
+    location
+    logo
+    stats
+    likes
+  }
+  geojson {
+		_id
+		name
+		geojson
+		stats
+	}
+  lap_time
+  distance
+  runDT
+  imgs
+  likes
+  created_at
+  updated_at
+  tokens
 `
 
 // Track population template literal.

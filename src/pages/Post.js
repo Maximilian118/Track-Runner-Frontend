@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../App'
+import { createPost } from '../shared/postRequests'
 import DropZone from '../components/Utility/DropZone'
 import { TextField, Autocomplete, InputAdornment, Box, Button } from '@mui/material'
 import { LocalizationProvider, TimePicker, DatePicker } from '@mui/lab'
@@ -7,12 +8,11 @@ import { PostAdd, Gesture, CropOriginal } from '@mui/icons-material'
 import momentAdapter from '@date-io/moment'
 import { updatePostForm, formValid } from '../shared/formValidation'
 import { getTracks } from '../shared/trackRequests'
-import { redundantFilesCheck } from '../shared/bucketRequests'
 import PostHelp from '../components/Help/PostHelp'
 import HelpIcon from '../components/Help/HelpIcon'
 
 const Post = ({ history }) => {
-  const { user, setUser } = useContext(Context)
+  const { user, setUser, setLoading } = useContext(Context)
   const [ help, setHelp ] = useState(false)
   const [ tracks, setTracks ] = useState([])
   const [ form, setForm ] = useState({
@@ -35,9 +35,14 @@ const Post = ({ history }) => {
     const handleTracksReq = async () => {
       setTracks(await getTracks(user, setUser, history))
     }
+
     handleTracksReq()
-    return () => redundantFilesCheck(user, setUser, history)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleCreatePost = e => {
+    e.preventDefault()
+    createPost(form, user, setUser, setLoading, history)
+  }
 
   return (
     <div className="model-wrapper">
@@ -213,6 +218,7 @@ const Post = ({ history }) => {
                 lapTime: form.lapTime,
                 distance: form.distance,
               }, formError)}
+              onClick={e => handleCreatePost(e)}
             >
               Post
             </Button>

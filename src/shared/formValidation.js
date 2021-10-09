@@ -55,8 +55,10 @@ export const updateForm = (e, form, setForm, formError, setFormError) => {
 // Update formErrors on each keystroke.
 export const updatePostForm = (e, form, setForm, formError, setFormError) => {
   setForm({...form, [e.target.name]: e.target.value})
+  const lapTimeRegEx = !e.target.value._i || /^\d{2}\:\d{2}\:\d{2}$/.test(e.target.value._i) // eslint-disable-line no-useless-escape
+
   switch (e.target.name) {
-    case "lapTime": if (!e.target.value._i || /^\d{2}\:\d{2}\:\d{2}$/.test(e.target.value._i)) { // eslint-disable-line no-useless-escape
+    case "lapTime": if (lapTimeRegEx && e.target.value._d.toString() !== "Invalid Date") {
       setFormError({
         ...formError,
         lapTime: "",

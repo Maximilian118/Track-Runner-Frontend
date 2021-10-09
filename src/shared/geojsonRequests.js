@@ -1,5 +1,5 @@
 import axios from "axios"
-import { formatFilename, XMLFileToString, headers, checkAuth } from './utility'
+import { formatFilename, XMLFileToString, headers, checkAuth, getAxiosError } from './utility'
 import { populateGeojson } from './requestPopulation'
 import { getMapBoxStatic } from './miscRequests'
 
@@ -38,7 +38,7 @@ export const createGeojson = async (user, setUser, form, setForm, file, setLocal
       setLocalLoading(false)
     }).catch(err => {
       checkAuth(err.response.data.errors, setUser, history)
-      process.env.NODE_ENV === 'development' && console.log(err)
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
       setLocalLoading(false)
     })
   } catch (err) {

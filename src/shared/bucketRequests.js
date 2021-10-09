@@ -1,6 +1,6 @@
 import axios from "axios"
 import imageCompression from 'browser-image-compression'
-import { useTokens, checkAuth, headers, formatFilename, isDuplicateFile } from './utility'
+import { useTokens, checkAuth, getAxiosError, headers, formatFilename, isDuplicateFile } from './utility'
 import { handleDropZoneError } from '../components/Utility/DropZone/DropZoneUtility'
 import { updateProfilePicture } from './userRequests'
 import { getTracks, updateTrackLogo } from './trackRequests'
@@ -89,7 +89,7 @@ export const uploadToS3 = async (fileArr, user, setUser, form, setForm, calendar
         }
       }).catch(err => {
         checkAuth(err.response.data.errors, setUser, history)
-        process.env.NODE_ENV === 'development' && console.log(err.response.data.errors[0].message)
+        process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
         return handleDropZoneError(setErr, setThumb, setLocalLoading, "Could not retrieve request signature. Curious...", file)
       })
     } catch (err) {
@@ -149,7 +149,7 @@ const putS3 = async fileArr => {
         uploaded: true,
       }
     }).catch(err => {
-      process.env.NODE_ENV === 'development' && console.log(err)
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
       return file
     })
   }))
@@ -175,7 +175,7 @@ export const redundantFilesCheck = async (user, setUser, history) => {
       }
     }).catch(err => {
       checkAuth(err.response.data.errors, setUser, history)
-      process.env.NODE_ENV === 'development' && console.log(err.response.data.errors[0].message)
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
     })
   } catch (err) {
     process.env.NODE_ENV === 'development' && console.log(err)
@@ -197,7 +197,7 @@ export const compressImage = async (file, fileSize, setThumb) => {
       uploaded: false,
     }])
   } catch (err) {
-    process.env.NODE_ENV === 'development' && console.log(err)
+    process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
   }
 
   return compressedFile

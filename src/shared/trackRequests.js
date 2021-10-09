@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useTokens, checkAuth, headers, initTrack } from './utility'
+import { useTokens, checkAuth, getAxiosError, headers, initTrack } from './utility'
 import { handleDropZoneError, handleDropZoneSuccess } from '../components/Utility/DropZone/DropZoneUtility'
 import { populateTrack } from './requestPopulation'
 import { redundantFilesCheck } from './bucketRequests'
@@ -34,7 +34,7 @@ export const createTrack = async (user, setUser, track, history) => {
       }
     }).catch(err => {
       checkAuth(err.response.data.errors, setUser, history)
-      process.env.NODE_ENV === 'development' && console.log(err.response.data.errors[0].message)
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
     })
   } catch (err) {
     console.log(err)
@@ -68,7 +68,7 @@ export const getTrack = async (user, setUser, user_id, post_id, track_id, name, 
       }
     }).catch(err => {
       checkAuth(err.response.data.errors, setUser, history)
-      process.env.NODE_ENV === 'development' && console.log(err.response.data.errors[0].message)
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
     })
   } catch (err) {
     console.log(err)
@@ -98,7 +98,7 @@ export const getTracks = async (user, setUser, history) => {
       }
     }).catch(err => {
       checkAuth(err.response.data.errors, setUser, history)
-      process.env.NODE_ENV === 'development' && console.log(err.response.data.errors[0].message)
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
     })
   } catch (err) {
     console.log(err)
@@ -158,7 +158,7 @@ export const updateTrackLogo = async (user, setUser, calendar, setCalendar, trac
     }).catch(err => {
       checkAuth(err.response.data.errors, setUser, history)
       calledInDropZone && console.log(handleDropZoneError(setErr, setThumb, setLocalLoading, "Failed to update Track Logo."))
-      process.env.NODE_ENV === 'development' && console.log(err.response.data.errors[0].message)
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
     })
   } catch (err) {
     calledInDropZone && console.log(handleDropZoneError(setErr, setThumb, setLocalLoading, "Failed to update Track Logo."))

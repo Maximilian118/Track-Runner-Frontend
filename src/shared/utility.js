@@ -175,6 +175,22 @@ export const checkAuth = (errors, setUser, history) => {
   })
 }
 
+// Find the Axios error. Find it damn it!
+export const getAxiosError = error => {
+  let e = error
+  if (error.response) {
+    e = error.response.data
+    if (error.response.data && error.response.data.error) {
+      e = error.response.data.error
+    }
+  } else if (error.message) {
+    e = error.message
+  } else {
+    e = "Unknown error occured"
+  }
+  return e
+}
+
 export const endpoint = str => str.substring(str.lastIndexOf("/") + 1)
 export const formatString = str => str.toLowerCase().replace(/[^a-z0-9]/g, "-")
 export const getEndpoint = passed => endpoint(passed.type ? formatString(passed.name) : passed)

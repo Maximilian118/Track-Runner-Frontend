@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { logInSuccess, logout } from './localStorage'
-import { useTokens, checkAuth, headers, unknownError } from './utility'
+import { useTokens, checkAuth, getAxiosError, headers, unknownError } from './utility'
 import { handleDropZoneError, handleDropZoneSuccess } from '../components/Utility/DropZone/DropZoneUtility'
 import { populateUser } from './requestPopulation'
 import { redundantFilesCheck } from './bucketRequests'
@@ -37,7 +37,7 @@ export const createUser = async (form, user, setUser, setLoading, setBackendErro
   
       setLoading(false)
     }).catch(err => {
-      process.env.NODE_ENV === 'development' && console.log(JSON.parse(err.response.data.errors[0].message))
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
       setBackendError(JSON.parse(err.response.data.errors[0].message))
       setLoading(false)
     })
@@ -77,7 +77,7 @@ export const login = async (form, user, setUser, setLoading, setBackendError, hi
   
       setLoading(false)
     }).catch(err => {
-      process.env.NODE_ENV === 'development' && console.log(JSON.parse(err.response.data.errors[0].message))
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
       setBackendError(JSON.parse(err.response.data.errors[0].message))
       setLoading(false)
     })
@@ -111,7 +111,7 @@ export const forgot = async (email, setLoading, setBackendError, histroy) => {
       setLoading(false)
       histroy.push("/forgot-success")
     }).catch(err => {
-      process.env.NODE_ENV === 'development' && console.log(err)
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
       setBackendError(JSON.parse(err.response.data.errors[0].message))
       setLoading(false)
     })
@@ -147,7 +147,7 @@ export const deleteUser = async (user, setUser, setLoading, history) => {
       setLoading(false)
     }).catch(err => {
       checkAuth(err.response.data.errors, setUser, history)
-      process.env.NODE_ENV === 'development' && console.log(err)
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
       setLoading(false)
     })
   } catch (err) {
@@ -201,7 +201,7 @@ export const updateProfilePicture = async (user, setUser, profile_picture, icon,
     }).catch(err => {
       checkAuth(err.response.data.errors, setUser, history)
       calledInDropZone && console.log(handleDropZoneError(setErr, setThumb, setLocalLoading, "Failed to update Profile Picture."))
-      process.env.NODE_ENV === 'development' && console.log(err.response.data.errors[0].message)
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
     })
   } catch (err) {
     calledInDropZone && console.log(handleDropZoneError(setErr, setThumb, setLocalLoading, "Failed to update Profile Picture."))

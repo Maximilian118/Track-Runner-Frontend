@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useTokens, checkAuth, headers, initRoundsString } from './utility'
+import { useTokens, checkAuth, getAxiosError, headers, initRoundsString } from './utility'
 import mbxClient from '@mapbox/mapbox-sdk/services/static'
 
 export const createChampionship = async (user, setUser, championship, history) => {
@@ -28,7 +28,7 @@ export const createChampionship = async (user, setUser, championship, history) =
       }
     }).catch(err => {
       checkAuth(err.response.data.errors, setUser, history)
-      process.env.NODE_ENV === 'development' && console.log(err.response.data.errors[0].message)
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
     })
   } catch (err) {
     console.log(err)
@@ -61,7 +61,7 @@ export const createRound = async (user, setUser, roundObj, history) => {
       }
     }).catch(err => {
       checkAuth(err.response.data.errors, setUser, history)
-      process.env.NODE_ENV === 'development' && console.log(err.response.data.errors[0].message)
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
     })
   } catch (err) {
     console.log(err)
@@ -93,7 +93,7 @@ export const getChampionship = async (user, setUser, championship, history) => {
       }
     }).catch(err => {
       checkAuth(err.response.data.errors, setUser, history)
-      process.env.NODE_ENV === 'development' && console.log(err.response.data.errors[0].message)
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
     })
   } catch (err) {
     console.log(err)
@@ -129,7 +129,7 @@ export const getCalendar = async (user, setUser, setCalendar, calScope, history)
       }
     }).catch(err => {
       user.token && checkAuth(err.response.data.errors, setUser, history)
-      process.env.NODE_ENV === 'development' && console.log(err.response.data.errors[0].message)
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
     })
   } catch (err) {
     console.log(err)
@@ -163,6 +163,6 @@ export const getMapBoxStatic = (geojson, width, height, highRes, withLogo, withA
 
     return request.url()
   } catch (err) {
-    console.log(err)
+    console.log(getAxiosError(err))
   }
 }
