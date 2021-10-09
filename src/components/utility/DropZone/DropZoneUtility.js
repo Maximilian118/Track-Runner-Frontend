@@ -1,5 +1,5 @@
 import { compressImage } from '../../../shared/bucketRequests'
-import { isDuplicateArrFile } from '../../../shared/utility'
+import { isDuplicateArrFile, getInitials } from '../../../shared/utility'
 import { Delete } from '@mui/icons-material'
 
 // Return an initial Array of URL Strings to be presented.
@@ -153,7 +153,7 @@ const dropZoneText = (usage, canDragDrop, multiple, acceptedFiles, fileRejection
 }
 
 // Return the first item in thumbArr as a Thumbnail for DropZone.
-const dropZoneThumb = (thumb, usage) => {
+const dropZoneThumb = (thumb, usage, setInitials) => {
   let text = <h2 className="thumb-text">Change<br/>Profile Picture</h2>
 
   switch (usage) {
@@ -163,7 +163,7 @@ const dropZoneThumb = (thumb, usage) => {
 
   return (
     <>
-      <img alt="Thumbnail" src={thumb[0].url}/>
+      <img alt="Thumbnail" src={thumb[0].url} onError={() => setInitials(true)}/>
       {text}
     </>
   )
@@ -192,12 +192,14 @@ const dropZoneMultiple = (form, setForm, thumb, setThumb, setFiles) => thumb.map
 ))
 
 // Return JSX depending on DropZone Component params.
-export const dropZoneContent = (usage, form, setForm, thumb, setThumb, setFiles, multiple, acceptedFiles, fileRejections, err, canDragDrop, localLoading) => {
-  if (thumb.length > 0) {
+export const dropZoneContent = (user, usage, form, setForm, thumb, setThumb, setFiles, multiple, acceptedFiles, fileRejections, err, initials, setInitials, canDragDrop, localLoading) => {
+  if (initials && !localLoading) {
+    return <h2 style={{ fontSize: '5rem' }}>{getInitials(user)}</h2>
+  } else if (thumb.length > 0) {
     if (multiple) {
       return dropZoneMultiple(form, setForm, thumb, setThumb, setFiles)
     } else {
-      return !localLoading && dropZoneThumb(thumb, usage)
+      return !localLoading && dropZoneThumb(thumb, usage, setInitials)
     }
   } else {
     return !localLoading && dropZoneText(usage, canDragDrop, multiple, acceptedFiles, fileRejections, err)

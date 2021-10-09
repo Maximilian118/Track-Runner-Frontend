@@ -13,6 +13,7 @@ const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height,
   const [ thumb, setThumb ] = useState(initThumbArr(user, usage))
   const [ files, setFiles ] = useState([])
   const [ err, setErr ] = useState(null)
+  const [ initials, setInitials ] = useState(false)
 
   // Determine if the window has drag and drop capabilities.
   const canDragDrop = () => {
@@ -61,6 +62,11 @@ const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height,
     }
   }, [multiple, thumb, files, err])
 
+  // If initials, when localLoading, setInitials(false).
+  useEffect(() => {
+    initials && localLoading && setInitials(false)
+  }, [initials, localLoading])
+
   return (
     <div {...getRootProps({className: `
       drop-zone 
@@ -77,7 +83,7 @@ const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height,
       }}
     >
       {dropZoneInteract(getInputProps, multiple, err, setErr)}
-      {dropZoneContent(usage, form, setForm, thumb, setThumb, setFiles, multiple, acceptedFiles, fileRejections, err, canDragDrop, localLoading)}
+      {dropZoneContent(user, usage, form, setForm, thumb, setThumb, setFiles, multiple, acceptedFiles, fileRejections, err, initials, setInitials, canDragDrop, localLoading)}
       {localLoading ? <Spinner size={form && 20} position={form && "icon"}/> : form && err ? <Close/> : icon}
     </div>
   )
