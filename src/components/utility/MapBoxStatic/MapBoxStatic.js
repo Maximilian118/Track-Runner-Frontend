@@ -5,7 +5,7 @@ const MapBoxStatic = ({ geojson, width, height, highRes, withLogo, withAtt, BRBo
   <img 
     alt="Track Map" 
     src={getMapBoxStatic(geojson, width, height, highRes, withLogo, withAtt)}
-    className={`map-box-static${BRBot ? ` border-radius-bottom` : ``}`}
+    className={BRBot && "border-radius-bottom"}
     style={style}
   />
 )

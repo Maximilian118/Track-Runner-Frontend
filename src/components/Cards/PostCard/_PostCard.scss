@@ -1,7 +1,69 @@
+@import '../../../scss/variables';
+
 .post-card {
   max-height: 200px;
+  position: relative;
+  overflow: hidden;
 
-  .map-box-static {
-    border-radius: 5px;
+  .post-card-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    padding: 0 5px;
+    box-sizing: border-box;
+
+    .post-card-top, .post-card-bottom {
+      width: 100%;
+      height: 30px;
+      margin: 5px 0;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .post-card-top {
+      align-items: flex-start;
+    }
+
+    .post-card-bottom {
+      align-items: flex-end;
+
+      .post-card-imgs {
+        display: flex;
+
+        .post-card-img-container {
+          width: 30px;
+          height: 30px;
+          border-radius: 5px;
+          overflow: hidden;
+          flex-shrink: 0;
+  
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .post-card-img-container:not(:first-child) {
+          margin-left: 5px;
+        }
+      }
+
+      .post-card-icons {
+        display: flex;
+
+        svg {
+          color: $icon;
+
+        }
+
+        svg:not(:last-child) {
+          margin-right: 5px;
+        }
+      }
+    }
   }
 }
