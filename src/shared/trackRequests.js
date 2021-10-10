@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { useTokens, checkAuth, getAxiosError, headers, initTrack } from './utility'
+import { useTokens, checkAuth, getAxiosError, headers } from './utility'
+import { initTrack } from './initRequestResult'
 import { handleDropZoneError, handleDropZoneSuccess } from '../components/Utility/DropZone/DropZoneUtility'
 import { populateTrack } from './requestPopulation'
 import { redundantFilesCheck } from './bucketRequests'

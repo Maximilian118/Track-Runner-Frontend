@@ -22,48 +22,6 @@ export const createCalendar = (user, setUser, calendar, setCalendar, calScope, h
   }
 }
 
-// Parse a stringified array of rounds.
-export const initRoundsString = string => {
-  const parsed = JSON.parse(string)
-
-  let roundArr = []
-
-  parsed.forEach(async item => {
-    if (item.round) {
-      roundArr.push({
-        ...item,
-        sessions: JSON.parse(item.sessions),
-        track: item.track ? {
-          ...item.track,
-          stats: JSON.parse(item.track.stats),
-          geojson: item.track.geojson ? {
-            ...item.track.geojson,
-            geojson: JSON.parse(item.track.geojson.geojson),
-            stats: JSON.parse(item.track.geojson.stats),
-          } : null
-        } : null
-      })
-    } else {
-      roundArr.push(item)
-    }
-  })
-
-  return roundArr
-}
-
-// Parse a track.
-export const initTrack = track => {
-  return {
-    ...track,
-    stats: JSON.parse(track.stats),
-    geojson: {
-      ...track.geojson,
-      geojson: JSON.parse(track.geojson.geojson),
-      stats: JSON.parse(track.geojson.stats),
-    }
-  }
-}
-
 // Return an array of User data for StatsCard.
 export const userStatsArr = user => {
   return [

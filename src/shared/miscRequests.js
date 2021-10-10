@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { useTokens, checkAuth, getAxiosError, headers, initRoundsString } from './utility'
+import { useTokens, checkAuth, getAxiosError, headers } from './utility'
+import { initRoundsString } from './initRequestResult'
 import mbxClient from '@mapbox/mapbox-sdk/services/static'
 
 export const createChampionship = async (user, setUser, championship, history) => {

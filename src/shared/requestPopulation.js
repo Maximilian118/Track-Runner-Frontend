@@ -11,6 +11,36 @@ export const populateUser = `
   likes
   posts {
     _id
+    user {
+      _id
+      name
+      email
+      icon
+    }
+    title
+    description
+    track {
+      _id
+      name
+      country
+      location
+      logo
+      stats
+      likes
+    }
+    geojson {
+      _id
+      name
+      geojson
+      stats
+    }
+    lap_time
+    distance
+    runDT
+    imgs
+    likes
+    created_at
+    updated_at
   }
   events {
     _id

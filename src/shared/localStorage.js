@@ -1,5 +1,6 @@
 import moment from 'moment'
 import { blankCal, removeKey } from '../shared/utility'
+import { initPosts, initGeojsons } from '../shared/initRequestResult'
 
 export const checkLocalStorage = () => {
   const token = localStorage.getItem('token')
@@ -15,9 +16,9 @@ export const checkLocalStorage = () => {
       email: localStorage.getItem('email'),
       icon: localStorage.getItem('icon'),
       profile_picture: localStorage.getItem('profile_picture'),
-      posts: JSON.parse(localStorage.getItem('posts')),
+      posts: initPosts(JSON.parse(localStorage.getItem('posts'))),
       tracks: JSON.parse(localStorage.getItem('tracks')),
-      geojsons: JSON.parse(localStorage.getItem('geojsons')),
+      geojsons: initGeojsons(JSON.parse(localStorage.getItem('geojsons'))),
       events: JSON.parse(localStorage.getItem('events')),
       following: JSON.parse(localStorage.getItem('following')),
       calendars: JSON.parse(localStorage.getItem('calendars')),

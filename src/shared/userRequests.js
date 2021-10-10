@@ -4,6 +4,7 @@ import { useTokens, checkAuth, getAxiosError, headers, unknownError } from './ut
 import { handleDropZoneError, handleDropZoneSuccess } from '../components/Utility/DropZone/DropZoneUtility'
 import { populateUser } from './requestPopulation'
 import { redundantFilesCheck } from './bucketRequests'
+import { initUser } from './initRequestResult'
 
 export const createUser = async (form, user, setUser, setLoading, setBackendError) => {
   setLoading(true)
@@ -27,10 +28,10 @@ export const createUser = async (form, user, setUser, setLoading, setBackendErro
       if (res.data.errors) {
         process.env.NODE_ENV === 'development' && console.log(res.data.errors[0].message)
       } else {
-        setUser(logInSuccess({
+        await setUser(initUser(logInSuccess({
           ...res.data.data.createUser,
           token: useTokens(user, res.data.data.createUser.tokens),
-        }))
+        })))
   
         process.env.NODE_ENV === 'development' && console.log(res)
       }
@@ -62,14 +63,14 @@ export const login = async (form, user, setUser, setLoading, setBackendError, hi
           }
         }
       `
-    }).then(res => {
+    }).then(async res => {
       if (res.data.errors) {
         process.env.NODE_ENV === 'development' && console.log(res.data.errors[0].message)
       } else {
-        setUser(logInSuccess({
+        await setUser(initUser(logInSuccess({
           ...res.data.data.login,
           token: useTokens(user, res.data.data.login.tokens),
-        }))
+        })))
   
         history.push("/")
         process.env.NODE_ENV === 'development' && console.log(res)
