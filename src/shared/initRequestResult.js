@@ -1,8 +1,18 @@
+const redundantLapTimeHours = lap_time => {
+  const hms = lap_time.split(":")
+  if (hms[0] === "00") {
+    return `${hms[1]}:${hms[2]}`
+  } else {
+    return lap_time
+  }
+}
+
 // Parse an array of posts.
 export const initPosts = posts => {
   return posts.map(post => {
     return {
       ...post,
+      lap_time: redundantLapTimeHours(post.lap_time),
       distance: Number(post.distance),
       geojson: post.geojson ? {
         ...post.geojson,

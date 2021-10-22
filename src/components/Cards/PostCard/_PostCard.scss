@@ -1,8 +1,8 @@
 @import '../../../scss/variables';
 
 .post-card {
-  min-height: 80px;
-  max-height: 200px;
+  min-height: 100px;
+  max-height: 180px;
   position: relative;
   overflow: hidden;
 
@@ -18,19 +18,19 @@
 
     .post-card-top, .post-card-bottom {
       width: 100%;
-      height: 30px;
       margin: 5px 0;
       display: flex;
       justify-content: space-between;
     }
 
     .post-card-top-left {
-      h5, h6 {
-        transform: translateY(-2px);
+      h6 {
+        margin-top: 3px;
       }
 
-      h5 {
-        margin-bottom: 2px;
+      h6:last-child {
+        color: $data;
+        font-weight: 500;
       }
     }
 
@@ -70,6 +70,7 @@
           display: flex;
           justify-content: center;
           align-items: center;
+          box-sizing: border-box;
 
           svg {
             width: 20px;
