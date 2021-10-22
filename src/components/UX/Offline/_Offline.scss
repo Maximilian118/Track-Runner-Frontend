@@ -1,0 +1,13 @@
+@import '../../../scss/variables';
+
+.offline-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h2 {
+    font-weight: 300;
+    font-size: 1.2em;
+    color: $color-2;
+  }
+}

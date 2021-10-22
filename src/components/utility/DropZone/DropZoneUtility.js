@@ -153,7 +153,7 @@ const dropZoneText = (usage, canDragDrop, multiple, acceptedFiles, fileRejection
 }
 
 // Return the first item in thumbArr as a Thumbnail for DropZone.
-const dropZoneThumb = (thumb, usage, setInitials) => {
+const dropZoneThumb = (thumb, usage) => {
   let text = <h2 className="thumb-text">Change<br/>Profile Picture</h2>
 
   switch (usage) {
@@ -163,7 +163,7 @@ const dropZoneThumb = (thumb, usage, setInitials) => {
 
   return (
     <>
-      <img alt="Thumbnail" src={thumb[0].url} onError={() => setInitials(true)}/>
+      <img alt="Thumbnail" src={thumb[0].url}/>
       {text}
     </>
   )
@@ -192,14 +192,14 @@ const dropZoneMultiple = (form, setForm, thumb, setThumb, setFiles) => thumb.map
 ))
 
 // Return JSX depending on DropZone Component params.
-export const dropZoneContent = (user, usage, form, setForm, thumb, setThumb, setFiles, multiple, acceptedFiles, fileRejections, err, initials, setInitials, canDragDrop, localLoading) => {
-  if (initials && !localLoading) {
-    return <h2 style={{ fontSize: '5rem' }}>{getInitials(user)}</h2>
+export const dropZoneContent = (user, usage, form, setForm, thumb, setThumb, setFiles, multiple, acceptedFiles, fileRejections, err, canDragDrop, localLoading) => {
+  if (!navigator.onLine && !form) {
+    return <h2 className="drop-zone-initials">{getInitials(user)}</h2>
   } else if (thumb.length > 0) {
     if (multiple) {
       return dropZoneMultiple(form, setForm, thumb, setThumb, setFiles)
     } else {
-      return !localLoading && dropZoneThumb(thumb, usage, setInitials)
+      return !localLoading && dropZoneThumb(thumb, usage)
     }
   } else {
     return !localLoading && dropZoneText(usage, canDragDrop, multiple, acceptedFiles, fileRejections, err)

@@ -4,15 +4,20 @@ export const initPosts = posts => {
     return {
       ...post,
       distance: Number(post.distance),
-      geojson: {
+      geojson: post.geojson ? {
         ...post.geojson,
-        geojson: JSON.parse(post.geojson.geojson),
-        stats: JSON.parse(post.geojson.stats),
-      },
-      track: {
+        geojson: post.geojson.geojson ? JSON.parse(post.geojson.geojson) : null,
+        stats: post.geojson.stats ? JSON.parse(post.geojson.stats) : null,
+      } : null,
+      track: post.track ? {
         ...post.track,
-        stats: JSON.parse(post.track.stats),
-      }
+        geojson: post.track.geojson ? {
+          ...post.track.geojson,
+          geojson: post.track.geojson.geojson ? JSON.parse(post.track.geojson.geojson) : null,
+          stats: post.track.geojson.stats ? JSON.parse(post.track.geojson.stats) : null,
+        } : null,
+        stats: post.track.stats ? JSON.parse(post.track.stats) : null,
+      } : null,
     }
   })
 }

@@ -55,6 +55,11 @@
     }
   }
 
+  .drop-zone-initials {
+    font-size: 5rem;
+    margin-bottom: 10px;
+  }
+
   &:hover, &:focus {
     box-shadow: $shadow-hover;
   }
@@ -152,7 +157,7 @@
   }
 }
 
-.offline {
+.drop-zone-offline {
   cursor: default;
 
   h2 {

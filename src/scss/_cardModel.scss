@@ -27,8 +27,12 @@
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 
-    h6 {
+    h5, h6 {
       white-space: nowrap;
+    }
+
+    h5 {
+      overflow-x: scroll;
     }
   }
 

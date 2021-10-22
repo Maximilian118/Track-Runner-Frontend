@@ -9,7 +9,7 @@ const PostCard = ({ post }) => {
 
   return (
     <div className="card-model post-card">
-      <MapBoxStatic geojson={post.geojson.geojson} width={440} height={180} highRes/>
+      {post.geojson && <MapBoxStatic geojson={post.geojson.geojson} width={440} height={180} highRes/>}
       <div className="post-card-overlay">
         <div className="post-card-top">
           <h4></h4>
