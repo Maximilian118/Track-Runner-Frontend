@@ -1,6 +1,7 @@
 @import '../../../scss/variables';
 
 .post-card {
+  min-height: 80px;
   max-height: 200px;
   position: relative;
   overflow: hidden;
@@ -23,30 +24,34 @@
       justify-content: space-between;
     }
 
-    .post-card-top {
-      align-items: flex-start;
+    .post-card-top-left {
+      h5, h6 {
+        transform: translateY(-2px);
+      }
+
+      h5 {
+        margin-bottom: 2px;
+      }
     }
 
     .post-card-bottom {
-      align-items: flex-end;
-
       .post-card-imgs {
         display: flex;
-
+      
         .post-card-img-container {
           width: 30px;
           height: 30px;
           border-radius: 5px;
           overflow: hidden;
           flex-shrink: 0;
-  
+      
           img {
             width: 100%;
             height: 100%;
             object-fit: cover;
           }
         }
-
+      
         .post-card-img-container:not(:first-child) {
           margin-left: 5px;
         }
@@ -54,13 +59,25 @@
 
       .post-card-icons {
         display: flex;
+        align-items: flex-end;
 
-        svg {
-          color: $icon;
+        .button-wrapper {
+          width: 30px;
+          height: 30px;
+          border: 1px solid $color-1;
+          background: white;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
 
+          svg {
+            width: 20px;
+            height: 20px;
+          }
         }
 
-        svg:not(:last-child) {
+        .button-wrapper:not(:last-child) {
           margin-right: 5px;
         }
       }

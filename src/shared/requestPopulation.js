@@ -27,6 +27,12 @@ export const populateUser = `
       logo
       stats
       likes
+      geojson {
+        _id
+        name
+        geojson
+        stats
+      }
     }
     geojson {
       _id

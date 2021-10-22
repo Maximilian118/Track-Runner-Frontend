@@ -4,15 +4,28 @@ import MapBoxStatic from '../../Utility/MapBoxStatic'
 import ProfilePicture from '../../Utility/ProfilePicture'
 import PostCardImgs from './PostCardImgs'
 import PostCardIcons from './PostCardIcons'
+import moment from 'moment'
 
 const PostCard = ({ post }) => {
+  let content = null
+
+  if (navigator.onLine) {
+    if (post.geojson) {
+      content = <MapBoxStatic geojson={post.geojson.geojson} width={440} height={180} highRes/>
+    } else if (post.track) {
+      content = <MapBoxStatic geojson={post.track.geojson.geojson} width={440} height={180} highRes/>
+    }
+  }
 
   return (
     <div className="card-model post-card">
-      {post.geojson && <MapBoxStatic geojson={post.geojson.geojson} width={440} height={180} highRes/>}
+      {content}
       <div className="post-card-overlay">
         <div className="post-card-top">
-          <h4></h4>
+          <div className="post-card-top-left">
+            <h5>{post.title}</h5>
+            <h6>{moment(post.runDT).format("Do MMM HH:mm")}</h6>
+          </div>
           <ProfilePicture user={post.user} heightWidth={30}/>
         </div>
         <div className="post-card-bottom">
