@@ -29,6 +29,7 @@
       }
 
       h6:last-child {
+        margin-top: 4px;
         color: $data;
         font-weight: 500;
       }
@@ -75,6 +76,8 @@
           svg {
             width: 20px;
             height: 20px;
+            stroke: white;
+            stroke-width: 0.4px;
           }
         }
 
