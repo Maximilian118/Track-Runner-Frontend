@@ -118,7 +118,7 @@ export const handleDropZonePreReqChecks = (acceptedFiles, setErr, form, thumb, s
 }
 
 // Return JSX <h2/> element for DropZone depending on given component params.
-const dropZoneText = (usage, canDragDrop, multiple, acceptedFiles, fileRejections, err) => {
+const dropZoneText = (usage, canDragDrop, multiple, acceptedFiles, fileRejections, err, required) => {
   const suffix = canDragDrop ? multiple ? "or drag them here" : "or drag it here" : ""
   let text = <h2>Choose an image<br/>{suffix}</h2>
 
@@ -132,6 +132,10 @@ const dropZoneText = (usage, canDragDrop, multiple, acceptedFiles, fileRejection
       case "gpx": text = <h2>Add a GPX File</h2>; break
       case "post": text = <h2>Add Images</h2>; break
       default: text = <h2>Choose an image<br/>{suffix}</h2>
+    }
+
+    if (required) {
+      text = <h2>{text.props.children} *</h2>
     }
 
     // Check for errors/rejections.
@@ -192,7 +196,7 @@ const dropZoneMultiple = (form, setForm, thumb, setThumb, setFiles) => thumb.map
 ))
 
 // Return JSX depending on DropZone Component params.
-export const dropZoneContent = (user, usage, form, setForm, thumb, setThumb, setFiles, multiple, acceptedFiles, fileRejections, err, canDragDrop, localLoading) => {
+export const dropZoneContent = (user, usage, form, setForm, thumb, setThumb, setFiles, multiple, acceptedFiles, fileRejections, err, canDragDrop, localLoading, required) => {
   if (!navigator.onLine && !form) {
     return <h2 className="drop-zone-initials">{getInitials(user)}</h2>
   } else if (thumb.length > 0) {
@@ -202,7 +206,7 @@ export const dropZoneContent = (user, usage, form, setForm, thumb, setThumb, set
       return !localLoading && dropZoneThumb(thumb, usage)
     }
   } else {
-    return !localLoading && dropZoneText(usage, canDragDrop, multiple, acceptedFiles, fileRejections, err)
+    return !localLoading && dropZoneText(usage, canDragDrop, multiple, acceptedFiles, fileRejections, err, required)
   }
 }
 

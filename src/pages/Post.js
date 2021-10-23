@@ -75,6 +75,18 @@ const Post = ({ history }) => {
                   onChange={e => updatePostForm(e, form, setForm, formError, setFormError)}
                 />
               </div>
+              <div className="middle-row" style={{ marginTop: 0 }}>
+                <DropZone
+                  user={user} 
+                  setUser={setUser}
+                  form={form}
+                  setForm={setForm}
+                  height={56} 
+                  usage="gpx" 
+                  history={history}
+                  icon={<Gesture/>}
+                />
+              </div>
               <div className="middle-row">
                 <Autocomplete
                   disabled={tracks.length === 0}
@@ -91,52 +103,8 @@ const Post = ({ history }) => {
                   renderInput={params => 
                     <TextField 
                       {...params} 
-                      label="Select a track" 
-                      variant="standard" 
+                      label="Select a track"  
                       className="mui-text-field"
-                    />
-                  }
-                />
-              </div>
-              <div className="middle-row" style={{ marginTop: 20 }}>
-                <TimePicker
-                  label="Time of run"
-                  ampm={false}
-                  openTo="hours"
-                  views={['hours', 'minutes', 'seconds']}
-                  inputFormat="HH:mm:ss"
-                  mask="__:__:__"
-                  value={form.timeOfRun}
-                  onChange={(newValue) => {
-                    setForm({
-                      ...form,
-                      timeOfRun: newValue,
-                    })
-                  }}
-                  renderInput={(params) => 
-                    <TextField 
-                      {...params} 
-                      className="mui-date-time"
-                      style={{ marginRight: 20 }}
-                    />
-                  }
-                />
-                <DatePicker
-                  label="Date of run"
-                  mask="__/__/__"
-                  inputFormat="DD/MM/YY"
-                  className="mui-date-time"
-                  value={form.dateOfRun}
-                  onChange={(newValue) => {
-                    setForm({
-                      ...form,
-                      dateOfRun: newValue,
-                    })
-                  }}
-                  renderInput={(params) => 
-                    <TextField 
-                      {...params}
-                      className="mui-date-time"
                     />
                   }
                 />
@@ -181,15 +149,46 @@ const Post = ({ history }) => {
                 />
               </div>
               <div className="middle-row">
-                <DropZone 
-                  user={user} 
-                  setUser={setUser}
-                  form={form}
-                  setForm={setForm}
-                  height={56} 
-                  usage="gpx" 
-                  history={history}
-                  icon={<Gesture/>}
+                <TimePicker
+                  label="Time of run"
+                  ampm={false}
+                  openTo="hours"
+                  views={['hours', 'minutes', 'seconds']}
+                  inputFormat="HH:mm:ss"
+                  mask="__:__:__"
+                  value={form.timeOfRun}
+                  onChange={(newValue) => {
+                    setForm({
+                      ...form,
+                      timeOfRun: newValue,
+                    })
+                  }}
+                  renderInput={(params) => 
+                    <TextField 
+                      {...params} 
+                      className="mui-date-time"
+                      style={{ marginRight: 20 }}
+                    />
+                  }
+                />
+                <DatePicker
+                  label="Date of run"
+                  mask="__/__/__"
+                  inputFormat="DD/MM/YY"
+                  className="mui-date-time"
+                  value={form.dateOfRun}
+                  onChange={(newValue) => {
+                    setForm({
+                      ...form,
+                      dateOfRun: newValue,
+                    })
+                  }}
+                  renderInput={(params) => 
+                    <TextField 
+                      {...params}
+                      className="mui-date-time"
+                    />
+                  }
                 />
               </div>
               <div className="middle-row">
