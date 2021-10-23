@@ -137,7 +137,7 @@ export const getCalendar = async (user, setUser, setCalendar, calScope, history)
   }
 }
 
-export const getMapBoxStatic = (geojson, width, height, highRes, withLogo, withAtt) => {
+export const getMapBoxStatic = (geojson, width, height, highRes, withLogo, withAtt, padding) => {
   try {
     const mbxStaticClient = mbxClient({ accessToken: process.env.REACT_APP_MAPBOXGL_ACCESS_TOKEN })
 
@@ -150,6 +150,7 @@ export const getMapBoxStatic = (geojson, width, height, highRes, withLogo, withA
       logo: withLogo ? true : false,
       attribution: withAtt ? true : false,
       highRes: highRes ? true : false,
+      padding: padding ? padding : "15",
       overlays: [
         {
           path: {
