@@ -58,6 +58,28 @@ export const updatePostForm = (e, form, setForm, formError, setFormError) => {
   const lapTimeRegEx = !e.target.value._i || /^\d{2}\:\d{2}\:\d{2}$/.test(e.target.value._i) // eslint-disable-line no-useless-escape
 
   switch (e.target.name) {
+    case "title": if (e.target.value !== "") {
+      setFormError({
+        ...formError,
+        title: "",
+      })
+    } else {
+      setFormError({
+        ...formError,
+        title: "Add a title",
+      })
+    }; break
+    case "trackID": if (e.target.value !== "") {
+      setFormError({
+        ...formError,
+        trackID: "",
+      })
+    } else {
+      setFormError({
+        ...formError,
+        trackID: "Select a Track",
+      })
+    }; break
     case "lapTime": if (lapTimeRegEx && e.target.value._d.toString() !== "Invalid Date") {
       setFormError({
         ...formError,
@@ -78,6 +100,28 @@ export const updatePostForm = (e, form, setForm, formError, setFormError) => {
       setFormError({
         ...formError,
         distance: "Invalid Distance",
+      })
+    }; break
+    case "timeOfRun": if (e.target.value._d.toString() !== "Invalid Date") {
+      setFormError({
+        ...formError,
+        timeOfRun: "",
+      })
+    } else {
+      setFormError({
+        ...formError,
+        timeOfRun: "Invalid Time of Run",
+      })
+    }; break
+    case "dateOfRun": if (e.target.value._d.toString() !== "Invalid Date") {
+      setFormError({
+        ...formError,
+        dateOfRun: "",
+      })
+    } else {
+      setFormError({
+        ...formError,
+        dateOfRun: "Invalid Date of Run",
       })
     }; break
     default: setFormError(formError)

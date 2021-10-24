@@ -10,6 +10,7 @@ import { updatePostForm, formValid } from '../shared/formValidation'
 import { getTracks } from '../shared/trackRequests'
 import PostHelp from '../components/Help/PostHelp'
 import HelpIcon from '../components/Help/HelpIcon'
+import { trackList } from '../shared/utility'
 
 const Post = ({ history }) => {
   const { user, setUser, setLoading } = useContext(Context)
@@ -27,15 +28,16 @@ const Post = ({ history }) => {
     imgs: [],
   })
   const [ formError, setFormError ] = useState({
+    title: "",
+    trackID: "",
     lapTime: "",
     distance: "",
+    timeOfRun: "",
+    dateOfRun: "",
   })
 
   useEffect(() => {
-    const handleTracksReq = async () => {
-      setTracks(await getTracks(user, setUser, history))
-    }
-
+    const handleTracksReq = async () => setTracks(trackList(await getTracks(user, setUser, history)))
     handleTracksReq()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -57,6 +59,7 @@ const Post = ({ history }) => {
               <div className="middle-row">
                 <TextField 
                   required
+                  error={!!formError.title}
                   variant="standard"
                   label="Title"
                   name="title"
@@ -93,16 +96,30 @@ const Post = ({ history }) => {
                   options={tracks}
                   className="mui-text-field"
                   getOptionLabel={track => track.name}
-                  onChange={(e, vals) => setForm({...form, trackID: vals ? vals._id : null})}
+                  onChange={(e, vals) => {
+                    updatePostForm({
+                      target: {
+                        name: "trackID",
+                        value: vals ? vals._id ? vals._id : vals.name : "",
+                      }
+                    }, form, setForm, formError, setFormError)
+                  }}
                   renderOption={(props, track) => 
-                    <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                      <img loading="lazy" width="20" src={track.logo} alt=""/>
+                    <Box 
+                      component="li" 
+                      sx={{
+                        '& > img': { mr: 2, flexShrink: 0 },
+                        '& > svg': { width: 20, height: 20, mr: 2, flexShrink: 0 }, 
+                      }} {...props}>
+                      {typeof track.logo === 'string' ? <img loading="lazy" width="20" src={track.logo} alt=""/> : track.logo}
                       {track.name}
                     </Box>
                   }
                   renderInput={params => 
-                    <TextField 
-                      {...params} 
+                    <TextField
+                      {...params}
+                      required
+                      error={!!formError.trackID}
                       label="Select a track"  
                       className="mui-text-field"
                     />
@@ -111,6 +128,7 @@ const Post = ({ history }) => {
               </div>
               <div className="middle-row">
                 <TimePicker
+                  disabled={form.trackID === ""}
                   label="Best Lap"
                   ampm={false}
                   openTo="hours"
@@ -136,6 +154,7 @@ const Post = ({ history }) => {
                 />
                 <TextField
                   required
+                  disabled={form.trackID === ""}
                   variant="outlined"
                   label="Total Dist"
                   name="distance"
@@ -144,24 +163,29 @@ const Post = ({ history }) => {
                   onChange={e => updatePostForm(e, form, setForm, formError, setFormError)}
                   error={!!formError.distance}
                   InputProps={{
-                    endAdornment: <InputAdornment position="end">km</InputAdornment>,
+                    endAdornment: <InputAdornment 
+                      position="end" 
+                      className={form.trackID === "" ? "mui-input-ad-disabled" : ""}
+                    >km</InputAdornment>,
                   }}
                 />
               </div>
               <div className="middle-row">
                 <TimePicker
-                  label="Time of run"
+                  label="Time of run *"
                   ampm={false}
                   openTo="hours"
                   views={['hours', 'minutes', 'seconds']}
                   inputFormat="HH:mm:ss"
                   mask="__:__:__"
                   value={form.timeOfRun}
-                  onChange={(newValue) => {
-                    setForm({
-                      ...form,
-                      timeOfRun: newValue,
-                    })
+                  onChange={(time) => {
+                    updatePostForm({
+                      target: {
+                        name: "timeOfRun",
+                        value: time,
+                      }
+                    }, form, setForm, formError, setFormError)
                   }}
                   renderInput={(params) => 
                     <TextField 
@@ -172,16 +196,18 @@ const Post = ({ history }) => {
                   }
                 />
                 <DatePicker
-                  label="Date of run"
+                  label="Date of run *"
                   mask="__/__/__"
                   inputFormat="DD/MM/YY"
                   className="mui-date-time"
                   value={form.dateOfRun}
-                  onChange={(newValue) => {
-                    setForm({
-                      ...form,
-                      dateOfRun: newValue,
-                    })
+                  onChange={(date) => {
+                    updatePostForm({
+                      target: {
+                        name: "dateOfRun",
+                        value: date,
+                      }
+                    }, form, setForm, formError, setFormError)
                   }}
                   renderInput={(params) => 
                     <TextField 
@@ -214,8 +240,11 @@ const Post = ({ history }) => {
               className="mui-form-btn"
               disabled={!formValid({
                 title: form.title,
+                trackID: form.trackID,
                 lapTime: form.lapTime,
                 distance: form.distance,
+                timeOfRun: form.timeOfRun,
+                dateOfRun: form.dateOfRun,
               }, formError)}
               onClick={e => handleCreatePost(e)}
             >

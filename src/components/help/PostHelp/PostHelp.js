@@ -17,8 +17,8 @@ const PostHelp = () => {
     },
     {
       title: "Select A Track",
-      desc: "Did you run on a specific motorsport race track? If so, add it to your Post.",
-      req: false,
+      desc: "Did you run on a specific motorsport race track? If so, add it to your Post. Required for Championship entry.",
+      req: true,
     },
     {
       title: "Time of run",
@@ -32,13 +32,13 @@ const PostHelp = () => {
     },
     {
       title: "Best Lap",
-      desc: "Your fastest lap. Required even if you only ran one lap.",
-      req: true,
+      desc: "Your fastest lap. Required even if you only ran one lap. Required for Championship entry.",
+      req: false,
     },
     {
       title: "Total Dist",
-      desc: "The total distance of your run from start to end regardless of laps.",
-      req: true,
+      desc: "The total distance of your run from start to end regardless of laps. Required for Championship entry.",
+      req: false,
     },
     {
       title: "Add a GPX File",

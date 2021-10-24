@@ -2,6 +2,7 @@ import { logout } from './localStorage'
 import moment from 'moment'
 import * as turf from '@turf/turf'
 import { getCalendar } from './miscRequests'
+import { AddRoad, RemoveCircleOutline } from '@mui/icons-material'
 
 // Create a calendar based on user.calendars.
 export const createCalendar = (user, setUser, calendar, setCalendar, calScope, history) => {
@@ -341,4 +342,23 @@ export const XMLFileToString = async file => {
       resolve(reader.result)
     }
   })
+}
+
+export const trackList = trackArr => {
+  const tracks = [
+    {
+      name: "Not a Track",
+      logo: <RemoveCircleOutline/>,
+    },
+    {
+      name: "Create a Track",
+      logo: <AddRoad/>,
+    },
+  ]
+
+  trackArr.forEach(track => {
+    tracks.push(track)
+  })
+
+  return tracks
 }

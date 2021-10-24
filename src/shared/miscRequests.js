@@ -150,7 +150,7 @@ export const getMapBoxStatic = (geojson, width, height, highRes, withLogo, withA
       logo: withLogo ? true : false,
       attribution: withAtt ? true : false,
       highRes: highRes ? true : false,
-      padding: padding ? padding : "15",
+      padding: padding ? padding : null,
       overlays: [
         {
           path: {
