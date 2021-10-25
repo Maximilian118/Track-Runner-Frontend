@@ -22,6 +22,7 @@ const Post = ({ history }) => {
     description: "",
     trackID: "",
     geoID: "",
+    geoURL: "",
     lapTime: null,
     distance: null,
     timeOfRun: new Date(),
@@ -45,6 +46,24 @@ const Post = ({ history }) => {
   const handleCreatePost = e => {
     e.preventDefault()
     createPost(postForm, user, setUser, setLoading, history)
+  }
+  
+  const noTrack = postForm.trackID === "" || postForm.trackID === "Not a Track"
+
+  const standardValid = {
+    title: postForm.title,
+    trackID: postForm.trackID,
+    lapTime: postForm.lapTime,
+    distance: postForm.distance,
+    timeOfRun: postForm.timeOfRun,
+    dateOfRun: postForm.dateOfRun,
+  }
+
+  const noTrackValid = {
+    title: postForm.title,
+    geoID: postForm.geoID,
+    timeOfRun: postForm.timeOfRun,
+    dateOfRun: postForm.dateOfRun,
   }
 
   return postForm.trackID === "Create a Track" ? <CreateTrack postForm={postForm} setPostForm={setPostForm}/> : (
@@ -83,6 +102,8 @@ const Post = ({ history }) => {
               </div>
               <div className="middle-row" style={{ marginTop: 0 }}>
                 <DropZone
+                  required={postForm.trackID === "Not a Track"}
+                  defaultValue={postForm.geoURL}
                   user={user} 
                   setUser={setUser}
                   form={postForm}
@@ -133,7 +154,7 @@ const Post = ({ history }) => {
               </div>
               <div className="middle-row">
                 <TimePicker
-                  disabled={postForm.trackID === ""}
+                  disabled={noTrack}
                   label="Best Lap"
                   ampm={false}
                   openTo="hours"
@@ -150,7 +171,7 @@ const Post = ({ history }) => {
                   renderInput={(params) => 
                     <TextField
                       {...params}
-                      required
+                      required={postForm.trackID !== "Not a Track"}
                       className="mui-date-time"
                       error={!!formError.lapTime}
                       style={{ marginRight: 20 }}
@@ -158,8 +179,8 @@ const Post = ({ history }) => {
                   }
                 />
                 <TextField
-                  required
-                  disabled={postForm.trackID === ""}
+                  required={postForm.trackID !== "Not a Track"}
+                  disabled={noTrack}
                   variant="outlined"
                   label="Total Dist"
                   name="distance"
@@ -170,7 +191,7 @@ const Post = ({ history }) => {
                   InputProps={{
                     endAdornment: <InputAdornment 
                       position="end" 
-                      className={postForm.trackID === "" ? "mui-input-ad-disabled" : ""}
+                      className={noTrack ? "mui-input-ad-disabled" : ""}
                     >km</InputAdornment>,
                   }}
                 />
@@ -223,7 +244,8 @@ const Post = ({ history }) => {
                 />
               </div>
               <div className="middle-row">
-                <DropZone 
+                <DropZone
+                  defaultValue={postForm.imgs}
                   user={user} 
                   setUser={setUser}
                   form={postForm}
@@ -243,14 +265,7 @@ const Post = ({ history }) => {
               startIcon={<PostAdd/>} 
               type="submit"
               className="mui-form-btn"
-              disabled={!formValid({
-                title: postForm.title,
-                trackID: postForm.trackID,
-                lapTime: postForm.lapTime,
-                distance: postForm.distance,
-                timeOfRun: postForm.timeOfRun,
-                dateOfRun: postForm.dateOfRun,
-              }, formError)}
+              disabled={!formValid(postForm.trackID === "Not a Track" ? noTrackValid : standardValid, formError)}
               onClick={e => handleCreatePost(e)}
             >
               Post

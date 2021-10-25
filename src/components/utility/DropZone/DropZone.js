@@ -8,9 +8,9 @@ import { createGeojson } from '../../../shared/geojsonRequests'
 import Spinner from '../Spinner'
 import { Close } from '@mui/icons-material'
 
-const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height, usage, history, style, arrData, multiple, icon, required }) => {
+const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height, usage, history, style, arrData, multiple, icon, required, defaultValue }) => {
   const [ localLoading, setLocalLoading ] = useState(false)
-  const [ thumb, setThumb ] = useState(initThumbArr(user, usage))
+  const [ thumb, setThumb ] = useState(initThumbArr(user, usage, defaultValue))
   const [ files, setFiles ] = useState([])
   const [ err, setErr ] = useState(null)
 

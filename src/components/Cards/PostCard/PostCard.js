@@ -12,7 +12,7 @@ const PostCard = ({ post }) => {
   if (navigator.onLine) {
     if (post.geojson) {
       content = <MapBoxStatic geojson={post.geojson.geojson} width={440} height={180} padding="25" highRes/>
-    } else if (post.track) {
+    } else if (post.track && post.track.geojson) {
       content = <MapBoxStatic geojson={post.track.geojson.geojson} width={440} height={180} padding="25" highRes/>
     }
   }

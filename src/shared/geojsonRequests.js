@@ -22,13 +22,16 @@ export const createGeojson = async (user, setUser, form, setForm, file, setLocal
         checkAuth(res.data.errors, setUser, history)
         process.env.NODE_ENV === 'development' && console.log(res.data.errors[0].message)
       } else {
+        const mbxStaticUrl = getMapBoxStatic(JSON.parse(res.data.data.createGeojson.geojson), width, height, true)
+
         setForm && setForm({
           ...form,
           geoID: res.data.data.createGeojson._id,
+          geoURL: mbxStaticUrl,
         })
 
         setThumb && setThumb([{
-          url: getMapBoxStatic(JSON.parse(res.data.data.createGeojson.geojson), width, height, true),
+          url: mbxStaticUrl,
           uploaded: true,
         }])
 

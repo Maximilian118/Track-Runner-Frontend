@@ -3,8 +3,22 @@ import { isDuplicateArrFile, getInitials } from '../../../shared/utility'
 import { Delete } from '@mui/icons-material'
 
 // Return an initial Array of URL Strings to be presented.
-export const initThumbArr = (user, usage) => {
-  if (usage === "profile-picture" && user.profile_picture) {
+export const initThumbArr = (user, usage, defaultValue) => {
+  if (defaultValue) {
+    if (typeof defaultValue === 'string') {
+      return [{
+        url: defaultValue,
+        uploaded: true,
+      }]
+    } else {
+      return defaultValue.map(url => {
+        return {
+          url,
+          uploaded: true,
+        }
+      })
+    }
+  } else if (usage === "profile-picture" && user.profile_picture) {
     return [{
       url: user.profile_picture,
       uploaded: true,
