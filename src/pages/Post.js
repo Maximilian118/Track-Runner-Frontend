@@ -36,6 +36,8 @@ const Post = ({ history }) => {
     dateOfRun: "",
   })
 
+  useEffect(() => form.trackID === "Create a Track" && history.push("/create-track"), [form, history])
+  
   useEffect(() => {
     const handleTracksReq = async () => setTracks(trackList(await getTracks(user, setUser, history)))
     handleTracksReq()
@@ -105,12 +107,14 @@ const Post = ({ history }) => {
                     }, form, setForm, formError, setFormError)
                   }}
                   renderOption={(props, track) => 
-                    <Box 
+                    <Box
+                      {...props}
                       component="li" 
                       sx={{
                         '& > img': { mr: 2, flexShrink: 0 },
                         '& > svg': { width: 20, height: 20, mr: 2, flexShrink: 0 }, 
-                      }} {...props}>
+                      }} 
+                    >
                       {typeof track.logo === 'string' ? <img loading="lazy" width="20" src={track.logo} alt=""/> : track.logo}
                       {track.name}
                     </Box>

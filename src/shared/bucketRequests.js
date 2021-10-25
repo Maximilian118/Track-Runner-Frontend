@@ -1,7 +1,7 @@
 import axios from "axios"
 import imageCompression from 'browser-image-compression'
 import { useTokens, checkAuth, getAxiosError, headers, formatFilename, isDuplicateFile } from './utility'
-import { handleDropZoneError } from '../components/Utility/DropZone/DropZoneUtility'
+import { handleDropZoneError, handleDropZoneSuccess } from '../components/Utility/DropZone/DropZoneUtility'
 import { updateProfilePicture } from './userRequests'
 import { getTracks, updateTrackLogo } from './trackRequests'
 
@@ -127,7 +127,11 @@ export const uploadToS3 = async (fileArr, user, setUser, form, setForm, calendar
         updateProfilePicture(user, setUser, profile_picture.url, icon.url, history, setLocalLoading, setErr, setThumb)
         return withUploaded
 
-      } else if (withUploaded.length < 2 && withUploaded[0].name === "track-logo") {
+      } else if (withUploaded.length === 1 && withUploaded[0].name === "track-logo") {
+        setForm({ ...form, logo: withUploaded[0].url })
+        return handleDropZoneSuccess(setErr, setLocalLoading, withUploaded)
+
+      } else if (withUploaded.length === 1 && withUploaded[0].name === "update-track-logo") {
         updateTrackLogo(user, setUser, calendar, setCalendar, withUploaded[0].trackID, withUploaded[0].trackName, withUploaded[0].url, history, setLocalLoading, setErr, setThumb)
         return withUploaded
 

@@ -128,6 +128,26 @@ export const updatePostForm = (e, form, setForm, formError, setFormError) => {
   }
 }
 
+// Update formErrors on each keystroke.
+export const updateCreateTrackForm = (e, form, setForm, formError, setFormError) => {
+  setForm({...form, [e.target.name]: e.target.value})
+
+  switch (e.target.name) {
+    case "name": if (e.target.value !== "") {
+      setFormError({
+        ...formError,
+        name: "",
+      })
+    } else {
+      setFormError({
+        ...formError,
+        name: "Name the track",
+      })
+    }; break
+    default: setFormError(formError)
+  }
+}
+
 // Check for formErrors and backendErrors.
 export const errorCheck = (formError, backendError, type) => {
   if (backendError.type === type) {

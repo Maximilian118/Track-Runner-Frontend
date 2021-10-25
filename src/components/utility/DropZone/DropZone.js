@@ -64,9 +64,9 @@ const DropZone = ({ user, setUser, calendar, setCalendar, form, setForm, height,
   return (
     <div {...getRootProps({className: `
       drop-zone 
-      ${usage} 
+      ${usage === `profile-picture` ? `drop-zone-profile-picture` : `drop-zone-form`} 
       ${isDragActive && `drag-active`} 
-      ${thumb !== "" && `thumb`}
+      ${thumb !== "" && `drop-zone-thumb`}
       ${!navigator.onLine && `drop-zone-offline`}
       ${err && `drop-zone-error`}
       `})}

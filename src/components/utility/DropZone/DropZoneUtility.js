@@ -60,12 +60,7 @@ export const initFileArr = async (usage, acceptedFiles, arrData, thumb, setThumb
         blob: await compressImage(acceptedFiles[0], 0.1, setThumb),
       },
     ]; break
-    default: fileArr = [
-      {
-        name: "track-logo",
-        blob: await compressImage(acceptedFiles[0], 0.1, setThumb),
-      },
-    ]
+    default: await multiple(); break
   }
 
   if (fileArr.length > 0) {
@@ -131,6 +126,7 @@ const dropZoneText = (usage, canDragDrop, multiple, acceptedFiles, fileRejection
     switch (usage) {
       case "gpx": text = <h2>Add a GPX File</h2>; break
       case "post": text = <h2>Add Images</h2>; break
+      case "track-logo": text = <h2>Add a Logo</h2>; break
       default: text = <h2>Choose an image<br/>{suffix}</h2>
     }
 
