@@ -11,12 +11,13 @@ import { getTracks } from '../shared/trackRequests'
 import PostHelp from '../components/Help/PostHelp'
 import HelpIcon from '../components/Help/HelpIcon'
 import { trackList } from '../shared/utility'
+import CreateTrack from './CreateTrack'
 
 const Post = ({ history }) => {
   const { user, setUser, setLoading } = useContext(Context)
   const [ help, setHelp ] = useState(false)
   const [ tracks, setTracks ] = useState([])
-  const [ form, setForm ] = useState({
+  const [ postForm, setPostForm ] = useState({
     title: "",
     description: "",
     trackID: "",
@@ -35,8 +36,6 @@ const Post = ({ history }) => {
     timeOfRun: "",
     dateOfRun: "",
   })
-
-  useEffect(() => form.trackID === "Create a Track" && history.push("/create-track"), [form, history])
   
   useEffect(() => {
     const handleTracksReq = async () => setTracks(trackList(await getTracks(user, setUser, history)))
@@ -45,10 +44,10 @@ const Post = ({ history }) => {
 
   const handleCreatePost = e => {
     e.preventDefault()
-    createPost(form, user, setUser, setLoading, history)
+    createPost(postForm, user, setUser, setLoading, history)
   }
 
-  return (
+  return postForm.trackID === "Create a Track" ? <CreateTrack postForm={postForm} setPostForm={setPostForm}/> : (
     <div className="model-wrapper">
       <form className="model">
         <LocalizationProvider dateAdapter={momentAdapter}>
@@ -61,31 +60,33 @@ const Post = ({ history }) => {
               <div className="middle-row">
                 <TextField 
                   required
+                  defaultValue={postForm.title}
                   error={!!formError.title}
                   variant="standard"
                   label="Title"
                   name="title"
                   className="mui-text-field"
-                  onChange={e => updatePostForm(e, form, setForm, formError, setFormError)}
+                  onChange={e => updatePostForm(e, postForm, setPostForm, formError, setFormError)}
                 />
               </div>
               <div className="middle-row">
                 <TextField
                   variant="standard"
+                  defaultValue={postForm.description}
                   label="Description"
                   name="description"
                   multiline
                   maxRows={4}
                   className="mui-text-field"
-                  onChange={e => updatePostForm(e, form, setForm, formError, setFormError)}
+                  onChange={e => updatePostForm(e, postForm, setPostForm, formError, setFormError)}
                 />
               </div>
               <div className="middle-row" style={{ marginTop: 0 }}>
                 <DropZone
                   user={user} 
                   setUser={setUser}
-                  form={form}
-                  setForm={setForm}
+                  form={postForm}
+                  setForm={setPostForm}
                   height={56} 
                   usage="gpx" 
                   history={history}
@@ -104,7 +105,7 @@ const Post = ({ history }) => {
                         name: "trackID",
                         value: vals ? vals._id ? vals._id : vals.name : "",
                       }
-                    }, form, setForm, formError, setFormError)
+                    }, postForm, setPostForm, formError, setFormError)
                   }}
                   renderOption={(props, track) => 
                     <Box
@@ -132,20 +133,20 @@ const Post = ({ history }) => {
               </div>
               <div className="middle-row">
                 <TimePicker
-                  disabled={form.trackID === ""}
+                  disabled={postForm.trackID === ""}
                   label="Best Lap"
                   ampm={false}
                   openTo="hours"
                   views={['hours', 'minutes', 'seconds']}
                   inputFormat="HH:mm:ss"
                   mask="__:__:__"
-                  value={form.lapTime}
+                  value={postForm.lapTime}
                   onChange={obj => updatePostForm({
                     target: {
                       name: "lapTime",
                       value: obj,
                     }
-                  }, form, setForm, formError, setFormError)}
+                  }, postForm, setPostForm, formError, setFormError)}
                   renderInput={(params) => 
                     <TextField
                       {...params}
@@ -158,18 +159,18 @@ const Post = ({ history }) => {
                 />
                 <TextField
                   required
-                  disabled={form.trackID === ""}
+                  disabled={postForm.trackID === ""}
                   variant="outlined"
                   label="Total Dist"
                   name="distance"
                   placeholder="0.000"
                   className="mui-date-time"
-                  onChange={e => updatePostForm(e, form, setForm, formError, setFormError)}
+                  onChange={e => updatePostForm(e, postForm, setPostForm, formError, setFormError)}
                   error={!!formError.distance}
                   InputProps={{
                     endAdornment: <InputAdornment 
                       position="end" 
-                      className={form.trackID === "" ? "mui-input-ad-disabled" : ""}
+                      className={postForm.trackID === "" ? "mui-input-ad-disabled" : ""}
                     >km</InputAdornment>,
                   }}
                 />
@@ -182,14 +183,14 @@ const Post = ({ history }) => {
                   views={['hours', 'minutes', 'seconds']}
                   inputFormat="HH:mm:ss"
                   mask="__:__:__"
-                  value={form.timeOfRun}
+                  value={postForm.timeOfRun}
                   onChange={(time) => {
                     updatePostForm({
                       target: {
                         name: "timeOfRun",
                         value: time,
                       }
-                    }, form, setForm, formError, setFormError)
+                    }, postForm, setPostForm, formError, setFormError)
                   }}
                   renderInput={(params) => 
                     <TextField 
@@ -204,14 +205,14 @@ const Post = ({ history }) => {
                   mask="__/__/__"
                   inputFormat="DD/MM/YY"
                   className="mui-date-time"
-                  value={form.dateOfRun}
+                  value={postForm.dateOfRun}
                   onChange={(date) => {
                     updatePostForm({
                       target: {
                         name: "dateOfRun",
                         value: date,
                       }
-                    }, form, setForm, formError, setFormError)
+                    }, postForm, setPostForm, formError, setFormError)
                   }}
                   renderInput={(params) => 
                     <TextField 
@@ -225,8 +226,8 @@ const Post = ({ history }) => {
                 <DropZone 
                   user={user} 
                   setUser={setUser}
-                  form={form}
-                  setForm={setForm}
+                  form={postForm}
+                  setForm={setPostForm}
                   height={56} 
                   usage="post" 
                   history={history} 
@@ -243,12 +244,12 @@ const Post = ({ history }) => {
               type="submit"
               className="mui-form-btn"
               disabled={!formValid({
-                title: form.title,
-                trackID: form.trackID,
-                lapTime: form.lapTime,
-                distance: form.distance,
-                timeOfRun: form.timeOfRun,
-                dateOfRun: form.dateOfRun,
+                title: postForm.title,
+                trackID: postForm.trackID,
+                lapTime: postForm.lapTime,
+                distance: postForm.distance,
+                timeOfRun: postForm.timeOfRun,
+                dateOfRun: postForm.dateOfRun,
               }, formError)}
               onClick={e => handleCreatePost(e)}
             >

@@ -7,7 +7,7 @@ import CreateTrackHelp from '../components/Help/CreateTrackHelp'
 import { updateCreateTrackForm, formValid } from '../shared/formValidation'
 import DropZone from '../components/Utility/DropZone'
 
-const CreateTrack = ({ history }) => {
+const CreateTrack = ({ postForm, setPostForm, history }) => {
   const { user, setUser } = useContext(Context)
   const [ help, setHelp ] = useState(false)
   const [ form, setForm ] = useState({
@@ -87,7 +87,12 @@ const CreateTrack = ({ history }) => {
           </div>
       </form>
       {!help ? <h6 className="model-outside-txt" style={{ marginTop: 10 }}>
-        <strong onClick={() => history.goBack()}>Back</strong>
+        <strong onClick={() => !postForm ? history.goBack() :
+          setPostForm({
+            ...postForm,
+            trackID: "",
+          })
+        }>Back</strong>
       </h6> : <div style={{ height: 22 }}/>}
     </div>
   )
