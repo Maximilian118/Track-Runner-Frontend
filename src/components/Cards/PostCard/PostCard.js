@@ -12,8 +12,17 @@ const PostCard = ({ post }) => {
   if (navigator.onLine) {
     if (post.geojson) {
       content = <MapBoxStatic geojson={post.geojson.geojson} width={440} height={180} padding="25" highRes/>
-    } else if (post.track && post.track.geojson) {
-      content = <MapBoxStatic geojson={post.track.geojson.geojson} width={440} height={180} padding="25" highRes/>
+    } else if (post.track) {
+      if (post.track.geojson) {
+        content = <MapBoxStatic geojson={post.track.geojson.geojson} width={440} height={180} padding="25" highRes/>
+      } else {
+        content = (
+          <div className="post-card-no-track-geojson">
+            <h5>A new Track!</h5>
+            <h5>Be the first to run it and your data will be used as the track map!</h5>
+          </div>
+        )
+      }
     }
   }
 
