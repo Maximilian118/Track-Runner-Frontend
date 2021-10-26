@@ -19,7 +19,7 @@ const PostCard = ({ post }) => {
         content = (
           <div className="post-card-no-track-geojson">
             <h5>A new Track!</h5>
-            <h5>Be the first to run it and your data will be used as the track map!</h5>
+            <h5>Be the first to upload a GPX of it!</h5>
           </div>
         )
       }
