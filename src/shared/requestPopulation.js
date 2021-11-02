@@ -53,7 +53,6 @@ export const populateUser = `
   }
   tracks {
     _id
-    user
     post
     name
     country
@@ -62,7 +61,6 @@ export const populateUser = `
     stats
     geojson {
       _id
-      user
       post
       name
       geojson
@@ -70,7 +68,6 @@ export const populateUser = `
   }
   rounds {
     _id
-    user
     calendars
     year
     championship
@@ -84,7 +81,6 @@ export const populateUser = `
   }
   geojsons {
     _id
-    user
     post
     name
     geojson

@@ -168,3 +168,24 @@ export const getMapBoxStatic = (geojson, width, height, highRes, withLogo, withA
     console.log(getAxiosError(err))
   }
 }
+
+export const getGeoInfo = async (lat, lon) => {
+  let info = null
+
+  try {
+    await axios.get(`http://api.positionstack.com/v1/reverse?access_key=${process.env.REACT_APP_POSITION_STACK_KEY}&query=${lat},${lon}`).then(res => {
+      if (res.data.errors) {
+        process.env.NODE_ENV === 'development' && console.log(res.data)
+      } else {
+        info = res.data.data[0]
+        process.env.NODE_ENV === 'development' && console.log(res)
+      }
+    }).catch(err => {
+      process.env.NODE_ENV === 'development' && console.log(err)
+    })
+  } catch (err) {
+    console.log(err)
+  }
+
+  return info
+}

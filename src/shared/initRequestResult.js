@@ -1,5 +1,6 @@
 const redundantLapTimeHours = lap_time => {
   const hms = lap_time.split(":")
+  
   if (hms[0] === "00") {
     return `${hms[1]}:${hms[2]}`
   } else {

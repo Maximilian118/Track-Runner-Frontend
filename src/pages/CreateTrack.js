@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../App'
 import { Button, TextField } from '@mui/material'
 import { AddRoad, CropOriginal, Gesture } from '@mui/icons-material'
@@ -6,23 +6,27 @@ import HelpIcon from '../components/Help/HelpIcon'
 import CreateTrackHelp from '../components/Help/CreateTrackHelp'
 import { updateCreateTrackForm, formValid } from '../shared/formValidation'
 import DropZone from '../components/Utility/DropZone'
+import { createTrack } from '../shared/trackRequests'
 
-const CreateTrack = ({ postForm, setPostForm, history }) => {
+const CreateTrack = ({ postForm, setPostForm, tracks, setTracks, setTracksVal, history }) => {
   const { user, setUser } = useContext(Context)
   const [ help, setHelp ] = useState(false)
   const [ form, setForm ] = useState({
     name: "",
-    geoID: "",
-    geoURL: "",
-    coords: null,
+    geoID: postForm.geoID ? postForm.geoID : null,
+    geoURL: postForm.geoURL ? postForm.geoURL : null,
+    coords: postForm.coords ? postForm.coords : null,
     logo: "",
   })
   const [ formError, setFormError ] = useState({
     name: "",
   })
 
+  useEffect(() => setTracksVal(null), [setTracksVal])
+
   const handleCreateTrack = e => {
     e.preventDefault()
+    createTrack(user, setUser, form, postForm, setPostForm, tracks, setTracks, setTracksVal, history)
   }
 
   return (

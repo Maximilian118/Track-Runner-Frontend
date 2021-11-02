@@ -17,6 +17,7 @@ const Post = ({ history }) => {
   const { user, setUser, setLoading } = useContext(Context)
   const [ help, setHelp ] = useState(false)
   const [ tracks, setTracks ] = useState([])
+  const [ tracksVal, setTracksVal ] = useState(null)
   const [ postForm, setPostForm ] = useState({
     title: "",
     description: "",
@@ -67,7 +68,14 @@ const Post = ({ history }) => {
     dateOfRun: postForm.dateOfRun,
   }
 
-  return postForm.trackID === "Create a Track" ? <CreateTrack postForm={postForm} setPostForm={setPostForm}/> : (
+  return postForm.trackID === "Create a Track" ? 
+    <CreateTrack
+      postForm={postForm} 
+      setPostForm={setPostForm}
+      tracks={tracks}
+      setTracks={setTracks}
+      setTracksVal={setTracksVal}
+    /> : (
     <div className="model-wrapper">
       <form className="model">
         <LocalizationProvider dateAdapter={momentAdapter}>
@@ -120,6 +128,7 @@ const Post = ({ history }) => {
                   disabled={tracks.length === 0}
                   options={tracks}
                   className="mui-text-field"
+                  value={tracksVal}
                   getOptionLabel={track => track.name}
                   onChange={(e, vals) => {
                     updatePostForm({
@@ -128,6 +137,7 @@ const Post = ({ history }) => {
                         value: vals ? vals._id ? vals._id : vals.name : "",
                       }
                     }, postForm, setPostForm, formError, setFormError)
+                    setTracksVal(vals)
                   }}
                   renderOption={(props, track) => 
                     <Box
@@ -181,6 +191,7 @@ const Post = ({ history }) => {
                 />
                 <TextField
                   required={postForm.trackID !== "Not a Track"}
+                  defaultValue={postForm.distance}
                   disabled={noTrack}
                   variant="outlined"
                   label="Total Dist"

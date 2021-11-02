@@ -4,22 +4,34 @@ import { initTrack } from './initRequestResult'
 import { handleDropZoneError, handleDropZoneSuccess } from '../components/Utility/DropZone/DropZoneUtility'
 import { populateTrack } from './requestPopulation'
 import { redundantFilesCheck } from './bucketRequests'
+import { getGeoInfo } from './miscRequests'
 
-export const createTrack = async (user, setUser, track, history) => {
+export const createTrack = async (user, setUser, form, postForm, setPostForm, tracks, setTracks, setTracksVal, history) => {
+  if (!form.geoID && !form.gpx) {
+    console.log("No geojson or gpx found.")
+    return
+  } else if (!form.coords) {
+    console.log("No coordinates found.")
+    return
+  }
+
+  const geo = await getGeoInfo(form.coords.lat, form.coords.lon)
+
   try {
     await axios.post('', {
       variables: {
-        user_id: null,
-        name: track.name,
-        country: track.country,
-        location: track.location,
-        logo: track.logo,
-        stats: JSON.stringify(track.stats),
-        gpx: track.gpx,
+        user_id: user._id,
+        name: form.name,
+        country: geo.country,
+        location: geo.region,
+        logo: form.logo,
+        stats: form.stats ? JSON.stringify(form.stats) : null,
+        gpx: form.gpx ? form.gpx : null,
+        geojson: form.geoID ? form.geoID : null,
       },
       query: `
-        mutation CreateTrack($user_id: ID, $name: String!, $country: String!, $location: String!, $gpx: String, $logo: String!, $stats: String!) {
-          createTrack(trackInput: {user_id: $user_id, name: $name, country: $country, location: $location, gpx: $gpx, logo: $logo, stats: $stats}) {
+        mutation CreateTrack($user_id: ID, $name: String!, $country: String!, $location: String!, $gpx: String, $geojson: ID, $logo: String, $stats: String) {
+          createTrack(trackInput: {user_id: $user_id, name: $name, country: $country, location: $location, gpx: $gpx, geojson: $geojson, logo: $logo, stats: $stats}) {
             ${populateTrack}
           }
         }
@@ -29,7 +41,20 @@ export const createTrack = async (user, setUser, track, history) => {
         checkAuth(res.data.errors, setUser, history)
         process.env.NODE_ENV === 'development' && console.log(res.data)
       } else {
-        console.log(initTrack(res.data.data.createTrack))
+        const track = initTrack(res.data.data.createTrack)
+
+        setPostForm({
+          ...postForm,
+          trackID: track._id,
+        })
+
+        setTracks([
+          ...tracks,
+          track,
+        ])
+
+        setTracksVal(track)
+        
         useTokens(user, res.data.data.createTrack.tokens, setUser)
         process.env.NODE_ENV === 'development' && console.log(res)
       }
