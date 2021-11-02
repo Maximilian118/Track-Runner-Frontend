@@ -23,6 +23,7 @@ const Post = ({ history }) => {
     trackID: "",
     geoID: "",
     geoURL: "",
+    coords: null,
     lapTime: null,
     distance: null,
     timeOfRun: new Date(),

@@ -168,11 +168,11 @@ const dropZoneText = (usage, canDragDrop, multiple, acceptedFiles, fileRejection
 
 // Return the first item in thumbArr as a Thumbnail for DropZone.
 const dropZoneThumb = (thumb, usage) => {
-  let text = <h2 className="thumb-text">Change<br/>Profile Picture</h2>
+  let text = <h2 className="thumb-text">Change</h2>
 
   switch (usage) {
-    case "gpx": text = <h2 className="thumb-text">Change</h2>; break
-    default: text = <h2 className="thumb-text">Change<br/>Profile Picture</h2>
+    case "profile-picture": text = <h2 className="thumb-text">Change<br/>Profile Picture</h2>; break
+    default: text = <h2 className="thumb-text">Change</h2>
   }
 
   return (

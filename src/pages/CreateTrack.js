@@ -13,6 +13,8 @@ const CreateTrack = ({ postForm, setPostForm, history }) => {
   const [ form, setForm ] = useState({
     name: "",
     geoID: "",
+    geoURL: "",
+    coords: null,
     logo: "",
   })
   const [ formError, setFormError ] = useState({
@@ -35,6 +37,7 @@ const CreateTrack = ({ postForm, setPostForm, history }) => {
               <div className="middle-row">
                 <TextField 
                   required
+                  defaultValue={form.name}
                   error={!!formError.name}
                   variant="standard"
                   label="Name"
@@ -46,6 +49,7 @@ const CreateTrack = ({ postForm, setPostForm, history }) => {
               <div className="middle-row">
                 <DropZone
                   required
+                  defaultValue={form.geoURL}
                   user={user} 
                   setUser={setUser}
                   form={form}
@@ -58,6 +62,7 @@ const CreateTrack = ({ postForm, setPostForm, history }) => {
               </div>
               <div className="middle-row">
                 <DropZone
+                  defaultValue={form.logo}
                   user={user} 
                   setUser={setUser}
                   form={form}

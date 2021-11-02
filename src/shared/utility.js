@@ -180,6 +180,10 @@ export const formatFilename = (user, file, category) => {
 
 // Check for a duplicate filename by comparing the filename endpoints.
 export const isDuplicateFile = (currentFile, newFile) => {
+  if (!currentFile || !newFile) {
+    return
+  }
+
   const currentF = endpoint(currentFile)
   const newF = endpoint(newFile)
 
