@@ -6,7 +6,7 @@ import { TextField, Autocomplete, InputAdornment, Box, Button } from '@mui/mater
 import { LocalizationProvider, TimePicker, DatePicker } from '@mui/lab'
 import { PostAdd, Gesture, CropOriginal } from '@mui/icons-material'
 import momentAdapter from '@date-io/moment'
-import { updatePostForm, formValid } from '../shared/formValidation'
+import { updatePostForm, formValid, formCleanup } from '../shared/formValidation'
 import { getTracks } from '../shared/trackRequests'
 import PostHelp from '../components/Help/PostHelp'
 import HelpIcon from '../components/Help/HelpIcon'
@@ -46,6 +46,8 @@ const Post = ({ history }) => {
     const handleTracksReq = async () => setTracks(trackList(await getTracks(user, setUser, history)))
     handleTracksReq()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => () => formCleanup(postForm, setPostForm, formError, setFormError), []) // eslint-disable-line
 
   const handleCreatePost = e => {
     e.preventDefault()
