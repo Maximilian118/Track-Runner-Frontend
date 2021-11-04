@@ -12,9 +12,11 @@ import PostHelp from '../components/Help/PostHelp'
 import HelpIcon from '../components/Help/HelpIcon'
 import { trackList } from '../shared/utility'
 import CreateTrack from './CreateTrack'
+import Spinner from '../components/Utility/Spinner'
 
 const Post = ({ history }) => {
-  const { user, setUser, setLoading } = useContext(Context)
+  const { user, setUser } = useContext(Context)
+  const [ loading, setLoading ] = useState(false)
   const [ help, setHelp ] = useState(false)
   const [ tracks, setTracks ] = useState([])
   const [ tracksVal, setTracksVal ] = useState(null)
@@ -68,7 +70,7 @@ const Post = ({ history }) => {
     dateOfRun: postForm.dateOfRun,
   }
 
-  return postForm.trackID === "Create a Track" ? 
+  return loading ? <Spinner position="vp"/> : postForm.trackID === "Create a Track" ? 
     <CreateTrack
       postForm={postForm} 
       setPostForm={setPostForm}

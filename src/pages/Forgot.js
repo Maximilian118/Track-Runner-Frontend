@@ -1,16 +1,13 @@
-import React, { useState, useContext } from 'react'
-import { Context } from '../App'
-import { updateForm, errorCheck, formValid } from '../shared/formValidation'
+import React, { useState, useEffect } from 'react'
+import { updateForm, errorCheck, formValid, formCleanup, initBackendError } from '../shared/formValidation'
 import { forgot } from '../shared/userRequests'
 import { TextField, Button } from '@mui/material'
 import { ExitToApp } from '@mui/icons-material'
+import Spinner from '../components/Utility/Spinner'
 
 const Forgot = ({ history }) => {
-  const { setLoading } = useContext(Context)
-  const [ backendError, setBackendError ] = useState({
-    type: "",
-    message: "",
-  })
+  const [ loading, setLoading ] = useState(false)
+  const [ backendError, setBackendError ] = useState(initBackendError)
   const [ form, setForm ] = useState({
     email: "",
   })
@@ -18,12 +15,14 @@ const Forgot = ({ history }) => {
     email: "",
   })
 
+  useEffect(() => () => formCleanup(form, setForm, formError, setFormError, backendError, setBackendError), []) // eslint-disable-line
+
   const onSubmitHandler = e => {
     e.preventDefault()
     forgot(form.email, setLoading, setBackendError, history)
   }
   
-  return (
+  return loading ? <Spinner position="vp"/> : (
     <div className="model-wrapper">
       <form className="model" onSubmit={e => onSubmitHandler(e)}>
         <div className="top">
@@ -33,12 +32,13 @@ const Forgot = ({ history }) => {
           <div className="middle-row">
             <TextField 
               required
+              defaultValue={form.email}
               variant="standard"
               error={!!errorCheck(formError, backendError, "email")}
               label="Email"
               name="email"
               className="mui-text-field"
-              onChange={e => updateForm(e, form, setForm, formError, setFormError)}
+              onChange={e => updateForm(e, form, setForm, formError, setFormError, backendError, setBackendError)}
             />
             {errorCheck(formError, backendError, "email")}
           </div>

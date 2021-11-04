@@ -1,12 +1,12 @@
 import axios from 'axios'
-import { useTokens, checkAuth, getAxiosError, headers } from './utility'
+import { useTokens, checkAuth, getAxiosError, headers, unknownError } from './utility'
 import { initTrack } from './initRequestResult'
 import { handleDropZoneError, handleDropZoneSuccess } from '../components/Utility/DropZone/DropZoneUtility'
 import { populateTrack } from './requestPopulation'
 import { redundantFilesCheck } from './bucketRequests'
 import { getGeoInfo } from './miscRequests'
 
-export const createTrack = async (user, setUser, form, postForm, setPostForm, tracks, setTracks, setTracksVal, history) => {
+export const createTrack = async (user, setUser, form, postForm, setPostForm, tracks, setTracks, setTracksVal, setBackendError, setLoading, history) => {
   if (!form.geoID && !form.gpx) {
     console.log("No geojson or gpx found.")
     return
@@ -15,6 +15,7 @@ export const createTrack = async (user, setUser, form, postForm, setPostForm, tr
     return
   }
 
+  setLoading(true)
   const geo = await getGeoInfo(form.coords.lat, form.coords.lon)
 
   try {
@@ -58,12 +59,16 @@ export const createTrack = async (user, setUser, form, postForm, setPostForm, tr
         useTokens(user, res.data.data.createTrack.tokens, setUser)
         process.env.NODE_ENV === 'development' && console.log(res)
       }
+
+      setLoading(false)
     }).catch(err => {
+      setBackendError(err.response.data.errors[0].message)
       checkAuth(err.response.data.errors, setUser, history)
       process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
+      setLoading(false)
     })
   } catch (err) {
-    console.log(err)
+    unknownError(setBackendError, setLoading)
   }
 }
 

@@ -4,13 +4,16 @@ import { Button, TextField } from '@mui/material'
 import { AddRoad, CropOriginal, Gesture } from '@mui/icons-material'
 import HelpIcon from '../components/Help/HelpIcon'
 import CreateTrackHelp from '../components/Help/CreateTrackHelp'
-import { updateCreateTrackForm, formValid } from '../shared/formValidation'
+import { updateCreateTrackForm, formValid, errorCheck, initBackendError, formCleanup } from '../shared/formValidation'
 import DropZone from '../components/Utility/DropZone'
 import { createTrack } from '../shared/trackRequests'
+import Spinner from '../components/Utility/Spinner'
 
 const CreateTrack = ({ postForm, setPostForm, tracks, setTracks, setTracksVal, history }) => {
   const { user, setUser } = useContext(Context)
+  const [ loading, setLoading ] = useState(false)
   const [ help, setHelp ] = useState(false)
+  const [ backendError, setBackendError ] = useState(initBackendError)
   const [ form, setForm ] = useState({
     name: "",
     geoID: postForm.geoID ? postForm.geoID : null,
@@ -23,13 +26,14 @@ const CreateTrack = ({ postForm, setPostForm, tracks, setTracks, setTracksVal, h
   })
 
   useEffect(() => setTracksVal(null), [setTracksVal])
-
+  useEffect(() => () => formCleanup(form, setForm, formError, setFormError, backendError, setBackendError), []) // eslint-disable-line
+  
   const handleCreateTrack = e => {
     e.preventDefault()
-    createTrack(user, setUser, form, postForm, setPostForm, tracks, setTracks, setTracksVal, history)
+    createTrack(user, setUser, form, postForm, setPostForm, tracks, setTracks, setTracksVal, setBackendError, setLoading, history)
   }
 
-  return (
+  return loading ? <Spinner position="vp"/> : (
     <div className="model-wrapper">
       <form className="model">
           <div className="top">
@@ -42,13 +46,14 @@ const CreateTrack = ({ postForm, setPostForm, tracks, setTracks, setTracksVal, h
                 <TextField 
                   required
                   defaultValue={form.name}
-                  error={!!formError.name}
+                  error={!!errorCheck(formError, backendError, "name")}
                   variant="standard"
                   label="Name"
                   name="name"
                   className="mui-text-field"
-                  onChange={e => updateCreateTrackForm(e, form, setForm, formError, setFormError)}
+                  onChange={e => updateCreateTrackForm(e, form, setForm, formError, setFormError, backendError, setBackendError)}
                 />
+                {errorCheck(formError, backendError, "name")}
               </div>
               <div className="middle-row">
                 <DropZone
