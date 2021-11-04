@@ -27,13 +27,14 @@ const Login = ({ history }) => {
     login(form, user, setUser, setLoading, setBackendError, history)
   }
 
-  return loading ? <Spinner position="vp"/> : (
+  return (
     <div className="model-wrapper">
       <form className="model" onSubmit={e => onSubmitHandler(e)}>
         <div className="top">
           <h3>Login</h3>
         </div>
         <div className="middle">
+          {loading && <Spinner position="form"/>}
           <div className="middle-row">
             <TextField 
               required

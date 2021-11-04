@@ -70,7 +70,7 @@ const Post = ({ history }) => {
     dateOfRun: postForm.dateOfRun,
   }
 
-  return loading ? <Spinner position="vp"/> : postForm.trackID === "Create a Track" ? 
+  return postForm.trackID === "Create a Track" ? 
     <CreateTrack
       postForm={postForm} 
       setPostForm={setPostForm}
@@ -87,6 +87,7 @@ const Post = ({ history }) => {
           </div>
           {help ? <PostHelp/> : 
             <div className="middle">
+              {loading && <Spinner position="form"/>}
               <div className="middle-row">
                 <TextField 
                   required

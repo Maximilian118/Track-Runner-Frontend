@@ -7,7 +7,7 @@
   }
 }
 
-.mui-spinner-absolute, .mui-spinner-vp, .mui-spinner-icon {
+.mui-spinner-absolute, .mui-spinner-vp, .mui-spinner-icon, .mui-spinner-form {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -23,4 +23,11 @@
 
 .mui-spinner-icon {
   right: 12px;
+}
+
+.mui-spinner-form {
+  width: 100%;
+  height: 100%;
+  background: white;
+  z-index: 2;
 }

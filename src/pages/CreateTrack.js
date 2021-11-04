@@ -33,7 +33,7 @@ const CreateTrack = ({ postForm, setPostForm, tracks, setTracks, setTracksVal, h
     createTrack(user, setUser, form, postForm, setPostForm, tracks, setTracks, setTracksVal, setBackendError, setLoading, history)
   }
 
-  return loading ? <Spinner position="vp"/> : (
+  return (
     <div className="model-wrapper">
       <form className="model">
           <div className="top">
@@ -42,6 +42,7 @@ const CreateTrack = ({ postForm, setPostForm, tracks, setTracks, setTracksVal, h
           </div>
           {help ? <CreateTrackHelp/> : 
             <div className="middle">
+              {loading && <Spinner position="form"/>}
               <div className="middle-row">
                 <TextField 
                   required
