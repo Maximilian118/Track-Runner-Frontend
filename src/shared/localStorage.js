@@ -5,6 +5,7 @@ import { initPosts, initGeojsons } from '../shared/initRequestResult'
 export const checkLocalStorage = () => {
   const token = localStorage.getItem('token')
   const refreshToken = localStorage.getItem("refresh_token")
+
   if (!token && !refreshToken) {
     return logout()
   } else {
@@ -16,9 +17,9 @@ export const checkLocalStorage = () => {
       email: localStorage.getItem('email'),
       icon: localStorage.getItem('icon'),
       profile_picture: localStorage.getItem('profile_picture'),
-      posts: initPosts(JSON.parse(localStorage.getItem('posts'))),
+      posts: JSON.parse(localStorage.getItem('posts')),
       tracks: JSON.parse(localStorage.getItem('tracks')),
-      geojsons: initGeojsons(JSON.parse(localStorage.getItem('geojsons'))),
+      geojsons: JSON.parse(localStorage.getItem('geojsons')),
       events: JSON.parse(localStorage.getItem('events')),
       following: JSON.parse(localStorage.getItem('following')),
       calendars: JSON.parse(localStorage.getItem('calendars')),
@@ -59,9 +60,9 @@ export const logInSuccess = userObj => {
     localStorage.setItem('email', userObj.email)
     localStorage.setItem('icon', userObj.icon)
     localStorage.setItem('profile_picture', userObj.profile_picture)
-    localStorage.setItem('posts', JSON.stringify(userObj.posts))
+    localStorage.setItem('posts', JSON.stringify(initPosts(userObj.posts)))
     localStorage.setItem('tracks', JSON.stringify(userObj.tracks))
-    localStorage.setItem('geojsons', JSON.stringify(userObj.geojsons))
+    localStorage.setItem('geojsons', JSON.stringify(initGeojsons(userObj.geojsons)))
     localStorage.setItem('events', JSON.stringify(userObj.events))
     localStorage.setItem('following', JSON.stringify(userObj.following))
     localStorage.setItem('calendars', JSON.stringify(userObj.calendars))

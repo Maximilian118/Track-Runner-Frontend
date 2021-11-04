@@ -8,39 +8,53 @@ const redundantLapTimeHours = lap_time => {
   }
 }
 
+// Parse a single post.
+export const initPost = post => {
+  return {
+    ...post,
+    lap_time: redundantLapTimeHours(post.lap_time),
+    distance: Number(post.distance),
+    geojson: post.geojson ? initGeojson(post.geojson) : null,
+    track: post.track ? initTrack(post.track) : null,
+  }
+}
+
 // Parse an array of posts.
 export const initPosts = posts => {
   return posts.map(post => {
-    return {
-      ...post,
-      lap_time: redundantLapTimeHours(post.lap_time),
-      distance: Number(post.distance),
-      geojson: post.geojson ? {
-        ...post.geojson,
-        geojson: post.geojson.geojson ? JSON.parse(post.geojson.geojson) : null,
-        stats: post.geojson.stats ? JSON.parse(post.geojson.stats) : null,
-      } : null,
-      track: post.track ? {
-        ...post.track,
-        geojson: post.track.geojson ? {
-          ...post.track.geojson,
-          geojson: post.track.geojson.geojson ? JSON.parse(post.track.geojson.geojson) : null,
-          stats: post.track.geojson.stats ? JSON.parse(post.track.geojson.stats) : null,
-        } : null,
-        stats: post.track.stats ? JSON.parse(post.track.stats) : null,
-      } : null,
-    }
+    return initPost(post)
   })
+}
+
+// Parse a single track.
+export const initTrack = track => {
+  return {
+    ...track,
+    stats: track.stats ? JSON.parse(track.stats) : null,
+    geojson: track.geojson ? initGeojson(track.geojson) : null
+  }
+}
+
+// Parse an array of tracks.
+export const initTracks = tracks => {
+  return tracks.map(track => {
+    return initTrack(track)
+  })
+}
+
+// Parse a single geojson.
+export const initGeojson = geojson => {
+  return {
+    ...geojson,
+    geojson: JSON.parse(geojson.geojson),
+    stats: geojson.stats ? JSON.parse(geojson.stats) : null,
+  }
 }
 
 // Parse an array of geojsons.
 export const initGeojsons = geojsons => {
   return geojsons.map(geojson => {
-    return {
-      ...geojson,
-      geojson: JSON.parse(geojson.geojson),
-      stats: geojson.stats ? JSON.parse(geojson.stats) : null,
-    }
+    return initGeojson(geojson)
   })
 }
 
@@ -50,19 +64,6 @@ export const initUser = user => {
     ...user,
     geojsons: initGeojsons(user.geojsons),
     posts: initPosts(user.posts),
-  }
-}
-
-// Parse a track.
-export const initTrack = track => {
-  return {
-    ...track,
-    stats: JSON.parse(track.stats),
-    geojson: {
-      ...track.geojson,
-      geojson: JSON.parse(track.geojson.geojson),
-      stats: JSON.parse(track.geojson.stats),
-    }
   }
 }
 

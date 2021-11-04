@@ -3,6 +3,7 @@ import moment from 'moment'
 import { headers, checkAuth, getAxiosError } from './utility'
 import { populatePost } from './requestPopulation'
 import { redundantFilesCheck } from './bucketRequests'
+import { initPost } from './initRequestResult'
 
 export const createPost = async (form, user, setUser, setLoading, history) => {
   setLoading(true)
@@ -36,7 +37,18 @@ export const createPost = async (form, user, setUser, setLoading, history) => {
         checkAuth(res.data.errors, setUser, history)
         process.env.NODE_ENV === 'development' && console.log(res.data.errors[0].message)
       } else {
+        const newPosts = [
+          initPost(res.data.data.createPost),
+          ...user.posts,
+        ]
+
+        setUser({
+          ...user,
+          posts: newPosts,
+        })
+
         history.push("/")
+        localStorage.setItem('posts', JSON.stringify(newPosts))
         redundantFilesCheck(user, setUser, history)
         process.env.NODE_ENV === 'development' && console.log(res)
       }

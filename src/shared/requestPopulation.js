@@ -105,6 +105,12 @@ export const populatePost = `
   }
   title
   description
+  geojson {
+		_id
+		name
+		geojson
+		stats
+	}
   track {
     _id
     name
@@ -113,13 +119,13 @@ export const populatePost = `
     logo
     stats
     likes
+    geojson {
+      _id
+      name
+      geojson
+      stats
+    }
   }
-  geojson {
-		_id
-		name
-		geojson
-		stats
-	}
   lap_time
   distance
   runDT
