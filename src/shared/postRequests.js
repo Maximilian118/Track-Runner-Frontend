@@ -8,25 +8,33 @@ import { initPost } from './initRequestResult'
 export const createPost = async (form, user, setUser, setLoading, history) => {
   setLoading(true)
 
+  const notATrack = form.trackID === "Not a Track"
   const tor = moment(form.timeOfRun).format("HH:mm:ss")
   const dor = moment(form.dateOfRun).format("YYYY-MM-DD")
   const runDT = moment(dor + ' ' + tor).format()
-  const lapTime = moment(form.lapTime._d).format("HH:mm:ss")
+  let lapTime = null
+  let distance = form.distance
+
+  if (notATrack) {
+    distance = JSON.stringify(form.geoStats.distance.total)
+  } else {
+    lapTime = moment(form.lapTime._d).format("HH:mm:ss")
+  }
 
   try {
     await axios.post('', {
       variables: {
         title: form.title,
         description: form.description,
-        track: form.trackID,
+        track: notATrack ? null : form.trackID,
         geojson: form.geoID,
         lapTime,
-        distance: form.distance,
+        distance,
         runDT,
         imgs: JSON.stringify(form.imgs),
       },
       query: `
-        mutation CreatePost($title: String!, $description: String, $track: ID, $geojson: ID, $lapTime: String!, $distance: String!, $runDT: String!, $imgs: String) {
+        mutation CreatePost($title: String!, $description: String, $track: ID, $geojson: ID, $lapTime: String, $distance: String!, $runDT: String!, $imgs: String) {
           createPost(postInput: {title: $title, description: $description, track: $track, geojson: $geojson, lapTime: $lapTime, distance: $distance, runDT: $runDT, imgs: $imgs}) {
             ${populatePost}
           }

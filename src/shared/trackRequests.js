@@ -4,19 +4,19 @@ import { initTrack } from './initRequestResult'
 import { handleDropZoneError, handleDropZoneSuccess } from '../components/Utility/DropZone/DropZoneUtility'
 import { populateTrack } from './requestPopulation'
 import { redundantFilesCheck } from './bucketRequests'
-import { getGeoInfo } from './miscRequests'
+import { getGeoLocation } from './miscRequests'
 
 export const createTrack = async (user, setUser, form, postForm, setPostForm, tracks, setTracks, setTracksVal, setBackendError, setLoading, history) => {
   if (!form.geoID && !form.gpx) {
     console.log("No geojson or gpx found.")
     return
-  } else if (!form.coords) {
+  } else if (!form.geoStats.coords) {
     console.log("No coordinates found.")
     return
   }
 
   setLoading(true)
-  const geo = await getGeoInfo(form.coords.lat, form.coords.lon)
+  const geo = await getGeoLocation(form.geoStats.coords.lat, form.geoStats.coords.lon)
 
   try {
     await axios.post('', {

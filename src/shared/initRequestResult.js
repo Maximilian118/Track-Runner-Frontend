@@ -12,7 +12,7 @@ const redundantLapTimeHours = lap_time => {
 export const initPost = post => {
   return {
     ...post,
-    lap_time: redundantLapTimeHours(post.lap_time),
+    lap_time: post.lap_time ? redundantLapTimeHours(post.lap_time) : null,
     distance: Number(post.distance),
     geojson: post.geojson ? initGeojson(post.geojson) : null,
     track: post.track ? initTrack(post.track) : null,

@@ -169,7 +169,7 @@ export const getMapBoxStatic = (geojson, width, height, highRes, withLogo, withA
   }
 }
 
-export const getGeoInfo = async (lat, lon) => {
+export const getGeoLocation = async (lat, lon) => {
   let info = null
 
   try {
@@ -189,3 +189,30 @@ export const getGeoInfo = async (lat, lon) => {
 
   return info
 }
+
+// export const getGeoStats = async (user, setUser, geojson, history) => {
+//   try {
+//     await axios.post('', {
+//       variables: {
+//         lat: coords,
+//         lon: null,
+//       },
+//       query: `
+        
+//       `
+//     }, {headers: headers(user.token)}).then(async (res) => {
+//       if (res.data.errors) {
+//         checkAuth(res.data.errors, setUser, history)
+//         process.env.NODE_ENV === 'development' && console.log(res.data)
+//       } else {
+//         useTokens(user, res.data.data.createRound.tokens, setUser)
+//         process.env.NODE_ENV === 'development' && console.log(res)
+//       }
+//     }).catch(err => {
+//       checkAuth(err.response.data.errors, setUser, history)
+//       process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
+//     })
+//   } catch (err) {
+//     console.log(err)
+//   }
+// }

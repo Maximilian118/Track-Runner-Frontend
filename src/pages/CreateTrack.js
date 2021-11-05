@@ -18,7 +18,7 @@ const CreateTrack = ({ postForm, setPostForm, tracks, setTracks, setTracksVal, h
     name: "",
     geoID: postForm.geoID ? postForm.geoID : null,
     geoURL: postForm.geoURL ? postForm.geoURL : null,
-    coords: postForm.coords ? postForm.coords : null,
+    geoStats: postForm.geoStats ? postForm.geoStats : null,
     logo: "",
   })
   const [ formError, setFormError ] = useState({
