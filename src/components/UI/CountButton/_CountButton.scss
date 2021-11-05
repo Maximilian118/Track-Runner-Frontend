@@ -1,0 +1,25 @@
+@import '../../../scss/variables';
+
+.count-button {
+  width: 30px;
+  height: 30px;
+  border: 1px solid $color-1;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+
+  button {
+    width: 30px;
+    height: 30px;
+
+    svg {
+      width: 18px;
+      height: 18px;
+      stroke: white;
+      stroke-width: 0.4px;
+    }
+  }
+}

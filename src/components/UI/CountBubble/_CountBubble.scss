@@ -1,0 +1,28 @@
+@import '../../../scss/variables';
+
+.count-bubble-container {
+  position: absolute;
+  width: 32px;
+  height: 12px;
+  transform: translateY(-17px);
+  display: flex;
+  justify-content: flex-end;
+
+  .count-bubble {
+    height: 100%;
+    width: fit-content;
+    background: $data;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    p {
+      color: white;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 0 3px;
+      transform: translate(0.0px, -0.5px);
+    }
+  }
+}

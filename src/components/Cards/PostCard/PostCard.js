@@ -40,7 +40,7 @@ const PostCard = ({ post }) => {
         </div>
         <div className="post-card-bottom">
           <PostCardImgs imgs={post.imgs}/>
-          <PostCardIcons/>
+          <PostCardIcons post={post}/>
         </div>
       </div>
     </div>

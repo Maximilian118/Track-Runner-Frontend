@@ -1,0 +1,21 @@
+.post-card-imgs {
+  display: flex;
+
+  .post-card-img-container {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .post-card-img-container:not(:first-child) {
+    margin-left: 5px;
+  }
+}

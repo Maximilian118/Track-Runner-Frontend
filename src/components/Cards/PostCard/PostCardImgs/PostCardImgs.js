@@ -1,4 +1,5 @@
 import React from 'react'
+import './_PostCardImgs.scss'
 
 const PostCardImgs = ({ imgs }) => (
   <div className="post-card-imgs">

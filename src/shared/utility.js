@@ -366,3 +366,12 @@ export const trackList = trackArr => {
 
   return tracks
 }
+
+// If number exceeds limit, return limit with adornment.
+export const numberLimit = (number, limit, adornment) => {
+  if (number > limit) {
+    return `${limit}${adornment ? adornment : `+`}`
+  } else {
+    return number
+  }
+}

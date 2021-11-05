@@ -1,0 +1,8 @@
+.post-card-icons {
+  display: flex;
+  align-items: flex-end;
+
+  .count-button:not(:last-child) {
+    margin-right: 5px;
+  }
+}

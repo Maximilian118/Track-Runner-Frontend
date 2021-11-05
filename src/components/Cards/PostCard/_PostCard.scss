@@ -34,58 +34,6 @@
         font-weight: 500;
       }
     }
-
-    .post-card-bottom {
-      .post-card-imgs {
-        display: flex;
-      
-        .post-card-img-container {
-          width: 30px;
-          height: 30px;
-          border-radius: 5px;
-          overflow: hidden;
-          flex-shrink: 0;
-      
-          img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
-        }
-      
-        .post-card-img-container:not(:first-child) {
-          margin-left: 5px;
-        }
-      }
-
-      .post-card-icons {
-        display: flex;
-        align-items: flex-end;
-
-        .button-wrapper {
-          width: 30px;
-          height: 30px;
-          border: 1px solid $color-1;
-          background: white;
-          border-radius: 50%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          box-sizing: border-box;
-
-          svg {
-            width: 18px;
-            height: 18px;
-            stroke: white;
-            stroke-width: 0.4px;
-          }
-        }
-
-        .button-wrapper:not(:last-child) {
-          margin-right: 5px;
-        }
-      }
-    }
   }
 
   .post-card-no-track-geojson {
