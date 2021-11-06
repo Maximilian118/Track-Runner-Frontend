@@ -7,12 +7,16 @@ import moment from 'moment'
 
 const Home = ({ history }) => {
   const { user, setUser, calendar } = useContext(Context)
-  const [ feed, setFeed ] = useState([])
+  const [ feed, setFeed ] = useState(!!localStorage.getItem('feed') ? JSON.parse(localStorage.getItem('feed')) : [])
 
   useEffect(() => {
-    const handleFeedReq = async () => await getFeed(user, setUser, setFeed, moment().format(), 100, history)
+    const handleFeedReq = async () => {
+      if (feed.length === 0) {
+        await getFeed(user, setUser, setFeed, moment().format(), 100, history)
+      }
+    }
     handleFeedReq()
-  }, [])
+  }, []) // eslint-disable-line
 
   return (
     <>

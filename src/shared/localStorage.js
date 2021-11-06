@@ -47,6 +47,7 @@ export const logout = history => {
   localStorage.removeItem('rounds')
   localStorage.removeItem('championships')
   localStorage.removeItem('likes')
+  localStorage.removeItem('feed')
 
   history && history.push('/login')
   return {}

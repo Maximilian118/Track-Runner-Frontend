@@ -210,7 +210,9 @@ export const getFeed = async (user, setUser, setFeed, fromDate, amount, history)
         checkAuth(res.data.errors, setUser, history)
         process.env.NODE_ENV === 'development' && console.log(res.data)
       } else {
-        setFeed(initPosts(JSON.parse(res.data.data.feed.feed)))
+        const feed = initPosts(JSON.parse(res.data.data.feed.feed))
+        setFeed(feed)
+        localStorage.setItem('feed', JSON.stringify(feed))
         useTokens(user, res.data.data.feed.tokens, setUser)
         process.env.NODE_ENV === 'development' && console.log(res)
       }
