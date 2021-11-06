@@ -8,15 +8,17 @@ import { Link } from 'react-router-dom'
 const NavIcons = ({ user, setValue }) => 
   <div className="nav-icons">
     <Link to="/post" onClick={() => setValue(0)}>
-      <IconButton aria-label="Post">
+      <IconButton size="small" aria-label="Post">
         <PostAdd/>
       </IconButton>
     </Link>
-    <IconButton aria-label="Notifications">
-      <NotificationsNoneOutlined/>
-    </IconButton>
+    <Link to="/" onClick={() => setValue(0)}>
+      <IconButton size="small" aria-label="Notifications">
+        <NotificationsNoneOutlined/>
+      </IconButton>
+    </Link>
     <Link to="/profile" onClick={() => setValue(0)}>
-      <ProfilePicture user={user} heightWidth={30} style={{ marginLeft: 6 }}/>
+      <ProfilePicture user={user} heightWidth={30}/>
     </Link>
   </div>
 

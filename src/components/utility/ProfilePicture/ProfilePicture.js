@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './_ProfilePicture.scss'
 import { getInitials } from '../../../shared/utility'
+import { IconButton } from '@mui/material'
 
 const ProfilePicture = ({ user, heightWidth, style }) => {
   const [ isTall, setIsTall ] = useState(false)
@@ -8,14 +9,14 @@ const ProfilePicture = ({ user, heightWidth, style }) => {
 
   // Check if the image is portrait or landscape and apply correct style to img.
   const heighOrWide = e => setIsTall(e.target.clientWidth < e.target.clientHeight)
-  const gotImg = !user.icon || err
+  const noIcon = !user.icon || err
 
   return (
     <div 
-      className={`profile-picture-icon ${gotImg && `initials-icon`}`} 
+      className={`profile-picture ${noIcon && `profile-picture-no-icon`}`}
       style={{ ...style, height: heightWidth, width: heightWidth }}
     >
-      {user.icon && !err ? 
+      {!noIcon && 
         <img
           alt="Profile"
           style={isTall ? { width: heightWidth } : { height: heightWidth }} 
@@ -23,10 +24,11 @@ const ProfilePicture = ({ user, heightWidth, style }) => {
           key={user.icon}
           onLoad={e => heighOrWide(e)}
           onError={e => setErr(true)}
-        /> 
-      :
-        <p>{getInitials(user)}</p>
+        />
       }
+      <IconButton size="small">
+        {noIcon && <p>{getInitials(user)}</p>}    
+      </IconButton>
     </div>
   )
 }

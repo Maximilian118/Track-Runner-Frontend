@@ -35,7 +35,7 @@ const NavTabs = ({ user, value, setValue, history }) => {
       TabIndicatorProps={{style: {background: '#ff0000'}}}
       style={{flexGrow: 1}}
     >
-      <Tab disabled style={{width: 0, padding: 0, margin: 0}}/>
+      <Tab disabled style={{ minWidth: "fit-content", width: 0, padding: 0, margin: 0}}/>
       <Tab 
         label={<h1>Track-Runner</h1>} 
         disabled={!user.token} 

@@ -5,11 +5,17 @@
   justify-content: flex-end;
   align-items: center;
 
+  a:not(:last-child) {
+    margin-right: 8px;
+  }
+  
+  a:last-child {
+    margin-left: 4px;
+  }
+
   button {
     width: 30px;
     height: 30px;
-    padding: 0;
-    margin-right: 8px;
   }
 
   svg {
