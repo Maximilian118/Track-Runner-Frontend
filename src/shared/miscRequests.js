@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useTokens, checkAuth, getAxiosError, headers } from './utility'
-import { initRoundsString } from './initRequestResult'
+import { initPosts, initRoundsString } from './initRequestResult'
 import mbxClient from '@mapbox/mapbox-sdk/services/static'
 
 export const createChampionship = async (user, setUser, championship, history) => {
@@ -190,29 +190,35 @@ export const getGeoLocation = async (lat, lon) => {
   return info
 }
 
-// export const getGeoStats = async (user, setUser, geojson, history) => {
-//   try {
-//     await axios.post('', {
-//       variables: {
-//         lat: coords,
-//         lon: null,
-//       },
-//       query: `
-        
-//       `
-//     }, {headers: headers(user.token)}).then(async (res) => {
-//       if (res.data.errors) {
-//         checkAuth(res.data.errors, setUser, history)
-//         process.env.NODE_ENV === 'development' && console.log(res.data)
-//       } else {
-//         useTokens(user, res.data.data.createRound.tokens, setUser)
-//         process.env.NODE_ENV === 'development' && console.log(res)
-//       }
-//     }).catch(err => {
-//       checkAuth(err.response.data.errors, setUser, history)
-//       process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
-//     })
-//   } catch (err) {
-//     console.log(err)
-//   }
-// }
+export const getFeed = async (user, setUser, setFeed, fromDate, amount, history) => {
+  try {
+    await axios.post('', {
+      variables: {
+        fromDate,
+        amount,
+      },
+      query: `
+        query Feed($fromDate: String!, $amount: Int!) {
+          feed(fromDate: $fromDate, amount: $amount) {
+            feed
+            tokens
+          }
+        }
+      `
+    }, {headers: headers(user.token)}).then(async (res) => {
+      if (res.data.errors) {
+        checkAuth(res.data.errors, setUser, history)
+        process.env.NODE_ENV === 'development' && console.log(res.data)
+      } else {
+        setFeed(initPosts(JSON.parse(res.data.data.feed.feed)))
+        useTokens(user, res.data.data.feed.tokens, setUser)
+        process.env.NODE_ENV === 'development' && console.log(res)
+      }
+    }).catch(err => {
+      checkAuth(err.response.data.errors, setUser, history)
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
+    })
+  } catch (err) {
+    console.log(err)
+  }
+}
