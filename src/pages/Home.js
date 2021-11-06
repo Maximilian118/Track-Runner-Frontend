@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../App'
 import TrackCard from '../components/Cards/TrackCard'
 import PostCard from '../components/Cards/PostCard'
-import { getFeed } from '../shared/miscRequests'
+import { getFeed } from '../shared/feedRequests'
 import moment from 'moment'
 
 const Home = ({ history }) => {
@@ -11,9 +11,7 @@ const Home = ({ history }) => {
 
   useEffect(() => {
     const handleFeedReq = async () => {
-      if (feed.length === 0) {
-        await getFeed(user, setUser, setFeed, moment().format(), 100, history)
-      }
+      await getFeed(user, setUser, feed, setFeed, moment().format(), feed.length === 0 ? null : feed[0].created_at, 50, history)
     }
     handleFeedReq()
   }, []) // eslint-disable-line
