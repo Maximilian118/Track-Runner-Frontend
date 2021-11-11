@@ -25,7 +25,7 @@ export const checkLocalStorage = () => {
       calendars: JSON.parse(localStorage.getItem('calendars')),
       rounds: JSON.parse(localStorage.getItem('rounds')),
       championships: JSON.parse(localStorage.getItem('championships')),
-      likes: Number(localStorage.getItem('likes')),
+      likes: JSON.parse(localStorage.getItem('likes')),
     }
   }
 }
@@ -69,7 +69,7 @@ export const logInSuccess = userObj => {
     localStorage.setItem('calendars', JSON.stringify(userObj.calendars))
     localStorage.setItem('rounds', JSON.stringify(userObj.rounds))
     localStorage.setItem('championships', JSON.stringify(userObj.championships))
-    localStorage.setItem('likes', userObj.likes)
+    localStorage.setItem('likes', JSON.stringify(userObj.likes))
   }
 
   return removeKey(userObj, "tokens")

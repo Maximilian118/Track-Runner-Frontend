@@ -1,7 +1,8 @@
 import axios from 'axios'
-import { useTokens, checkAuth, getAxiosError, headers } from './utility'
-import { initPosts, initRoundsString } from './initRequestResult'
+import { useTokens, checkAuth, getAxiosError, headers, newStateAndLS } from './utility'
+import { initRoundsString } from './initRequestResult'
 import mbxClient from '@mapbox/mapbox-sdk/services/static'
+import { populateLike } from '../shared/requestPopulation'
 
 export const createChampionship = async (user, setUser, championship, history) => {
   try {
@@ -188,4 +189,62 @@ export const getGeoLocation = async (lat, lon) => {
   }
 
   return info
+}
+
+export const like = async (user, setUser, feed, setFeed, object_type, object_id, action, history) => {
+  let oldFeed = feed
+  let newFeed = null
+
+  switch (action) {
+    case "add": newFeed = feed.map(post => {
+      if (post._id === object_id) {
+        return { ...post, likes: [ ...post.likes, user._id ] }
+      } else {
+        return post
+      }
+    }); break
+    case "remove": newFeed = feed.map(post => {
+      if (post._id === object_id) {
+        return { ...post, likes: post.likes.filter(user_id => user_id !== user._id) }
+      } else {
+        return post
+      }
+    }); break
+    default: newFeed = null
+  }
+
+  newStateAndLS(setFeed, newFeed, 'feed', true)
+
+  try {
+    await axios.post('', {
+      variables: {
+        object_type,
+        object_id,
+        action,
+      },
+      query: `
+        mutation Like($object_type: String!, $object_id: ID!, $action: String!) {
+          like(object_type: $object_type, object_id: $object_id, action: $action) {
+            ${populateLike}
+          }
+        }
+      `
+    }, {headers: headers(user.token)}).then(async (res) => {
+      if (res.data.errors) {
+        newStateAndLS(setFeed, oldFeed, 'feed', true)
+        checkAuth(res.data.errors, setUser, history)
+        process.env.NODE_ENV === 'development' && console.log(res.data)
+      } else {
+        useTokens(user, res.data.data.like.tokens, setUser)
+        process.env.NODE_ENV === 'development' && console.log(res)
+      }
+    }).catch(err => {
+      newStateAndLS(setFeed, oldFeed, 'feed', true)
+      checkAuth(err.response.data.errors, setUser, history)
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
+    })
+  } catch (err) {
+    newStateAndLS(setFeed, oldFeed, 'feed', true)
+    console.log(err)
+  }
 }

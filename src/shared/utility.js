@@ -375,3 +375,11 @@ export const numberLimit = (number, limit, adornment) => {
     return number
   }
 }
+
+// Update state and localStorage.
+export const newStateAndLS = (setState, newState, ls, stringify) => {
+  if (newState) {
+    setState(newState)
+    ls && localStorage.setItem(ls, stringify ? JSON.stringify(newState) : newState)
+  }
+}

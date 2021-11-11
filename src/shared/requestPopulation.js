@@ -166,3 +166,14 @@ export const populateGeojson = `
   stats
   tokens
 `
+
+// Like population template literal.
+export const populateLike = `
+  object_type
+  object_id
+  old_likes
+  old_likes_length
+  new_likes
+  new_likes_length
+  tokens
+`

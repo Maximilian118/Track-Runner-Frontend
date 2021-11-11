@@ -6,7 +6,7 @@ import PostCardImgs from './PostCardImgs'
 import PostCardIcons from './PostCardIcons'
 import moment from 'moment'
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, feed, setFeed }) => {
   let content = null
 
   if (navigator.onLine) {
@@ -40,7 +40,7 @@ const PostCard = ({ post }) => {
         </div>
         <div className="post-card-bottom">
           <PostCardImgs imgs={post.imgs}/>
-          <PostCardIcons post={post}/>
+          <PostCardIcons post={post} feed={feed} setFeed={setFeed}/>
         </div>
       </div>
     </div>

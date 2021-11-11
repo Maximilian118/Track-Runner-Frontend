@@ -22,7 +22,7 @@ const Home = ({ history }) => {
         {calendar.some(e => e.track) && <TrackCard calendar={calendar}/>}
       </div>
       <div className="page-right">
-        {feed.map((post, i) => <PostCard key={i} post={post}/>)}
+        {feed.map((post, i) => <PostCard key={i} post={post} feed={feed} setFeed={setFeed}/>)}
       </div>
     </>
   )
