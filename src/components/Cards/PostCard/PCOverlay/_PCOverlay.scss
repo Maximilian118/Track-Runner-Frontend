@@ -1,0 +1,31 @@
+@import '../../../../scss/variables';
+
+.post-card-overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  padding: 0 5px;
+  box-sizing: border-box;
+
+  .post-card-top, .post-card-bottom {
+    width: 100%;
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .post-card-top-left {
+    h6 {
+      margin-top: 3px;
+    }
+
+    h6:last-child {
+      margin-top: 4px;
+      color: $data;
+      font-weight: 500;
+    }
+  }
+}
