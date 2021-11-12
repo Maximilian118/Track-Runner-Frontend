@@ -1,7 +1,7 @@
 import React from 'react'
-import './_PostCardImgs.scss'
+import './_PCImages.scss'
 
-const PostCardImgs = ({ imgs }) => (
+const PCImages = ({ imgs }) => (
   <div className="post-card-imgs">
     {imgs.map(img => (
       <div key={img} className="post-card-img-container">
@@ -11,4 +11,4 @@ const PostCardImgs = ({ imgs }) => (
   </div>
 )
 
-export default PostCardImgs
+export default PCImages

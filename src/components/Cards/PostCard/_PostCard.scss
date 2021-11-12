@@ -34,19 +34,4 @@
       }
     }
   }
-
-  .post-card-no-track-geojson {
-    width: 440px;
-    height: 180px;
-    background: $mbx-background;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    color: $mbx-typography;
-    
-    h5 {
-      font-weight: 400;
-    }
-  }
 }
