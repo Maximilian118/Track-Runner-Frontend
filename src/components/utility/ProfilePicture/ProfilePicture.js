@@ -13,7 +13,7 @@ const ProfilePicture = ({ user, heightWidth, style }) => {
 
   return (
     <div 
-      className={`profile-picture ${noIcon && `profile-picture-no-icon`}`}
+      className="profile-picture"
       style={{ ...style, height: heightWidth, width: heightWidth }}
     >
       {!noIcon && 
@@ -27,7 +27,7 @@ const ProfilePicture = ({ user, heightWidth, style }) => {
         />
       }
       <IconButton size="small">
-        {noIcon && <p>{getInitials(user)}</p>}    
+        {noIcon && <p>{getInitials(user)}</p>}
       </IconButton>
     </div>
   )

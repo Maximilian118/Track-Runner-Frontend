@@ -9,6 +9,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  box-shadow: $shadow;
 
   img {
     width: 100%;
@@ -27,8 +28,4 @@
       font-size: 0.6em;
     }
   }
-}
-
-.profile-picture-no-icon {
-  border: 1px solid $color-1;
 }

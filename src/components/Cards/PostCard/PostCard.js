@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './_PostCard.scss'
 import MapBoxStatic from '../../Utility/MapBoxStatic'
 import PCOverlay from './PCOverlay'
@@ -6,7 +6,8 @@ import NoGeojson from './NoGeojson'
 import PCDetails from './PCDetails'
 
 const PostCard = ({ post, feed, setFeed }) => {
-  const [ height, setHeight ] = useState(false)
+  const [ postClicked, setPostClicked ] = useState(false)
+  const [ details, setDetails ] = useState(false)
 
   const getPCContent = geojson => {
     if (geojson) {
@@ -16,9 +17,15 @@ const PostCard = ({ post, feed, setFeed }) => {
     }
   }
 
+  useEffect(() => !details && postClicked && setDetails(true), [details, postClicked])
+
   return (
-    <div className="card-model post-card" onClick={() => setHeight(!height)} style={{ height: height ? 540 : 180 }}>
-      <PCDetails/>
+    <div 
+      className="card-model post-card" 
+      onClick={() => setPostClicked(!postClicked)} 
+      style={{ height: postClicked ? 540 : 180 }}
+    >
+      {details && <PCDetails/>}
       {getPCContent(post.geojson ? post.geojson.geojson : post.track.geojson ? post.track.geojson.geojson : null)}
       <PCOverlay post={post} feed={feed} setFeed={setFeed}/>
     </div>
