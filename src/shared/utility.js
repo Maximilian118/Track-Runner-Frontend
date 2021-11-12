@@ -36,7 +36,7 @@ export const userStatsArr = user => {
     },
     {
       name: "Likes",
-      stat: user.likes,
+      stat: user.likes.length,
     },
   ]
 }
