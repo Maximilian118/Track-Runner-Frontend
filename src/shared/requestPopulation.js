@@ -16,6 +16,7 @@ export const populateUser = `
       name
       email
       icon
+      created_at
     }
     title
     description
@@ -102,6 +103,7 @@ export const populatePost = `
     name
     email
     icon
+    created_at
   }
   title
   description

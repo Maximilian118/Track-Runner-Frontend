@@ -25,7 +25,7 @@ const PostCard = ({ post, feed, setFeed }) => {
       onClick={() => setPostClicked(!postClicked)} 
       style={{ height: postClicked ? 540 : 180 }}
     >
-      {details && <PCDetails/>}
+      {details && <PCDetails post={post}/>}
       {getPCContent(post.geojson ? post.geojson.geojson : post.track.geojson ? post.track.geojson.geojson : null)}
       <PCOverlay post={post} feed={feed} setFeed={setFeed}/>
     </div>
