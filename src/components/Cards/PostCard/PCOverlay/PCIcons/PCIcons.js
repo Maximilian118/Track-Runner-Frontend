@@ -9,7 +9,11 @@ import CountButton from '../../../../UI/CountButton'
 const PCIcons = ({ post, feed, setFeed, history }) => {
   const { user, setUser } = useContext(Context)
   const liked = post.likes.some(ID => ID === user._id)
-  const handleLikeClicked = () => like(user, setUser, feed, setFeed, "post", post._id, liked ? "remove" : "add", history)
+
+  const handleLikeClicked = e => {
+    e.stopPropagation()
+    like(user, setUser, feed, setFeed, "post", post._id, liked ? "remove" : "add", history)
+  }
 
   return (
     <div className="post-card-icons">
@@ -17,7 +21,7 @@ const PCIcons = ({ post, feed, setFeed, history }) => {
       <CountButton 
         icon={liked ? <ThumbUp/> : <ThumbUpAltOutlined/>} 
         number={post.likes.length} 
-        onClick={() => handleLikeClicked()}
+        onClick={e => handleLikeClicked(e)}
       />
     </div>
   )

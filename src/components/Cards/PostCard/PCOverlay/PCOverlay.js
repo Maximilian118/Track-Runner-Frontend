@@ -4,6 +4,7 @@ import moment from 'moment'
 import ProfilePicture from '../../../Utility/ProfilePicture'
 import PCImages from './PCImages'
 import PCIcons from './PCIcons'
+import { Link } from 'react-router-dom'
 
 const PCOverlay = ({ post, feed, setFeed }) => (
   <div className="post-card-overlay">
@@ -13,7 +14,9 @@ const PCOverlay = ({ post, feed, setFeed }) => (
         <h6>{moment(post.runDT).format("Do MMM HH:mm")}</h6>
         <h6>{post.lap_time}</h6>
       </div>
-      <ProfilePicture user={post.user} heightWidth={30}/>
+      <Link to="/profile" onClick={e => e.stopPropagation()}>
+        <ProfilePicture user={post.user} heightWidth={30}/>
+      </Link>
     </div>
     <div className="post-card-bottom">
       <PCImages imgs={post.imgs}/>

@@ -13,7 +13,9 @@ const Home = ({ history }) => {
     const handleFeedReq = async () => {
       await getFeed(user, setUser, feed, setFeed, moment().format(), feed.length === 0 ? null : feed[0].created_at, 50, history)
     }
+    
     handleFeedReq()
+    return () => setFeed(feed)
   }, []) // eslint-disable-line
 
   return (
