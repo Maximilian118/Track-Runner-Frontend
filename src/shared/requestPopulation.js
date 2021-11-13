@@ -1,46 +1,42 @@
-// User population template literal.
-export const populateUser = `
-  _id
-  tokens
-  name
-  email
-  icon
-  profile_picture
-  calendars
-  championships
-  likes
-  posts {
+const userFields = `
+  {
     _id
-    user {
-      _id
-      name
-      email
-      icon
-      created_at
-    }
+    name
+    email
+    icon
+    calendars
+    championships
+    created_at
+  }
+`
+
+const geojsonFields = `
+  {
+    _id
+    name
+    geojson
+    stats
+  }
+`
+
+const trackFields = `
+  {
+    _id
+    name
+    country
+    location
+    logo
+    stats
+    likes
+    geojson ${geojsonFields}
+  }
+`
+
+const postFields = `
+  {
+    _id
     title
     description
-    track {
-      _id
-      name
-      country
-      location
-      logo
-      stats
-      likes
-      geojson {
-        _id
-        name
-        geojson
-        stats
-      }
-    }
-    geojson {
-      _id
-      name
-      geojson
-      stats
-    }
     lap_time
     distance
     runDT
@@ -48,26 +44,20 @@ export const populateUser = `
     likes
     created_at
     updated_at
+    user ${userFields}
+    track ${trackFields}
+    geojson ${geojsonFields}
   }
-  events {
+`
+
+const eventFields = `
+  {
     _id
   }
-  tracks {
-    _id
-    post
-    name
-    country
-    location
-    logo
-    stats
-    geojson {
-      _id
-      post
-      name
-      geojson
-    }
-  }
-  rounds {
+`
+
+const roundFields = `
+  {
     _id
     calendars
     year
@@ -80,54 +70,32 @@ export const populateUser = `
     sessions
     likes
   }
-  geojsons {
-    _id
-    post
-    name
-    geojson
-  }
-  following {
-    name
-    email
-    icon
-    calendars
-    championships
-  }
+`
+
+// User population template literal.
+export const populateUser = `
+  _id
+  tokens
+  name
+  email
+  icon
+  profile_picture
+  calendars
+  championships
+  likes
+  posts ${postFields}
+  events ${eventFields}
+  tracks ${trackFields}
+  rounds ${roundFields}
+  geojsons ${geojsonFields}
+  following ${userFields}
 `
 
 // Post population template literal.
 export const populatePost = `
   _id
-  user {
-    _id
-    name
-    email
-    icon
-    created_at
-  }
   title
   description
-  geojson {
-		_id
-		name
-		geojson
-		stats
-	}
-  track {
-    _id
-    name
-    country
-    location
-    logo
-    stats
-    likes
-    geojson {
-      _id
-      name
-      geojson
-      stats
-    }
-  }
   lap_time
   distance
   runDT
@@ -136,6 +104,9 @@ export const populatePost = `
   created_at
   updated_at
   tokens
+  user ${userFields}
+  geojson ${geojsonFields}
+  track ${trackFields}
 `
 
 // Track population template literal.
@@ -148,14 +119,7 @@ export const populateTrack = `
 	stats
 	likes
 	tokens
-	geojson {
-		_id
-		user
-		post
-		name
-		geojson
-		stats
-	}
+	geojson ${geojsonFields}
 `
 
 // Geojson population template literal.
