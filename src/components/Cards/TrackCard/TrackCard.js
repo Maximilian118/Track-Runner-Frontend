@@ -7,7 +7,7 @@ import MapBoxStatic from '../../Utility/MapBoxStatic'
 
 const TrackCard = ({ calendar }) => {
   const track = nextTrack(calendar)
-  
+
   return (
     <div className="card-model track-card">
       <div className="top">
@@ -15,7 +15,7 @@ const TrackCard = ({ calendar }) => {
       </div>
       {navigator.onLine && <img alt="Track Logo" src={track.logo}/>}
       <StatsCard statsArr={track.trackStatsArr}/>
-      {track.geojson.stats.elevation.elevArr.length > 0 &&  <LineGraph track={track} height={120} paddingTop={10}/>}
+      {track.geojson && <LineGraph track={track} height={120} paddingTop={10}/>}
       {track.geojson && navigator.onLine && <MapBoxStatic geojson={track.geojson.geojson} width={240} height={200} highRes BRBot/>}
     </div>
   )

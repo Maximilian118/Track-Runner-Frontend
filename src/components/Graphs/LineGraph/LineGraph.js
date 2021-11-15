@@ -11,6 +11,7 @@ const LineGraph = ({track, height, paddingTop}) =>
       margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
       xScale={{ type: 'point' }}
       yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: false, reverse: false }}
+      curve="basis"
       axisTop={null}
       axisRight={null}
       axisBottom={null}
@@ -19,10 +20,6 @@ const LineGraph = ({track, height, paddingTop}) =>
       colors={"#ff0000"}
       lineWidth={0}
       enablePoints={false}
-      pointColor={{ theme: 'background' }}
-      pointBorderWidth={2}
-      pointBorderColor={{ from: 'serieColor' }}
-      pointLabelYOffset={-12}
       enableArea={true}
       areaOpacity={1}
       enableCrosshair={false}
