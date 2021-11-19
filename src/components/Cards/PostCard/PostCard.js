@@ -4,14 +4,15 @@ import MapBoxStatic from '../../Utility/MapBoxStatic'
 import PCOverlay from './PCOverlay'
 import NoGeojson from './NoGeojson'
 import PCDetails from './PCDetails'
+import { getPostGeojson } from '../../../shared/utility'
 
 const PostCard = ({ post, feed, setFeed }) => {
   const [ postClicked, setPostClicked ] = useState(false)
   const [ details, setDetails ] = useState(false)
 
-  const getPCContent = geojson => {
+  const displayContent = geojson => {
     if (geojson) {
-      return <MapBoxStatic geojson={geojson} width={440} height={180} padding="25" highRes/>
+      return <MapBoxStatic geojson={geojson.geojson} width={440} height={180} padding="25" highRes/>
     } else {
       return <NoGeojson/>
     }
@@ -26,7 +27,7 @@ const PostCard = ({ post, feed, setFeed }) => {
       style={{ height: postClicked ? 540 : 180 }}
     >
       {details && <PCDetails post={post}/>}
-      {getPCContent(post.geojson ? post.geojson.geojson : post.track.geojson ? post.track.geojson.geojson : null)}
+      {displayContent(getPostGeojson(post))}
       <PCOverlay post={post} feed={feed} setFeed={setFeed}/>
     </div>
   )

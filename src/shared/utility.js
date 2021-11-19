@@ -392,3 +392,34 @@ export const metersToKm = int => {
     return int
   }
 }
+
+// Return the best geojson available for any passed post.
+export const getPostGeojson = post => {
+  if (post.geojson) {
+    return post.geojson
+  } else if (post.track.geojson) {
+    return post.track.geojson
+  } else {
+    return null
+  }
+}
+
+// Separate a single array in to two arrays. 
+// One with only negative numbers and one with only positive numbers.
+export const separateNegPos = arr => {
+  const neg = []
+  const pos = []
+
+  arr.forEach(int => {
+    if (int >= 0) {
+      pos.push(int)
+    } else {
+      neg.push(int)
+    }
+  })
+
+  return {
+    neg,
+    pos,
+  }
+}

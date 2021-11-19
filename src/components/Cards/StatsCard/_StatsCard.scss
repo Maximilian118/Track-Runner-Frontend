@@ -25,6 +25,9 @@
 
     h5 {
       color: $color-3;
+      max-width: 100%;
+      overflow-x: auto;
+      white-space: nowrap;
     }
   }
 }

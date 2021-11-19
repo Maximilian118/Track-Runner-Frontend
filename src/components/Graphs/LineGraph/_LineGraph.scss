@@ -3,4 +3,12 @@
   background: white;
   box-sizing: border-box;
   position: relative;
+
+  .line-graph-custom-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+  }
 }
