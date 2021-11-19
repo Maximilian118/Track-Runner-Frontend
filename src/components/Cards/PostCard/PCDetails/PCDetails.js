@@ -5,6 +5,7 @@ import LineGraph from '../../../Graphs/LineGraph'
 import StatsCard from '../../StatsCard'
 import { postStatArr } from '../../../../shared/statArrays'
 import { getPostGeojson } from '../../../../shared/utility'
+import CommentsCard from '../../CommentsCard'
 
 const PCDetails = ({ post }) => {
   const geojson = getPostGeojson(post)
@@ -14,6 +15,7 @@ const PCDetails = ({ post }) => {
       <UsetStatsCard user={post.user}/>
       {geojson && <LineGraph geojson={geojson} height={60} gradient/>}
       <StatsCard statsArr={postStatArr(post)} statWidth={"20%"}/>
+      <CommentsCard/>
     </div>
   )
 }

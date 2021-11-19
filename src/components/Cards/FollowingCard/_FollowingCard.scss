@@ -6,6 +6,7 @@
   display: flex;
   flex-flow: column nowrap;
   overflow-y: scroll;
+  border-top: 1px solid $border;
 
   .header, .followed-user {
     width: 100%;
