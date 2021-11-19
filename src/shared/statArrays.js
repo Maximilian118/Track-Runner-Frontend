@@ -25,19 +25,17 @@ export const postStatArr = post => {
     ])
   }
 
-  post.geojson && getGeoStats(post.geojson.stats)
-
   if (post.track) {
     statArr.push(...[
       stat("Track", post.track.name),
       stat("Country", post.track.country),
       stat("Location", post.track.location),
     ])
-    
-    if (post.track.geojson && !post.geojson) {
-      getGeoStats(post.track.geojson.stats)
-    }
-  } 
+  }
+
+  if (geojson) {
+    getGeoStats(geojson.stats)
+  }
 
   return statArr
 }
