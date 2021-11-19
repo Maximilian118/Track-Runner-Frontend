@@ -383,3 +383,12 @@ export const newStateAndLS = (setState, newState, ls, stringify) => {
     ls && localStorage.setItem(ls, stringify ? JSON.stringify(newState) : newState)
   }
 }
+
+// Convert Meters to km.
+export const metersToKm = int => {
+  if (int.toFixed(0).length >= 3) {
+    return Number((int / 1000).toFixed(3))
+  } else {
+    return int
+  }
+}

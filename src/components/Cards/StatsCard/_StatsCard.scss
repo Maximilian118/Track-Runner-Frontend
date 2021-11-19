@@ -2,10 +2,12 @@
 
 .stats-card {
   width: 100%;
+  max-height: 100px;
   display: flex;
   flex-flow: row wrap;
   background: white;
   border-top: 1px solid $border;
+  overflow-y: auto;
 
   .stat {
     width: 33.33%;
