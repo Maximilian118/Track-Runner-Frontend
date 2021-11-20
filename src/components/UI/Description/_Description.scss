@@ -1,0 +1,26 @@
+.description {
+  width: 100%;
+  padding: 0 15px;
+  position: relative;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  transition: 0.3s;
+
+  h5 {
+    width: fit-content;
+    max-width: 100%;
+    word-wrap: break-word;
+    margin-bottom: 10px;
+  }
+
+  svg {
+    float: right;
+    transform: translate(5px, -5px);
+    transition: 0.3s;
+  }
+
+  .rotate-180 {
+    transform: translate(5px, -5px) rotate(180deg);
+  }
+}
