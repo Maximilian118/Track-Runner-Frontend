@@ -1,4 +1,4 @@
-.MuiTypography-root, .mui-text-field, .mui-btn, .mui-form-btn, .mui-tab, .mui-tab-logo, .mui-date-time, button {
+.MuiTypography-root, .mui-text-field, .mui-text-field-comment, .mui-btn, .mui-form-btn, .mui-tab, .mui-tab-logo, .mui-date-time, button {
   font-family: 'Ubuntu', sans-serif !important;
   font-weight: 300 !important;
   text-transform: none !important;
@@ -11,6 +11,18 @@
 
 .mui-text-field {
   width: 100%;
+}
+
+.mui-text-field-comment {
+  width: calc(100% - 30px);
+  position: absolute !important;
+  bottom: 15px !important;
+  left: 15px !important;
+
+  input, label {
+    font-size: 0.83em;
+    margin: 0 5px;
+  }
 }
 
 .mui-form-btn, .mui-btn {
