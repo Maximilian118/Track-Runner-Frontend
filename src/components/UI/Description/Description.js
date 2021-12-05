@@ -19,7 +19,7 @@ const Description = ({ post }) => {
     <div
       className="description"
       onClick={e => !oneLiner && onDClickedHandler(e)}
-      style={{ height: extend ? 340 : 15, overflowY: !oneLiner && extend ? 'scroll' : 'hidden' }}
+      style={{ height: extend ? 380 : 15, overflowY: !oneLiner && extend ? 'scroll' : 'hidden' }}
     >
       {!oneLiner && <KeyboardArrowDown className={extend ? "rotate-180" : ""}/>}
       <h5 id={`description-${post._id}`}>{post.description}</h5>

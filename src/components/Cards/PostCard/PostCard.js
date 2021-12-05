@@ -24,7 +24,7 @@ const PostCard = ({ post, feed, setFeed }) => {
     <div 
       className="card-model post-card" 
       onClick={() => setPostClicked(!postClicked)} 
-      style={{ height: postClicked ? 600 : 180 }}
+      style={{ height: postClicked ? 640 : 180 }}
     >
       {details && <PCDetails post={post}/>}
       {displayContent(getPostGeojson(post))}
