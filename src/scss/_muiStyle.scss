@@ -19,9 +19,13 @@
   bottom: -2px !important;
   left: -4px !important;
 
+  .MuiOutlinedInput-root {
+    padding: 0 !important;
+  }
+
   input, label {
     font-size: 0.83em;
-    margin: 0 5px;
+    margin-left: 5px;
   }
 }
 
@@ -60,6 +64,13 @@
     height: 56px !important;
     border-radius: 5px !important;
   }
+}
+
+.mui-input-btn {
+  font-size: 0.83em !important;
+  color: inherit !important;
+  border-radius: 0 !important;
+  transition: 0.3s !important;
 }
 
 .mui-input-ad-disabled {
