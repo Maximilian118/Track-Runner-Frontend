@@ -3,7 +3,7 @@ import { Context } from '../../../../../App'
 import './_PCIcons.scss'
 import { like } from '../../../../../shared/miscRequests'
 import { withRouter } from 'react-router'
-import { ForumOutlined, ThumbUpAltOutlined, ThumbUp } from '@mui/icons-material'
+import { Forum, ForumOutlined, ThumbUpAltOutlined, ThumbUp } from '@mui/icons-material'
 import CountButton from '../../../../UI/CountButton'
 
 const PCIcons = ({ post, feed, setFeed, history }) => {
@@ -18,7 +18,7 @@ const PCIcons = ({ post, feed, setFeed, history }) => {
   return (
     <div className="post-card-icons">
       <CountButton 
-        icon={<ForumOutlined/>}
+        icon={post.comments.some(c => c.user._id === user._id) ? <Forum/> : <ForumOutlined/>}
         number={post.comments.length}
       />
       <CountButton 
