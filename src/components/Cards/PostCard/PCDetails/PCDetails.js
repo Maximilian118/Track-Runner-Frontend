@@ -17,7 +17,7 @@ const PCDetails = ({ post }) => {
       {post.description && <Description post={post}/>}
       {geojson && <LineGraph geojson={geojson} height={60} gradient/>}
       <StatsCard statsArr={postStatArr(post)} statWidth={"20%"}/>
-      <CommentsCard/>
+      <CommentsCard post={post}/>
     </div>
   )
 }

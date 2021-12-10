@@ -2,20 +2,39 @@ import React, { useState } from 'react'
 import './_CommentsCard.scss'
 import { TextField, Button } from '@mui/material'
 
-const CommentsCard = () => {
+const CommentsCard = ({ post }) => {
+  const [ value, setValue ] = useState("")
   const [ sendBtn, setSendBtn ] = useState(false)
+
+  const handleSubmit = e => {
+    sendBtn && setSendBtn(false)
+    setValue("")
+    e.target.blur()
+  }
 
   const handleKeyPress = e => {
     if (e.key === 'Enter') {
-      sendBtn && setSendBtn(false)
+      handleSubmit(e)
     } else {
       !sendBtn && setSendBtn(true)
     }
   }
 
+  const handleOnChange = e => {
+    if (e.target.value.trim() === "") {
+      sendBtn && setSendBtn(false)
+    }
+
+    setValue(e.target.value)
+  }
+
   return (
     <div className="comments-card">
+      {post.comments.map(comment => {
+        console.log(comment)
+      })}
       <TextField
+        value={value}
         size="small"
         variant="outlined"
         label="Write a comment..."
@@ -23,15 +42,14 @@ const CommentsCard = () => {
         className="mui-text-field-comment"
         onClick={e => e.stopPropagation()}
         InputProps={{
-          endAdornment: <Button
+          endAdornment: sendBtn && <Button
             variant="text"
             className="mui-input-btn"
-            style={{ opacity: sendBtn ? 1 : 0 }}
-            onClick={e => sendBtn && setSendBtn(false)}
+            onClick={e => handleSubmit(e)}
           >Send</Button>
         }}
         onKeyPress={e => handleKeyPress(e)}
-        onChange={e => e.target.value.trim() === "" && sendBtn && setSendBtn(false)}
+        onChange={e => handleOnChange(e)}
       />
     </div>
   )
