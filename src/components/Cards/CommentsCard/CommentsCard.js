@@ -1,8 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { Context } from '../../../App'
 import './_CommentsCard.scss'
 import { TextField, Button } from '@mui/material'
+import { createComment } from '../../../shared/commentRequests'
+import { withRouter } from 'react-router'
+import Comment from './Comment'
 
-const CommentsCard = ({ post }) => {
+const CommentsCard = ({ post, feed, setFeed, history }) => {
+  const { user, setUser } = useContext(Context)
   const [ value, setValue ] = useState("")
   const [ sendBtn, setSendBtn ] = useState(false)
 
@@ -10,11 +15,12 @@ const CommentsCard = ({ post }) => {
     sendBtn && setSendBtn(false)
     setValue("")
     e.target.blur()
+    createComment(user, setUser, post._id, value, feed, setFeed, history)
   }
 
   const handleKeyPress = e => {
     if (e.key === 'Enter') {
-      handleSubmit(e)
+      value.trim() !== "" && handleSubmit(e)
     } else {
       !sendBtn && setSendBtn(true)
     }
@@ -30,9 +36,9 @@ const CommentsCard = ({ post }) => {
 
   return (
     <div className="comments-card">
-      {post.comments.map(comment => {
-        console.log(comment)
-      })}
+      <div className="comments-feed">
+        {post.comments.map((comment, i) => <Comment key={i} comment={comment}/>)}
+      </div>
       <TextField
         value={value}
         size="small"
@@ -45,8 +51,18 @@ const CommentsCard = ({ post }) => {
           endAdornment: sendBtn && <Button
             variant="text"
             className="mui-input-btn"
-            onClick={e => handleSubmit(e)}
+            onClick={e => value.trim() !== "" && handleSubmit(e)}
           >Send</Button>
+        }}
+        sx={{
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderColor: '#DDDDDD',
+              borderBottom: 'white',
+              borderLeft: 'white',
+              borderRight: 'white',
+            },
+          },
         }}
         onKeyPress={e => handleKeyPress(e)}
         onChange={e => handleOnChange(e)}
@@ -55,4 +71,4 @@ const CommentsCard = ({ post }) => {
   )
 }
 
-export default CommentsCard
+export default withRouter(CommentsCard)

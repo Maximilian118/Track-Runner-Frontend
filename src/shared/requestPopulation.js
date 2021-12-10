@@ -32,6 +32,18 @@ const trackFields = `
   }
 `
 
+// Comment population template literal.
+export const commentFields = `
+  {
+    _id
+    user ${userFields}
+    likes
+    comment
+    created_at
+    tokens
+  }
+`
+
 const postFields = `
   {
     _id
@@ -47,6 +59,7 @@ const postFields = `
     user ${userFields}
     track ${trackFields}
     geojson ${geojsonFields}
+    comments ${commentFields}
   }
 `
 
@@ -141,5 +154,15 @@ export const populateLike = `
   old_likes_length
   new_likes
   new_likes_length
+  tokens
+`
+
+// Comment population template literal.
+export const populateComment = `
+  _id
+  user ${userFields}
+  likes
+  comment
+  created_at
   tokens
 `

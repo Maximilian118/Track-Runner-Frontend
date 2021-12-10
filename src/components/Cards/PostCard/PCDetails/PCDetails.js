@@ -8,7 +8,7 @@ import { getPostGeojson } from '../../../../shared/utility'
 import CommentsCard from '../../CommentsCard'
 import Description from '../../../UI/Description'
 
-const PCDetails = ({ post }) => {
+const PCDetails = ({ post, feed, setFeed }) => {
   const geojson = getPostGeojson(post)
 
   return (
@@ -17,7 +17,7 @@ const PCDetails = ({ post }) => {
       {post.description && <Description post={post}/>}
       {geojson && <LineGraph geojson={geojson} height={60} gradient/>}
       <StatsCard statsArr={postStatArr(post)} statWidth={"20%"}/>
-      <CommentsCard post={post}/>
+      <CommentsCard post={post} feed={feed} setFeed={setFeed}/>
     </div>
   )
 }

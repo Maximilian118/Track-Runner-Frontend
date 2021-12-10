@@ -8,6 +8,7 @@
   background: white;
   border-top: 1px solid $border;
   overflow-y: auto;
+  flex-shrink: 0;
 
   .stat {
     width: 33.33%;
