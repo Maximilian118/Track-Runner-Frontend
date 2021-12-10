@@ -13,7 +13,7 @@ const Comment = ({ comment }) => {
           heightWidth={30}
         />
       </Link>
-      <div style={{ marginLeft: 10 }}>
+      <div className="comment-body">
         <h6>{comment.user.name}</h6>
         <h5>{comment.comment}</h5>
       </div>

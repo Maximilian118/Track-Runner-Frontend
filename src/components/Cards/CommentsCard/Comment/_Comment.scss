@@ -5,6 +5,7 @@
   padding: 0 15px 10px;
   box-sizing: border-box;
   display: flex;
+  overflow: hidden;
 
   a {
     height: fit-content;
@@ -13,5 +14,16 @@
   h6 {
     color: $color-2;
     margin-bottom: 2px;
+  }
+
+  h5 {
+    overflow-wrap: break-word;
+  }
+
+  .comment-body {
+    width: 100%;
+    max-width: 380px;
+    padding-left: 10px;
+    box-sizing: border-box;
   }
 }
