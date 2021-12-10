@@ -17,7 +17,10 @@ const PCIcons = ({ post, feed, setFeed, history }) => {
 
   return (
     <div className="post-card-icons">
-      <CountButton icon={<ForumOutlined/>}/>
+      <CountButton 
+        icon={<ForumOutlined/>}
+        number={post.comments.length}
+      />
       <CountButton 
         icon={liked ? <ThumbUp/> : <ThumbUpAltOutlined/>} 
         number={post.likes.length} 
