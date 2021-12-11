@@ -1,11 +1,11 @@
 import React from 'react'
-import './_NoGeojson.scss'
+import './_PCBlank.scss'
 
-const NoGeojson = () => (
-  <div className="no-geojson">
+const PCBlank = () => (
+  <div className="post-card-blank">
     <h5>A new Track!</h5>
     <h5>Be the first to upload a GPX!</h5>
   </div>
 )
 
-export default NoGeojson
+export default PCBlank

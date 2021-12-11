@@ -1,4 +1,5 @@
-import { separateNegPos, getPostGeojson } from '../shared/utility'
+import { separateNegPos } from '../shared/utility'
+import { getPostGeojson } from '../components/Cards/PostCard/PostCardUtility'
 
 const stat = (name, stat) => {
   return {

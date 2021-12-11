@@ -4,7 +4,7 @@ import UsetStatsCard from '../../UserStatsCard'
 import LineGraph from '../../../Graphs/LineGraph'
 import StatsCard from '../../StatsCard'
 import { postStatArr } from '../../../../shared/statArrays'
-import { getPostGeojson } from '../../../../shared/utility'
+import { getPostGeojson } from '../PostCardUtility'
 import CommentsCard from '../../CommentsCard'
 import Description from '../../../UI/Description'
 
