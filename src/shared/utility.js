@@ -281,7 +281,7 @@ export const lineGraphData = (id, arr) => {
       data: arr.map((item, i) => {
         return {
           "x": i,
-          "y": Number(item.toFixed(2)),
+          "y": item ? Number(item.toFixed(2)) : 0,
         }
       }),
     },

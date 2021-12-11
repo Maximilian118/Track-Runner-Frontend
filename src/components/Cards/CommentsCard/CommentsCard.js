@@ -47,6 +47,9 @@ const CommentsCard = ({ post, feed, setFeed, history }) => {
         name="comment"
         className="mui-text-field-comment"
         onClick={e => e.stopPropagation()}
+        inputProps={{
+          maxLength: 240,
+        }}
         InputProps={{
           endAdornment: sendBtn && <Button
             variant="text"

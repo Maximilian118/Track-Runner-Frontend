@@ -99,6 +99,9 @@ const Post = ({ history }) => {
                   label="Title"
                   name="title"
                   className="mui-text-field"
+                  inputProps={{
+                    maxLength: 34,
+                  }}
                   onChange={e => updatePostForm(e, postForm, setPostForm, formError, setFormError)}
                 />
               </div>
