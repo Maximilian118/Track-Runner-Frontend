@@ -185,17 +185,34 @@ export const updateProfilePicture = async (user, setUser, profile_picture, icon,
       } else {
         const newIcon = res.data.data.updateProfilePicture.icon
         const newPP = res.data.data.updateProfilePicture.profile_picture
+
+        const sameUserCheck = post => {
+          if (post.user._id === user._id) {
+            return {
+              ...post,
+              user: {
+                ...post.user,
+                icon: newIcon,
+              }
+            }
+          } else {
+            return post
+          }
+        }
         
         setUser({
           ...user, 
           icon: newIcon,
           profile_picture: newPP,
+          posts: user.posts.map(post => sameUserCheck(post)),
         })
+
+        localStorage.setItem('icon', newIcon)
+        localStorage.setItem('profile_picture', newPP)
 
         useTokens(user, res.data.data.updateProfilePicture.tokens, setUser)
         redundantFilesCheck(user, setUser, history)
-        localStorage.setItem('icon', newIcon)
-        localStorage.setItem('profile_picture', newPP)
+
         calledInDropZone && handleDropZoneSuccess(setErr, setLocalLoading)
         process.env.NODE_ENV === 'development' && console.log(res)
       }
