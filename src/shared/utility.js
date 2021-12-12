@@ -412,16 +412,3 @@ export const separateNegPos = arr => {
     pos,
   }
 }
-
-// Conditionally reset feed on page load.
-export const postArrRefreshCheck = (user, arr, setArr) => {
-  for (let i = 0; i < arr.length; i++) {
-    if (arr.length === 0) {
-      break
-    }
-
-    if (arr[i].user._id === user._id && arr[i].user.icon !== user.icon) {
-      setArr([])
-    }
-  }
-}

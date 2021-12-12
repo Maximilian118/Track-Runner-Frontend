@@ -10,8 +10,6 @@ const Home = ({ history }) => {
   const { user, setUser, calendar } = useContext(Context)
   const [ feed, setFeed ] = useState(!!localStorage.getItem('feed') ? JSON.parse(localStorage.getItem('feed')) : [])
 
-  postArrRefreshCheck(user, feed, setFeed)
-
   useEffect(() => {
     const handleFeedReq = async () => {
       await getFeed(user, setUser, feed, setFeed, moment().format(), feed.length === 0 ? null : feed[0].created_at, 50, history)

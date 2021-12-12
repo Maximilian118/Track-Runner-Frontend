@@ -209,6 +209,7 @@ export const updateProfilePicture = async (user, setUser, profile_picture, icon,
 
         localStorage.setItem('icon', newIcon)
         localStorage.setItem('profile_picture', newPP)
+        localStorage.removeItem('feed')
 
         useTokens(user, res.data.data.updateProfilePicture.tokens, setUser)
         redundantFilesCheck(user, setUser, history)
