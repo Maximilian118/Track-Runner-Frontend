@@ -4,7 +4,6 @@ import TrackCard from '../components/Cards/TrackCard'
 import PostCard from '../components/Cards/PostCard'
 import { getFeed } from '../shared/feedRequests'
 import moment from 'moment'
-import { postArrRefreshCheck } from '../shared/utility'
 
 const Home = ({ history }) => {
   const { user, setUser, calendar } = useContext(Context)
