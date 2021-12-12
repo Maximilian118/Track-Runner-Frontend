@@ -1,10 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react'
+import './_MapBox.scss'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
 import * as turf from '@turf/turf'
 import { initGeojson } from '../../../shared/utility'
 
-const MapBox = ({ geojson, height, pitch, zoom, _3D, BRBot }) => {
+const MapBox = ({ geojson, height, width, pitch, zoom, _3D, BRBot }) => {
   const mapContainer = useRef(null)
   const map = useRef(null)
   const [lng, setLng] = useState(-70.9)
@@ -47,6 +48,7 @@ const MapBox = ({ geojson, height, pitch, zoom, _3D, BRBot }) => {
               "fill-extrusion-color": "#ff0000",
               "fill-extrusion-height": ["get", "elevation"],
               "fill-extrusion-opacity": 0.7,
+              "fill-extrusion-base": 0,
             }
           })
         } else {
@@ -67,9 +69,9 @@ const MapBox = ({ geojson, height, pitch, zoom, _3D, BRBot }) => {
 
   return (
     <div 
-      ref={mapContainer} 
-      style={{ height: height, position: 'relative' }} 
-      className={BRBot && 'border-radius-bottom'}
+      ref={mapContainer}
+      className={`map-box ${BRBot && `border-radius-bottom`}`}
+      style={{ height: height, width: width }} 
     />
   )
 }

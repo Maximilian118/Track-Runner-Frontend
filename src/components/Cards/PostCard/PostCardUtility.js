@@ -1,4 +1,5 @@
 import MapBoxStatic from '../../Utility/MapBoxStatic'
+import MapBox from '../../Utility/MapBox'
 import PCBlank from './PCBlank'
 
 // Return the best geojson available for any passed post.
@@ -13,17 +14,28 @@ export const getPostGeojson = post => {
 }
 
 // Return the main content JSX for a PostCard.
-export const postCardContent = (post, width, height) => {
+export const postCardContent = (post, notStatic, width, height) => {
   const geojson = getPostGeojson(post)
 
   if (geojson) {
-    return <MapBoxStatic 
-      geojson={geojson.geojson} 
-      width={width ? width : 440} 
-      height={height ? height : 180} 
-      padding="25" 
-      highRes
-    />
+    if (notStatic) {
+      return <MapBox 
+        geojson={geojson.geojson} 
+        width={width ? width : 440} 
+        height={height ? height : 180}
+        zoom={13} 
+        pitch={60}
+        _3D
+      />
+    } else {
+      return <MapBoxStatic 
+        geojson={geojson.geojson} 
+        width={width ? width : 440} 
+        height={height ? height : 180} 
+        padding="25" 
+        highRes
+      />
+    }
   } else {
     return <PCBlank/>
   }

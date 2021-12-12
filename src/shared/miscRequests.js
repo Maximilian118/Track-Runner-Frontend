@@ -156,7 +156,7 @@ export const getMapBoxStatic = (geojson, width, height, highRes, withLogo, withA
         {
           path: {
             strokeColor: "FF0000",
-            strokeWidth: 3,
+            strokeWidth: 2.2,
             strokeOpacity: 1,
             coordinates: geojson.features[0].geometry.coordinates.map(coords => [coords[0], coords[1]]),
           },
