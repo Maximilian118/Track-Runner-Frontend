@@ -1,15 +1,20 @@
 import React from 'react'
 import './_ProfileBar.scss'
-import { Button } from '@mui/material'
+import { ButtonGroup, Button } from '@mui/material'
 import { Settings, CropOriginal, SportsMotorsports, Stars, ViewCarousel } from '@mui/icons-material'
 
 const ProfileBar = ({ settings, setSettings }) => 
-  <div className="profile-bar">
-    <Button size="small" startIcon={<Stars/>} className="mui-btn">Records</Button>
-    <Button size="small" startIcon={<SportsMotorsports/>} className="mui-btn">Tracks</Button>
-    <Button size="small" startIcon={<ViewCarousel/>} className="mui-btn">Posts</Button>
-    <Button size="small" startIcon={<CropOriginal/>} className="mui-btn">Images</Button>
-    <Button size="small" startIcon={<Settings/>} onClick={() => setSettings(!settings)} className="mui-btn">Settings</Button>
-  </div>
+  <ButtonGroup 
+    variant="contained" 
+    aria-label="outlined primary button group" 
+    className="profile-bar"
+    color='inherit'
+  >
+    <Button startIcon={<Stars/>}>Records</Button>
+    <Button startIcon={<SportsMotorsports/>}>Tracks</Button>
+    <Button startIcon={<ViewCarousel/>}>Posts</Button>
+    <Button startIcon={<CropOriginal/>}>Images</Button>
+    <Button startIcon={<Settings/>} onClick={() => setSettings(!settings)}>Settings</Button>
+  </ButtonGroup>
 
 export default ProfileBar

@@ -1,7 +1,25 @@
+@import '../../../scss/variables';
+
 .profile-bar {
   width: calc(100% - 10px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin: 0 5px 10px;
+  box-shadow: $shadow;
+
+  button {
+    background: white;
+    color: black;
+
+    .MuiButton-startIcon {
+      margin-right: 4px;
+    }
+
+    svg {
+      stroke: white;
+      stroke-width: 0.7px;
+    }
+  }
+  
+  button:not(:last-child) {
+    border-right: 1px solid $border !important;
+  }
 }
