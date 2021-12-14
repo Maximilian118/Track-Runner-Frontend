@@ -1,7 +1,7 @@
 import React from 'react'
 import './_ProfileBar.scss'
 import { ButtonGroup, Button } from '@mui/material'
-import { Settings, CropOriginal, SportsMotorsports, Stars, ViewCarousel } from '@mui/icons-material'
+import { Settings, CropOriginal, SportsMotorsports, ViewCarousel } from '@mui/icons-material'
 
 const ProfileBar = ({ settings, setSettings }) => 
   <ButtonGroup 

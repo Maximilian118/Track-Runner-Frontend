@@ -11,7 +11,7 @@ const Home = ({ history }) => {
 
   useEffect(() => {
     const handleFeedReq = async () => {
-      await getFeed(user, setUser, feed, setFeed, moment().format(), feed.length === 0 ? null : feed[0].created_at, 50, history)
+      await getFeed(user, setUser, feed, setFeed, moment().format(), feed.length === 0 ? null : feed[0].created_at, 20, history)
     }
     
     handleFeedReq()
