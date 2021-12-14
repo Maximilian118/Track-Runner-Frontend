@@ -10,7 +10,6 @@ const ProfileBar = ({ settings, setSettings }) =>
     className="profile-bar"
     color='inherit'
   >
-    <Button startIcon={<Stars/>}>Records</Button>
     <Button startIcon={<SportsMotorsports/>}>Tracks</Button>
     <Button startIcon={<ViewCarousel/>}>Posts</Button>
     <Button startIcon={<CropOriginal/>}>Images</Button>
