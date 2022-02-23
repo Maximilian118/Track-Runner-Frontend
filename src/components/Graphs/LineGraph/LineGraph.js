@@ -2,7 +2,7 @@ import React from 'react'
 import './_LineGraph.scss'
 import { ResponsiveLine } from '@nivo/line'
 import { lineGraphData, noNegs } from '../../../shared/utility'
-import Tooltip from './Tooltip'
+import Tooltip from '../Tooltip'
 
 const LineGraph = ({geojson, height, paddingTop, gradient}) => (
   <div className="line-graph" style={{height: height, paddingTop: paddingTop}}>
