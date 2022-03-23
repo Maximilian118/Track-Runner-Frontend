@@ -3,17 +3,17 @@ import './_ProfileBar.scss'
 import { ButtonGroup, Button } from '@mui/material'
 import { Settings, CropOriginal, SportsMotorsports, ViewCarousel } from '@mui/icons-material'
 
-const ProfileBar = ({ settings, setSettings }) => 
+const ProfileBar = ({ setNav }) => 
   <ButtonGroup 
     variant="contained" 
     aria-label="outlined primary button group" 
     className="profile-bar"
     color='inherit'
   >
-    <Button startIcon={<ViewCarousel/>}>Posts</Button>
+    <Button startIcon={<ViewCarousel/>} onClick={() => setNav(0)}>Posts</Button>
     <Button startIcon={<SportsMotorsports/>}>Tracks</Button>
     <Button startIcon={<CropOriginal/>}>Images</Button>
-    <Button startIcon={<Settings/>} onClick={() => setSettings(!settings)}>Settings</Button>
+    <Button startIcon={<Settings/>} onClick={() => setNav(3)}>Settings</Button>
   </ButtonGroup>
 
 export default ProfileBar

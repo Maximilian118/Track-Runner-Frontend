@@ -7,8 +7,17 @@ import PostCard from '../components/Cards/PostCard'
 
 const Profile = () => {
   const { user, setUser } = useContext(Context)
-  const [ settings, setSettings ] = useState(false)
+  const [ nav, setNav ] = useState(0)
   const [ feed, setFeed ] = useState(user.posts)
+
+  const profileContent = nav => {
+    switch (nav) {
+      case 1: return <div/>
+      case 2: return <div/>
+      case 3: return <SettingsCard setUser={setUser}/>
+      default: return feed.map((post, i) => <PostCard key={i} post={post} feed={feed} setFeed={setFeed}/>).reverse()
+    }
+  }
 
   return (
     <>
@@ -16,9 +25,8 @@ const Profile = () => {
         <UserCard user={user} setUser={setUser}/>
       </div>
       <div className="page-right">
-        <ProfileBar settings={settings} setSettings={setSettings}/>
-        {feed.map((post, i) => <PostCard key={i} post={post} feed={feed} setFeed={setFeed}/>).reverse()}
-        {settings && <SettingsCard setUser={setUser}/>}
+        <ProfileBar setNav={setNav}/>
+        {profileContent(nav)}
       </div>
     </>
   )
