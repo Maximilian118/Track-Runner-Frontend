@@ -27,12 +27,16 @@ export const createCalendar = (user, setUser, calendar, setCalendar, calScope, h
 export const userStatsArr = user => {
   return [
     {
+      name: "Posts",
+      stat: user.posts.length,
+    },
+    {
       name: "Tracks",
       stat: user.tracks.length,
     },
     {
-      name: "Posts",
-      stat: user.posts.length,
+      name: "Images",
+      stat: postImgArr(user.posts).length,
     },
     {
       name: "Likes",

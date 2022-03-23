@@ -12,7 +12,7 @@ const UserCard = ({ user, setUser }) =>
     </div>
     <DropZone user={user} setUser={setUser} height={200} usage={"profile-picture"}/>
     <TimeRangeGraph user={user}/>
-    <StatsCard statsArr={userStatsArr(user)}/>
+    <StatsCard statsArr={userStatsArr(user)} statWidth="25%"/>
     <FollowingCard user={user}/>
   </div>
 
