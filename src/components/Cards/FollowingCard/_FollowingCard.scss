@@ -5,7 +5,7 @@
   height: 300px;
   display: flex;
   flex-flow: column nowrap;
-  overflow-y: scroll;
+  overflow-y: auto;
   border-top: 1px solid $border;
 
   .header, .followed-user {

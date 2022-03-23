@@ -7,7 +7,7 @@
   flex-flow: row wrap;
   background: white;
   border-top: 1px solid $border;
-  overflow-y: auto;
+  overflow-y: hidden;
   flex-shrink: 0;
 
   .stat {
@@ -27,7 +27,7 @@
     h5 {
       color: $color-3;
       max-width: 100%;
-      overflow-x: auto;
+      overflow-x: hidden;
       white-space: nowrap;
     }
   }
