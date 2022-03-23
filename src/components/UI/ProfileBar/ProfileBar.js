@@ -11,8 +11,8 @@ const ProfileBar = ({ setNav }) =>
     color='inherit'
   >
     <Button startIcon={<ViewCarousel/>} onClick={() => setNav(0)}>Posts</Button>
-    <Button startIcon={<SportsMotorsports/>}>Tracks</Button>
-    <Button startIcon={<CropOriginal/>}>Images</Button>
+    <Button startIcon={<SportsMotorsports/>} onClick={() => setNav(1)}>Tracks</Button>
+    <Button startIcon={<CropOriginal/>} onClick={() => setNav(2)}>Images</Button>
     <Button startIcon={<Settings/>} onClick={() => setNav(3)}>Settings</Button>
   </ButtonGroup>
 

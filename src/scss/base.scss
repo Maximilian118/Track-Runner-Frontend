@@ -73,6 +73,14 @@ body {
         width: 250px;
         flex-grow: 1;
         flex-flow: column nowrap;
+
+        .just-img {
+          border-radius: 5px;
+          margin: 0 5px 10px;
+          flex-shrink: 0;
+          background: white;
+          box-shadow: $shadow;
+        }
       }
 
       .page-right {

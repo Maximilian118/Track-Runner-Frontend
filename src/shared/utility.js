@@ -425,3 +425,14 @@ export const separateNegPos = arr => {
     pos,
   }
 }
+
+// Return an Array of images from given Array of Posts.
+export const postImgArr = posts => {
+  const imgArr = []
+
+  posts.forEach(post => {
+    imgArr.unshift(...post.imgs)
+  })
+
+  return imgArr
+}
