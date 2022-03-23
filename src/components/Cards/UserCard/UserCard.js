@@ -6,7 +6,7 @@ import TimeRangeGraph from '../../Graphs/TimeRangeGraph'
 import { userStatsArr } from '../../../shared/utility'
 
 const UserCard = ({ user, setUser }) => 
-  <div className="card-model">
+  <div className="card-model sticky">
     <div className="top">
       <h5>{user.name}</h5>
     </div>

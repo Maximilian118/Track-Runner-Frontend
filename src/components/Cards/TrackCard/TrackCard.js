@@ -1,5 +1,4 @@
 import React from 'react'
-import './_TrackCard.scss'
 import { nextTrack } from '../../../shared/utility'
 import StatsCard from '../StatsCard'
 import LineGraph from '../../Graphs/LineGraph'
@@ -9,7 +8,7 @@ const TrackCard = ({ calendar }) => {
   const track = nextTrack(calendar)
 
   return (
-    <div className="card-model track-card">
+    <div className="card-model sticky">
       <div className="top">
         <h5>{`${track.isToday ? "Current" : "Next"} Track - ${track.name}`}</h5>
       </div>

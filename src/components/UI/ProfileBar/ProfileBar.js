@@ -10,8 +10,8 @@ const ProfileBar = ({ settings, setSettings }) =>
     className="profile-bar"
     color='inherit'
   >
-    <Button startIcon={<SportsMotorsports/>}>Tracks</Button>
     <Button startIcon={<ViewCarousel/>}>Posts</Button>
+    <Button startIcon={<SportsMotorsports/>}>Tracks</Button>
     <Button startIcon={<CropOriginal/>}>Images</Button>
     <Button startIcon={<Settings/>} onClick={() => setSettings(!settings)}>Settings</Button>
   </ButtonGroup>
