@@ -5,7 +5,7 @@ import { TextField, Button } from '@mui/material'
 import { ExitToApp } from '@mui/icons-material'
 import { updateForm, errorCheck, formValid, formCleanup, initBackendError } from '../shared/formValidation'
 import { createUser } from '../shared/userRequests'
-import Spinner from '../components/Utility/Spinner'
+import Spinner from '../components/utility/Spinner'
 
 const Splash = () => {
   const { user, setUser } = useContext(Context)

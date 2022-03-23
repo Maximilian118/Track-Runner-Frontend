@@ -1,5 +1,5 @@
-import MapBoxStatic from '../../Utility/MapBoxStatic'
-import MapBox from '../../Utility/MapBox'
+import MapBoxStatic from '../../utility/MapBoxStatic'
+import MapBox from '../../utility/MapBox'
 import PCBlank from './PCBlank'
 
 // Return the best geojson available for any passed post.

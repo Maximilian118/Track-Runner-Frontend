@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useTokens, checkAuth, getAxiosError, headers, unknownError } from './utility'
 import { initTrack } from './initRequestResult'
-import { handleDropZoneError, handleDropZoneSuccess } from '../components/Utility/DropZone/DropZoneUtility'
+import { handleDropZoneError, handleDropZoneSuccess } from '../components/utility/DropZone/DropZoneUtility'
 import { populateTrack } from './requestPopulation'
 import { redundantFilesCheck } from './bucketRequests'
 import { getGeoLocation } from './miscRequests'

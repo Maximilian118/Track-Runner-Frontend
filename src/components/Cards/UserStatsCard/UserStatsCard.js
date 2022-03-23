@@ -1,6 +1,6 @@
 import React from 'react'
 import './_UserStatsCard.scss'
-import ProfilePicture from '../../Utility/ProfilePicture'
+import ProfilePicture from '../../utility/ProfilePicture'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 

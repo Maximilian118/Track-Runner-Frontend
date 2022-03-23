@@ -1,6 +1,6 @@
 import React from 'react'
 import './_Comment.scss'
-import ProfilePicture from '../../../Utility/ProfilePicture'
+import ProfilePicture from '../../../utility/ProfilePicture'
 import { Link } from 'react-router-dom'
 
 const Comment = ({ comment }) => {

@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../App'
 import { Button, TextField } from '@mui/material'
 import { AddRoad, CropOriginal, Gesture } from '@mui/icons-material'
-import HelpIcon from '../components/Help/HelpIcon'
-import CreateTrackHelp from '../components/Help/CreateTrackHelp'
+import HelpIcon from '../components/help/HelpIcon'
+import CreateTrackHelp from '../components/help/CreateTrackHelp'
 import { updateCreateTrackForm, formValid, errorCheck, initBackendError, formCleanup } from '../shared/formValidation'
-import DropZone from '../components/Utility/DropZone'
+import DropZone from '../components/utility/DropZone'
 import { createTrack } from '../shared/trackRequests'
-import Spinner from '../components/Utility/Spinner'
+import Spinner from '../components/utility/Spinner'
 
 const CreateTrack = ({ postForm, setPostForm, tracks, setTracks, setTracksVal, history }) => {
   const { user, setUser } = useContext(Context)

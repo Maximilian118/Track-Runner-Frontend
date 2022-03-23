@@ -1,18 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../App'
 import { createPost } from '../shared/postRequests'
-import DropZone from '../components/Utility/DropZone'
+import DropZone from '../components/utility/DropZone'
 import { TextField, Autocomplete, InputAdornment, Box, Button } from '@mui/material'
 import { LocalizationProvider, TimePicker, DatePicker } from '@mui/lab'
 import { PostAdd, Gesture, CropOriginal } from '@mui/icons-material'
 import momentAdapter from '@date-io/moment'
 import { updatePostForm, formValid, formCleanup } from '../shared/formValidation'
 import { getTracks } from '../shared/trackRequests'
-import PostHelp from '../components/Help/PostHelp'
-import HelpIcon from '../components/Help/HelpIcon'
+import PostHelp from '../components/help/PostHelp'
+import HelpIcon from '../components/help/HelpIcon'
 import { trackList } from '../shared/utility'
 import CreateTrack from './CreateTrack'
-import Spinner from '../components/Utility/Spinner'
+import Spinner from '../components/utility/Spinner'
 
 const Post = ({ history }) => {
   const { user, setUser } = useContext(Context)

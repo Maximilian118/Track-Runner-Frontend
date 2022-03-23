@@ -1,6 +1,6 @@
 import React from "react"
 import "./_FollowingCard.scss"
-import ProfilePicture from "../../Utility/ProfilePicture"
+import ProfilePicture from "../../utility/ProfilePicture"
 
 const FollowingCard = ({ user }) => 
   <div className="following-card">

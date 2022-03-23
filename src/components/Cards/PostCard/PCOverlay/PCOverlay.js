@@ -1,7 +1,7 @@
 import React from 'react'
 import './_PCOverlay.scss'
 import moment from 'moment'
-import ProfilePicture from '../../../Utility/ProfilePicture'
+import ProfilePicture from '../../../utility/ProfilePicture'
 import PCImages from './PCImages'
 import PCIcons from './PCIcons'
 import { Link } from 'react-router-dom'

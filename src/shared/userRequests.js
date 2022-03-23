@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { logInSuccess, logout } from './localStorage'
 import { useTokens, checkAuth, getAxiosError, headers, unknownError } from './utility'
-import { handleDropZoneError, handleDropZoneSuccess } from '../components/Utility/DropZone/DropZoneUtility'
+import { handleDropZoneError, handleDropZoneSuccess } from '../components/utility/DropZone/DropZoneUtility'
 import { populateUser } from './requestPopulation'
 import { redundantFilesCheck } from './bucketRequests'
 import { initUser } from './initRequestResult'

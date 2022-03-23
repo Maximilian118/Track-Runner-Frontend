@@ -3,7 +3,7 @@ import './_TrackCard.scss'
 import { nextTrack } from '../../../shared/utility'
 import StatsCard from '../StatsCard'
 import LineGraph from '../../Graphs/LineGraph'
-import MapBoxStatic from '../../Utility/MapBoxStatic'
+import MapBoxStatic from '../../utility/MapBoxStatic'
 
 const TrackCard = ({ calendar }) => {
   const track = nextTrack(calendar)

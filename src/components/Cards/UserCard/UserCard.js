@@ -1,5 +1,5 @@
 import React from 'react'
-import DropZone from '../../Utility/DropZone'
+import DropZone from '../../utility/DropZone'
 import StatsCard from '../StatsCard'
 import FollowingCard from '../FollowingCard'
 import TimeRangeGraph from '../../Graphs/TimeRangeGraph'
