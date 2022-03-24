@@ -6,8 +6,8 @@ import PCImages from './PCImages'
 import PCIcons from './PCIcons'
 import { Link } from 'react-router-dom'
 
-const PCOverlay = ({ post, feed, setFeed, setImg }) => (
-  <div className="post-card-overlay">
+const PCOverlay = ({ post, feed, setFeed, setImg, imgHeight, setImgHeight }) => (
+  <div className="post-card-overlay" style={{ height: imgHeight }}>
     <div className="post-card-top">
       <div className="post-card-top-left">
         <h5>{post.title}</h5>
@@ -19,7 +19,7 @@ const PCOverlay = ({ post, feed, setFeed, setImg }) => (
       </Link>
     </div>
     <div className="post-card-bottom">
-      <PCImages imgs={post.imgs} setImg={setImg}/>
+      <PCImages imgs={post.imgs} setImg={setImg} setImgHeight={setImgHeight}/>
       <PCIcons post={post} feed={feed} setFeed={setFeed}/>
     </div>
   </div>

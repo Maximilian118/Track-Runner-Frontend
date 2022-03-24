@@ -8,6 +8,7 @@ const PostCard = ({ post, feed, setFeed }) => {
   const [ postClicked, setPostClicked ] = useState(false)
   const [ details, setDetails ] = useState(false)
   const [ img, setImg ] = useState(null)
+  const [ imgHeight, setImgHeight ] = useState(180)
 
   useEffect(() => !details && postClicked && setDetails(true), [details, postClicked])
 
@@ -15,12 +16,18 @@ const PostCard = ({ post, feed, setFeed }) => {
     <div 
       className="card-model post-card" 
       onClick={() => setPostClicked(!postClicked)} 
-      style={{ height: postClicked ? 640 : 180 }}
+      style={{ height: postClicked ? imgHeight + 460 : imgHeight }}
     >
       {details && <PCDetails post={post} feed={feed} setFeed={setFeed}/>}
-      {postCardContent(post)}
-      {img}
-      <PCOverlay post={post} feed={feed} setFeed={setFeed} setImg={setImg}/>
+      {postCardContent(post, img)}
+      <PCOverlay 
+        post={post} 
+        feed={feed} 
+        setFeed={setFeed} 
+        setImg={setImg} 
+        imgHeight={imgHeight} 
+        setImgHeight={setImgHeight}
+      />
     </div>
   )
 }
