@@ -64,6 +64,7 @@ export const initUser = user => {
     ...user,
     geojsons: initGeojsons(user.geojsons),
     posts: initPosts(user.posts),
+    tracks: initTracks(user.tracks),
   }
 }
 

@@ -1,24 +1,36 @@
 import React from 'react'
-import { nextTrack } from '../../../shared/utility'
-import StatsCard from '../StatsCard'
-import LineGraph from '../../Graphs/LineGraph'
-import MapBoxStatic from '../../utility/MapBoxStatic'
+import './_TrackCard.scss'
+import { trackCardContent } from './TrackCardUtility'
 
-const TrackCard = ({ calendar }) => {
-  const track = nextTrack(calendar)
+const TrackCard = ({ track }) => {
+  let data = null
 
+  if (track.geojson) {
+    data = (
+      <>
+        <h6>Distance: <span>{`${track.geojson.stats.distance.totalKm}Km`}</span></h6>
+        <h6>MaxElev: <span>{`${track.geojson.stats.elevation.max}Km`}</span></h6>
+        <h6>MinElev: <span>{`${track.geojson.stats.elevation.min}Km`}</span></h6>
+        <h6>ElevChange: <span>{`${track.geojson.stats.elevation.dif}Km`}</span></h6>
+      </>
+    )
+  }
+  
   return (
-    <div className="card-model sticky">
-      <div className="top">
-        <h5>{`${track.isToday ? "Current" : "Next"} Track - ${track.name}`}</h5>
+    <div className="card-model track-card">
+      {trackCardContent(track)}
+      <div className="track-card-overlay">
+        <div className="track-card-top">
+          <div className="track-card-top-left">
+            <h5>{track.name}</h5>
+            <h6>{`Country: ${track.country}`}</h6>
+            <h6>{`Location: ${track.location}`}</h6>
+            {data}
+          </div>
+        </div>
       </div>
-      {navigator.onLine && <img alt="Track Logo" src={track.logo}/>}
-      <StatsCard statsArr={track.trackStatsArr}/>
-      {track.geojson && <LineGraph geojson={track.geojson} height={120} paddingTop={10}/>}
-      {track.geojson && navigator.onLine && <MapBoxStatic geojson={track.geojson.geojson} width={240} height={200} highRes BRBot/>}
     </div>
   )
 }
-
 
 export default TrackCard

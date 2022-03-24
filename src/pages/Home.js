@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../App'
-import TrackCard from '../components/Cards/TrackCard'
+import TrackDataCard from '../components/Cards/TrackDataCard'
 import PostCard from '../components/Cards/PostCard'
 import { getFeed } from '../shared/feedRequests'
 import moment from 'moment'
@@ -21,7 +21,7 @@ const Home = ({ history }) => {
   return (
     <>
       <div className="page-left">
-        {calendar.some(e => e.track) && <TrackCard calendar={calendar}/>}
+        {calendar.some(e => e.track) && <TrackDataCard calendar={calendar}/>}
       </div>
       <div className="page-right">
         {feed.map((post, i) => <PostCard key={i} post={post} feed={feed} setFeed={setFeed}/>)}

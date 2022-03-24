@@ -1,0 +1,17 @@
+@import '../../../../scss/variables';
+
+.track-card-blank {
+  width: 440px;
+  height: 180px;
+  background: $mbx-background;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  color: $mbx-typography;
+  z-index: 2;
+  
+  h5 {
+    font-weight: 400;
+  }
+}
