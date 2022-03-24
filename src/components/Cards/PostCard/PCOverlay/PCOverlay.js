@@ -12,7 +12,7 @@ const PCOverlay = ({ post, feed, setFeed, setImg }) => (
       <div className="post-card-top-left">
         <h5>{post.title}</h5>
         <h6>{moment(post.runDT).format("Do MMM HH:mm")}</h6>
-        <h6>{post.lap_time}</h6>
+        <h6>Best Lap: <span>{post.lap_time}</span></h6>
       </div>
       <Link to="/profile" onClick={e => e.stopPropagation()}>
         <ProfilePicture user={post.user} heightWidth={30}/>
