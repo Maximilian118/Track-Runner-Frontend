@@ -3,6 +3,7 @@ export const initNavValue = location => {
   switch (location.pathname) {
     case "/": return 2
     case "/calendar": return 3
+    case "/discover": return 4
     default: return 0
   }
 }
@@ -18,5 +19,10 @@ export const protectedTabs = [
     label: "Calendar",
     endpoint: "/calendar",
     index: 3,
+  },
+  {
+    label: "Discover",
+    endpoint: "/discover",
+    index: 4,
   },
 ]

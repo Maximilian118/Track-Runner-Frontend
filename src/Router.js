@@ -12,11 +12,13 @@ import Notfound from "./pages/NotFound"
 import DeleteAccount from "./pages/DeleteAccount"
 import Post from "./pages/Post"
 import CreateTrack from "./pages/CreateTrack"
+import Discover from "./pages/Discover"
 
 const Router = ({ user }) => user.token ? (
   <Switch>
     <Route exact path="/" component={Home}/>
     <Route exact path="/calendar" component={Calendar}/>
+    <Route exact path="/discover" component={Discover}/>
     <Route exact path="/post" component={Post}/>
     <Route exact path="/create-track" component={CreateTrack}/>
     <Route exact path="/delete-account" component={DeleteAccount}/>
