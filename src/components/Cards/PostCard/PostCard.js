@@ -24,6 +24,7 @@ const PostCard = ({ post, feed, setFeed }) => {
         post={post} 
         feed={feed} 
         setFeed={setFeed} 
+        img={img}
         setImg={setImg} 
         imgHeight={imgHeight} 
         setImgHeight={setImgHeight}
