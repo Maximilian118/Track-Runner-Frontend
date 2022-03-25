@@ -292,18 +292,6 @@ export const lineGraphData = (id, arr) => {
   ]
 }
 
-export const initNavIndicator = (user, history) => {
-  if (user.token) {
-    switch (history.location.pathname) {
-      case "/": return 2
-      case "/calendar": return 3 
-      default: return 0
-    }
-  } else {
-    return 0
-  }
-}
-
 export const noNegs = (min, numArr) => {
   return numArr.map(num => {
     if (min < 0) {

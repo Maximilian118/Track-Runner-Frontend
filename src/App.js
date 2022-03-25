@@ -32,12 +32,12 @@ const App = () => {
 
   return (
     <Context.Provider value={{loading, setLoading, user, setUser, calendar, setCalendar}}>
-      <Nav user={user}/>
+      <Nav user={user} history={history}/>
       <CalendarBar calendar={calendar}/>
       <main>
         {loading ? <Spinner position="vp"/> : <Router user={user}/>}
       </main>
-      <Footer/>
+      <Footer history={history}/>
     </Context.Provider>
   )
 }

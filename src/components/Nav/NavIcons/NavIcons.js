@@ -5,19 +5,19 @@ import { IconButton } from '@mui/material'
 import { PostAdd, NotificationsNoneOutlined } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
 
-const NavIcons = ({ user, setValue }) => 
+const NavIcons = ({ user }) => 
   <div className="nav-icons">
-    <Link to="/post" onClick={() => setValue(0)}>
+    <Link to="/post">
       <IconButton size="small" aria-label="Post">
         <PostAdd/>
       </IconButton>
     </Link>
-    <Link to="/" onClick={() => setValue(0)}>
+    <Link to="/">
       <IconButton size="small" aria-label="Notifications">
         <NotificationsNoneOutlined/>
       </IconButton>
     </Link>
-    <Link to="/profile" onClick={() => setValue(0)}>
+    <Link to="/profile">
       <ProfilePicture user={user} heightWidth={30}/>
     </Link>
   </div>

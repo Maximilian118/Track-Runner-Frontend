@@ -1,22 +1,15 @@
-import React, { useState } from 'react'
-import NavIcons from '../UI/NavIcons'
-import NavTabs from '../UI/NavTabs'
-import NavRight from '../UI/NavRight'
-import NavLogo from '../UI/NavLogo'
-import { initNavIndicator } from '../../shared/utility'
-import { withRouter } from 'react-router-dom'
+import React from 'react'
+import NavIcons from './NavIcons'
+import NavTabs from './NavTabs'
+import NavRight from './NavRight'
 
-const Nav = ({ user, history }) => {
-  const [value, setValue] = useState(initNavIndicator(user, history))
+const Nav = ({ user, history }) => (
+  <nav>
+    <div className="nav">
+      <NavTabs user={user} history={history}/>
+      {user.token ? <NavIcons user={user}/> : <NavRight/>}
+    </div>
+  </nav>
+)
 
-  return (
-    <nav>
-      <div className="nav">
-        {user.token ? <NavTabs user={user} value={value} setValue={setValue}/> : <NavLogo/>}
-        {user.token ? <NavIcons user={user} setValue={setValue}/> : <NavRight/>}
-      </div>
-    </nav>
-  )
-}
-
-export default withRouter(Nav)
+export default Nav
