@@ -1,6 +1,6 @@
 import React from 'react'
 import './_TimeRangeGraph.scss'
-import { activityData } from '../../../shared/utility'
+import { activityData } from './TRGUtility'
 
 const TimeRangeGraph = ({ user }) => 
   <div className="time-range-graph">
