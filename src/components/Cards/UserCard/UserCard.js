@@ -1,7 +1,7 @@
 import React from 'react'
 import DropZone from '../../utility/DropZone'
 import StatsCard from '../StatsCard'
-import FollowingCard from '../FollowingCard'
+import UserList from '../../UI/UserList'
 import TimeRangeGraph from '../../Graphs/TimeRangeGraph'
 import { userStatsArr } from '../../../shared/utility'
 
@@ -13,7 +13,12 @@ const UserCard = ({ user, setUser }) =>
     <DropZone user={user} setUser={setUser} height={200} usage={"profile-picture"}/>
     <TimeRangeGraph user={user}/>
     <StatsCard statsArr={userStatsArr(user)} statWidth="25%"/>
-    <FollowingCard user={user}/>
+    <UserList 
+      userArr={user.following} 
+      header={`Following: ${user.following.length}`}
+      empty={"You are not following anyone!"}
+      style={{ maxHeight: 300 }}
+    />
   </div>
 
 export default UserCard
