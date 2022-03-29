@@ -122,6 +122,7 @@ export const populatePost = `
   user ${userFields}
   geojson ${geojsonFields}
   track ${trackFields}
+  comments ${commentFields}
 `
 
 // Track population template literal.
