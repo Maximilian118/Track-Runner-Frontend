@@ -157,6 +157,8 @@ export const getAxiosError = error => {
 export const endpoint = str => str.substring(str.lastIndexOf("/") + 1)
 export const formatString = str => str.toLowerCase().replace(/[^a-z0-9]/g, "-")
 export const getEndpoint = passed => endpoint(passed.type ? formatString(passed.name) : passed)
+export const strsToInts = arr => arr.map(i => Number(i))
+export const toFixedX = (int, precision) => Number(int.toFixed(precision))
 
 // Format name of all files to be uploaded to s3.
 export const formatFilename = (user, file, category) => {

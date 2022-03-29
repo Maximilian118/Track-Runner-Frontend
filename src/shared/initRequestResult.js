@@ -1,3 +1,5 @@
+import { strsToInts } from './utility'
+
 const redundantLapTimeHours = lap_time => {
   const hms = lap_time.split(":")
   
@@ -62,6 +64,7 @@ export const initGeojsons = geojsons => {
 export const initUser = user => {
   return {
     ...user,
+    coords: strsToInts(user.coords),
     geojsons: initGeojsons(user.geojsons),
     posts: initPosts(user.posts),
     tracks: initTracks(user.tracks),

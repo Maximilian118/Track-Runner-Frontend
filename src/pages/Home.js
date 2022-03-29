@@ -4,6 +4,7 @@ import TrackDataCard from '../components/Cards/TrackDataCard'
 import PostCard from '../components/Cards/PostCard'
 import { getFeed } from '../shared/feedRequests'
 import moment from 'moment'
+import { checkGeo } from '../shared/geoUtility'
 
 const Home = ({ history }) => {
   const { user, setUser, calendar } = useContext(Context)
@@ -15,6 +16,7 @@ const Home = ({ history }) => {
     }
     
     handleFeedReq()
+    checkGeo(user, setUser, history)
     return () => setFeed(feed)
   }, []) // eslint-disable-line
 

@@ -6,6 +6,7 @@ const userFields = `
     icon
     calendars
     championships
+    coords
     created_at
   }
 `
@@ -95,6 +96,7 @@ export const populateUser = `
   profile_picture
   calendars
   championships
+  coords
   likes
   posts ${postFields}
   events ${eventFields}
