@@ -1,19 +1,18 @@
 import axios from 'axios'
-import { useTokens, headers, checkAuth, getAxiosError, strsToInts } from './utility'
+import { useTokens, headers, checkAuth, getAxiosError } from './utility'
 
-export const updateCoords = async (user, setUser, lng, lat, history) => {
+export const updateLocation = async (user, setUser, location, history) => {
   try {
     await axios.post('', {
       variables: {
-        lng: JSON.stringify(lng),
-        lat: JSON.stringify(lat),
+        location: JSON.stringify(location),
       },
       query: `
-        mutation UpdateCoords($lng: String!, $lat: String!) {
-          updateCoords(lng: $lng, lat: $lat) {
+        mutation UpdateLocation($location: String!) {
+          updateLocation(location: $location) {
             _id
             name
-            coords
+            location
             tokens
           }
         }
@@ -22,15 +21,15 @@ export const updateCoords = async (user, setUser, lng, lat, history) => {
       if (res.data.errors) {
         process.env.NODE_ENV === 'development' && console.log(res.data.errors[0].message)
       } else {
-        const coords = strsToInts(res.data.data.updateCoords.coords)
+        const Parsedlocation = JSON.parse(res.data.data.updateLocation.location)
 
         await setUser({
           ...user,
-          coords,
-          token: useTokens(user, res.data.data.updateCoords.tokens),
+          location: Parsedlocation,
+          token: useTokens(user, res.data.data.updateLocation.tokens),
         })
         
-        localStorage.setItem('coords', JSON.stringify(coords))
+        localStorage.setItem('location', JSON.stringify(Parsedlocation))
         process.env.NODE_ENV === 'development' && console.log(res)
       }
     }).catch(err => {

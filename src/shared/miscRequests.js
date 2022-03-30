@@ -178,7 +178,11 @@ export const getGeoLocation = async (lat, lon) => {
       if (res.data.errors) {
         process.env.NODE_ENV === 'development' && console.log(res.data)
       } else {
-        info = res.data.data[0]
+        info = {
+          ...res.data.data[0],
+          longitude: lon,
+          latitude: lat,
+        }
         process.env.NODE_ENV === 'development' && console.log(res)
       }
     }).catch(err => {

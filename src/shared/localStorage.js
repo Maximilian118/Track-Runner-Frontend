@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { blankCal, removeKey, strsToInts } from '../shared/utility'
+import { blankCal, removeKey } from '../shared/utility'
 import { initPosts, initTracks, initGeojsons } from '../shared/initRequestResult'
 
 export const checkLocalStorage = () => {
@@ -26,7 +26,7 @@ export const checkLocalStorage = () => {
       rounds: JSON.parse(localStorage.getItem('rounds')),
       championships: JSON.parse(localStorage.getItem('championships')),
       likes: JSON.parse(localStorage.getItem('likes')),
-      coords: JSON.parse(localStorage.getItem('coords')),
+      location: JSON.parse(localStorage.getItem('location')),
     }
   }
 }
@@ -38,7 +38,7 @@ export const logout = history => {
   localStorage.removeItem('name')
   localStorage.removeItem('email')
   localStorage.removeItem('icon')
-  localStorage.removeItem('coords')
+  localStorage.removeItem('location')
   localStorage.removeItem('profile_picture')
   localStorage.removeItem('posts')
   localStorage.removeItem('tracks')
@@ -72,7 +72,7 @@ export const logInSuccess = userObj => {
     localStorage.setItem('rounds', JSON.stringify(userObj.rounds))
     localStorage.setItem('championships', JSON.stringify(userObj.championships))
     localStorage.setItem('likes', JSON.stringify(userObj.likes))
-    localStorage.setItem('coords', JSON.stringify(strsToInts(userObj.coords)))
+    localStorage.setItem('location', JSON.stringify(userObj.location))
   }
 
   return removeKey(userObj, "tokens")
