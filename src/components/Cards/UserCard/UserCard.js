@@ -17,7 +17,7 @@ const UserCard = ({ user, setUser }) =>
       userArr={user.following} 
       header={`Following: ${user.following.length}`}
       empty={"You are not following anyone!"}
-      style={{ maxHeight: 300 }}
+      style={{ maxHeight: 300, borderTop: "1px solid #DDDDDD" }}
     />
   </div>
 
