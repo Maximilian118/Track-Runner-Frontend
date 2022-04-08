@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { useTokens, headers, checkAuth, getAxiosError } from './utility'
+import { locationFields } from './requestPopulation'
+import { initLocation } from './initRequestResult'
 
 export const updateLocation = async (user, setUser, location, history) => {
   try {
@@ -12,7 +14,7 @@ export const updateLocation = async (user, setUser, location, history) => {
           updateLocation(location: $location) {
             _id
             name
-            location
+            location ${locationFields}
             tokens
           }
         }
@@ -21,15 +23,15 @@ export const updateLocation = async (user, setUser, location, history) => {
       if (res.data.errors) {
         process.env.NODE_ENV === 'development' && console.log(res.data.errors[0].message)
       } else {
-        const Parsedlocation = JSON.parse(res.data.data.updateLocation.location)
+        const locationData = initLocation(res.data.data.updateLocation.location)
 
         await setUser({
           ...user,
-          location: Parsedlocation,
+          location: locationData,
           token: useTokens(user, res.data.data.updateLocation.tokens),
         })
         
-        localStorage.setItem('location', JSON.stringify(Parsedlocation))
+        localStorage.setItem('location', JSON.stringify(locationData))
         process.env.NODE_ENV === 'development' && console.log(res)
       }
     }).catch(err => {

@@ -7,10 +7,10 @@ export const checkGeo = (user, setUser, history, precision) => {
   const x = precision ? precision : 3
 
   navigator.geolocation.getCurrentPosition(async pos => {
-    const lngMoved = user.location.longitude && toFixedX(user.location.longitude, x) !== toFixedX(pos.coords.longitude, x)
-    const latMoved = user.location.latitude && toFixedX(user.location.latitude, x) !== toFixedX(pos.coords.latitude, x)
+    const lngMoved = user.location && toFixedX(user.location.longitude, x) !== toFixedX(pos.coords.longitude, x)
+    const latMoved = user.location && toFixedX(user.location.latitude, x) !== toFixedX(pos.coords.latitude, x)
 
-    if (!user.location.longitude || lngMoved || latMoved) {
+    if (!user.location || lngMoved || latMoved) {
       const location = await getGeoLocation(pos.coords.latitude, pos.coords.longitude)
       updateLocation(user, setUser, location, history)
     }

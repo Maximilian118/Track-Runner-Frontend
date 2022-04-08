@@ -2,9 +2,9 @@ import axios from 'axios'
 import { logInSuccess, logout } from './localStorage'
 import { useTokens, checkAuth, getAxiosError, headers, unknownError } from './utility'
 import { handleDropZoneError, handleDropZoneSuccess } from '../components/utility/DropZone/DropZoneUtility'
-import { populateUser } from './requestPopulation'
+import { populateUser, userFields } from './requestPopulation'
 import { redundantFilesCheck } from './bucketRequests'
-import { initUser } from './initRequestResult'
+import { initLocation, initUser } from './initRequestResult'
 
 export const createUser = async (form, user, setUser, setLoading, setBackendError) => {
   setLoading(true)
@@ -225,5 +225,45 @@ export const updateProfilePicture = async (user, setUser, profile_picture, icon,
   } catch (err) {
     calledInDropZone && console.log(handleDropZoneError(setErr, setThumb, setLocalLoading, "Failed to update Profile Picture."))
     process.env.NODE_ENV === 'development' && console.log(err)
+  }
+}
+
+export const getUsers = async (user, setUser, setUserArr, searchKey, amount, history) => {
+  try {
+    await axios.post('', {
+      variables: {
+        searchKey,
+        amount,
+      },
+      query: `
+        query Users($searchKey: String!, $amount: Int!) {
+          users(searchKey: $searchKey, amount: $amount) {
+            users ${userFields}
+            searchKey
+            amount
+            tokens
+          }
+        }
+      `
+    }, {headers: headers(user.token)}).then(async res => {
+      if (res.data.errors) {
+        process.env.NODE_ENV === 'development' && console.log(res.data.errors[0].message)
+      } else {
+        setUserArr(res.data.data.users.users.map(user => {
+          return {
+            ...user,
+            location: initLocation(user.location),
+          }
+        }))
+        
+        useTokens(user, res.data.data.users.tokens, setUser)
+        process.env.NODE_ENV === 'development' && console.log(res)
+      }
+    }).catch(err => {
+      checkAuth(err.response.data.errors, setUser, history)
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
+    })
+  } catch (err) {
+    console.log(err)
   }
 }

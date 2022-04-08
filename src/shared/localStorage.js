@@ -1,6 +1,6 @@
 import moment from 'moment'
 import { blankCal, removeKey } from '../shared/utility'
-import { initPosts, initTracks, initGeojsons } from '../shared/initRequestResult'
+import { initPosts, initTracks, initGeojsons, initLocation } from '../shared/initRequestResult'
 
 export const checkLocalStorage = () => {
   const token = localStorage.getItem('token')
@@ -72,7 +72,7 @@ export const logInSuccess = userObj => {
     localStorage.setItem('rounds', JSON.stringify(userObj.rounds))
     localStorage.setItem('championships', JSON.stringify(userObj.championships))
     localStorage.setItem('likes', JSON.stringify(userObj.likes))
-    localStorage.setItem('location', JSON.stringify(userObj.location))
+    localStorage.setItem('location', JSON.stringify(initLocation(userObj.location)))
   }
 
   return removeKey(userObj, "tokens")

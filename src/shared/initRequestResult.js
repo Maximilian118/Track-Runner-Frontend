@@ -8,6 +8,17 @@ const redundantLapTimeHours = lap_time => {
   }
 }
 
+// Parse a location object.
+export const initLocation = location => {
+  return location ? {
+    ...location,
+    latitude: Number(location.latitude),
+    longitude: Number(location.longitude),
+    distance: Number(location.distance),
+    confidence: Number(location.confidence),
+  } : null
+}
+
 // Parse a single post.
 export const initPost = post => {
   return {
@@ -62,7 +73,7 @@ export const initGeojsons = geojsons => {
 export const initUser = user => {
   return {
     ...user,
-    location: JSON.parse(user.location),
+    location: initLocation(user.location),
     geojsons: initGeojsons(user.geojsons),
     posts: initPosts(user.posts),
     tracks: initTracks(user.tracks),

@@ -1,4 +1,28 @@
-const userFields = `
+export const locationFields = `
+  {
+    latitude
+    longitude
+    type
+    distance
+    name
+    number
+    postal_code
+    street
+    confidence
+    region
+    region_code
+    county
+    locality
+    administrative_area
+    neighbourhood
+    country
+    country_code
+    continent
+    label
+  }
+`
+
+export const userFields = `
   {
     _id
     name
@@ -6,7 +30,7 @@ const userFields = `
     icon
     calendars
     championships
-    location
+    location ${locationFields}
     created_at
   }
 `
@@ -96,8 +120,8 @@ export const populateUser = `
   profile_picture
   calendars
   championships
-  location
   likes
+  location ${locationFields}
   posts ${postFields}
   events ${eventFields}
   tracks ${trackFields}
