@@ -11,6 +11,8 @@
   box-shadow: $shadow;
   margin: 0 5px 10px;
   box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
 
   .top {
     width: 100%;
