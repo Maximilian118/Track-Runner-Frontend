@@ -34,6 +34,10 @@
     h5 {
       overflow-x: auto;
     }
+    
+    h5::-webkit-scrollbar { 
+      display: none;  /* Safari and Chrome */
+  }
   }
 
   .border-bottom {
