@@ -73,11 +73,19 @@ export const initGeojsons = geojsons => {
 export const initUser = user => {
   return {
     ...user,
-    location: initLocation(user.location),
-    geojsons: initGeojsons(user.geojsons),
-    posts: initPosts(user.posts),
-    tracks: initTracks(user.tracks),
+    location: user.location ? initLocation(user.location) : null,
+    geojsons: user.geojsons ? initGeojsons(user.geojsons) : [],
+    posts: user.posts ? initPosts(user.posts) : [],
+    tracks: user.tracks ? initTracks(user.tracks) : [],
+    following: user.following ? initUsers(user.following) : [],
   }
+}
+
+// Parse an array of users.
+export const initUsers = users => {
+  return users.map(user => {
+    return initUser(user)
+  })
 }
 
 // Parse a stringified array of rounds.

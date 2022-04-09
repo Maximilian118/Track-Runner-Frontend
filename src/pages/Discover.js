@@ -9,12 +9,17 @@ const Discover = ({ history }) => {
 
   useEffect(() => {
     getUsers(user, setUser, setUserArr, "location", 100, history)
-  }, [user, setUser, history])
+  }, []) // eslint-disable-line
 
   return (
     <>
       <div className="page-left">
-        <UserProxCard userArr={userArr}/>
+        <UserProxCard 
+          user={user}
+          setUser={setUser}
+          userArr={userArr}
+          history={history}
+        />
       </div>
       <div className="page-right">
 

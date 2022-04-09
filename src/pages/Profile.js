@@ -7,7 +7,7 @@ import PostCard from '../components/Cards/PostCard'
 import { postImgArr } from '../shared/utility'
 import TrackCard from '../components/Cards/TrackCard'
 
-const Profile = () => {
+const Profile = ({ history }) => {
   const { user, setUser } = useContext(Context)
   const [ nav, setNav ] = useState(0)
   const [ feed, setFeed ] = useState(user.posts)
@@ -24,7 +24,7 @@ const Profile = () => {
   return (
     <>
       <div className="page-left">
-        <UserCard user={user} setUser={setUser}/>
+        <UserCard user={user} setUser={setUser} history={history}/>
       </div>
       <div className="page-right">
         <ProfileBar setNav={setNav}/>

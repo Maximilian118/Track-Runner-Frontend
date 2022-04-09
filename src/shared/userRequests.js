@@ -267,3 +267,41 @@ export const getUsers = async (user, setUser, setUserArr, searchKey, amount, his
     console.log(err)
   }
 }
+
+export const updateFollowing = async (user, setUser, user_id, history) => {
+  try {
+    await axios.post('', {
+      variables: {
+        user_id,
+      },
+      query: `
+        mutation UpdateFollowing($user_id: String!) {
+          updateFollowing(user_id: $user_id) {
+            following ${userFields}
+            tokens
+          }
+        }
+      `
+    }, {headers: headers(user.token)}).then(async res => {
+      if (res.data.errors) {
+        process.env.NODE_ENV === 'development' && console.log(res.data.errors[0].message)
+      } else {
+        const following = res.data.data.updateFollowing.following.map(u => initUser(u))
+
+        setUser({
+          ...user,
+          following,
+          token: useTokens(user, res.data.data.updateFollowing.tokens)
+        })
+
+        localStorage.setItem('following', JSON.stringify(following))
+        process.env.NODE_ENV === 'development' && console.log(res)
+      }
+    }).catch(err => {
+      checkAuth(err.response.data.errors, setUser, history)
+      process.env.NODE_ENV === 'development' && console.log(getAxiosError(err))
+    })
+  } catch (err) {
+    console.log(err)
+  }
+}

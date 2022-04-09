@@ -58,6 +58,19 @@
     align-items: center;
     box-sizing: border-box;
   }
+
+  .icon-button {
+    width: 30px;
+    height: 30px;
+
+    .add-btn {
+      color: $add;
+    }
+
+    .remove-btn {
+      color: $error;
+    }
+  }
 }
 
 .sticky {
