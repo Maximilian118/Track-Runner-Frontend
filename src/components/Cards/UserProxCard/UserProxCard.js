@@ -11,8 +11,8 @@ const UserProxCard = ({ user, setUser, userArr, setUserArr, history }) => (
         setUser={setUser}
         userArr={userArr}
         setUserArr={setUserArr}
-        header={`Users Near You`}
-        empty={"No Users Found! (╯°□°)╯︵ ┻━┻"}
+        header={`Runners Near You`}
+        empty={"No Runners Found! (╯°□°)╯︵ ┻━┻"}
         history={history}
       />
     )}
