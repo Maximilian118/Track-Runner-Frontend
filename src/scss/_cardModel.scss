@@ -14,6 +14,10 @@
   position: relative;
   overflow: hidden;
 
+  h5::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+  }
+
   .top {
     width: 100%;
     height: 30px;
@@ -36,10 +40,6 @@
     h5 {
       overflow-x: auto;
     }
-    
-    h5::-webkit-scrollbar { 
-      display: none;  /* Safari and Chrome */
-  }
   }
 
   .border-bottom {

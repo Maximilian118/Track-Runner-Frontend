@@ -77,6 +77,8 @@
           font-size: 0.8rem;
         }
       }
+    }::-webkit-scrollbar { 
+      display: none;  /* Safari and Chrome */
     }
 
     .bottom {
