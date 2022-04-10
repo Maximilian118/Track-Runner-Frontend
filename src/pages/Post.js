@@ -218,7 +218,7 @@ const Post = ({ history }) => {
               </div>
               <div className="middle-row">
                 <TimePicker
-                  label="Time of run *"
+                  label="Time of run"
                   ampm={false}
                   openTo="hours"
                   views={['hours', 'minutes', 'seconds']}
@@ -235,14 +235,15 @@ const Post = ({ history }) => {
                   }}
                   renderInput={(params) => 
                     <TextField 
-                      {...params} 
+                      {...params}
+                      required
                       className="mui-date-time"
                       style={{ marginRight: 20 }}
                     />
                   }
                 />
                 <DatePicker
-                  label="Date of run *"
+                  label="Date of run"
                   mask="__/__/__"
                   inputFormat="DD/MM/YY"
                   className="mui-date-time"
@@ -258,6 +259,7 @@ const Post = ({ history }) => {
                   renderInput={(params) => 
                     <TextField 
                       {...params}
+                      required
                       className="mui-date-time"
                     />
                   }

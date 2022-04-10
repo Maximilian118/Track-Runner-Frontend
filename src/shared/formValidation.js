@@ -68,7 +68,19 @@ export const updatePostForm = (e, form, setForm, formError, setFormError, backen
   setForm({...form, [e.target.name]: e.target.value})
   handleBackendError(backendError, setBackendError)
 
-  const lapTimeRegEx = !e.target.value._i || /^\d{2}\:\d{2}\:\d{2}$/.test(e.target.value._i) // eslint-disable-line no-useless-escape
+  const muiCheck = e => {
+    if (e.target.value) {
+      if (e.target.value._d) {
+        return e.target.value._d.toString() !== "Invalid Date"
+      } else if (e.target.value._i) {
+        return !e.target.value._i || /^\d{2}\:\d{2}\:\d{2}$/.test(e.target.value._i) // eslint-disable-line no-useless-escape
+      } else {
+        return false
+      }
+    } else {
+      return false
+    }
+  }
 
   switch (e.target.name) {
     case "title": if (e.target.value !== "") {
@@ -81,7 +93,7 @@ export const updatePostForm = (e, form, setForm, formError, setFormError, backen
     } else {
       handleInput(e.target.name, e.target.value, formError, setFormError, "Select a Track")
     }; break
-    case "lapTime": if (lapTimeRegEx && e.target.value._d.toString() !== "Invalid Date") {
+    case "lapTime": if (muiCheck(e)) {
       handleInput(e.target.name, e.target.value, formError, setFormError)
     } else {
       handleInput(e.target.name, e.target.value, formError, setFormError, "Invalid Lap Time")
@@ -91,12 +103,12 @@ export const updatePostForm = (e, form, setForm, formError, setFormError, backen
     } else {
       handleInput(e.target.name, e.target.value, formError, setFormError, "Invalid Distance")
     }; break
-    case "timeOfRun": if (e.target.value._d.toString() !== "Invalid Date") {
+    case "timeOfRun": if (muiCheck(e)) {
       handleInput(e.target.name, e.target.value, formError, setFormError)
     } else {
       handleInput(e.target.name, e.target.value, formError, setFormError, "Invalid Time of Run")
     }; break
-    case "dateOfRun": if (e.target.value._d.toString() !== "Invalid Date") {
+    case "dateOfRun": if (muiCheck(e)) {
       handleInput(e.target.name, e.target.value, formError, setFormError)
     } else {
       handleInput(e.target.name, e.target.value, formError, setFormError, "Invalid Date of Run")
