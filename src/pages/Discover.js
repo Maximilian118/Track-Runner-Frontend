@@ -18,6 +18,7 @@ const Discover = ({ history }) => {
           user={user}
           setUser={setUser}
           userArr={userArr}
+          setUserArr={setUserArr}
           history={history}
         />
       </div>

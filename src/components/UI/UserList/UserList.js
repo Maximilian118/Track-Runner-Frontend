@@ -5,8 +5,13 @@ import { IconButton } from '@mui/material'
 import { Add, Delete } from '@mui/icons-material'
 import { updateFollowing } from '../../../shared/userRequests'
 
-const UserList = ({ user, setUser, userArr, header, empty, style, history }) => {
-  const userClickedHandler = u => updateFollowing(user, setUser, u._id, history)
+const UserList = ({ user, setUser, userArr, setUserArr, header, empty, style, history }) => {
+  const isDel = userArr.some(u => user.following.includes(u))
+  
+  const userClickedHandler = u => {
+    updateFollowing(user, setUser, u._id, history)
+    setUserArr && setUserArr(userArr.filter(f => f._id !== u._id))
+  }
 
   return (
     <div className="user-list" style={style}>
@@ -20,19 +25,19 @@ const UserList = ({ user, setUser, userArr, header, empty, style, history }) => 
           <h5>{empty}</h5>
         </div>
         :
-        userArr.map((u, i) => {
-          const followed = user.following.some(f => u._id === f._id)
-  
-          return (
-            <div className="user" key={i} onClick={e => userClickedHandler(u)}>
-              <ProfilePicture user={u} heightWidth={30}/>
-              <h5>{u.name}</h5>
-              <IconButton className="icon-button">
-                {followed ? <Delete className="remove-btn"/> : <Add className="add-btn"/>}
-              </IconButton>
-            </div>
-          )
-        })
+        userArr.map((u, i) => (
+          <div 
+            className={`user ${isDel ? "del" : "add"}`}
+            key={i} 
+            onClick={e => userClickedHandler(u)}
+          >
+            <ProfilePicture user={u} heightWidth={30}/>
+            <h5>{u.name}</h5>
+            <IconButton className="icon-button">
+              {isDel ? <Delete/> : <Add/>}
+            </IconButton>
+          </div>
+        ))
       }
     </div>
   )

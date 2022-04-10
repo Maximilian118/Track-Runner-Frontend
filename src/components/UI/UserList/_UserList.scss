@@ -23,10 +23,6 @@
       right: 5px;
       display: none;
     }
-  }:hover {
-    .icon-button {
-      display: flex;
-    }
   }
 
   .header {
@@ -40,6 +36,10 @@
     h5 {
       margin-left: 10px;
     }
+  }:hover {
+    .icon-button {
+      display: flex;
+    }
   }
 
   .empty {
@@ -52,5 +52,13 @@
 
   .user:nth-child(even) {
     background: $empty;
+  }
+
+  .add:hover {
+    background: $add;
+  }
+
+  .del:hover {
+    background: $del;
   }
 }
