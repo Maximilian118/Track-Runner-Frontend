@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../App'
-import UserProxCard from '../components/Cards/UserProxCard'
 import { getUsers } from '../shared/userRequests'
+import UserProxCard from '../components/Cards/UserProxCard'
+import UserProxMapCard from '../components/Cards/UserProxMapCard'
 
 const Discover = ({ history }) => {
   const { user, setUser } = useContext(Context)
@@ -23,7 +24,10 @@ const Discover = ({ history }) => {
         />
       </div>
       <div className="page-right">
-
+        <UserProxMapCard
+          user={user}
+          userArr={userArr}
+        />
       </div>
     </>
   )

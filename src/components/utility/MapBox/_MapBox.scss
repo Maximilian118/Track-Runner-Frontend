@@ -1,3 +1,29 @@
+@import '../../../scss/variables';
+
 .map-box {
   z-index: 3;
+
+  .map-box-marker {
+    font-family: 'Ubuntu', sans-serif;
+    background: white;
+    box-shadow: $shadow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 30px;
+    height: 30px;
+    background-size: 100%;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    font-weight: 300;
+    color: black;
+    font-size: 0.9em;
+    background-size: cover;
+    background-position: center;
+  }
 }
