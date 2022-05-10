@@ -4,8 +4,9 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import mapboxgl from '!mapbox-gl' // eslint-disable-line import/no-webpack-loader-syntax
 import * as turf from '@turf/turf'
 import { initGeojson, getInitials } from '../../../shared/utility'
+import { updateFollowing } from '../../../shared/userRequests'
 
-const MapBox = ({ geojson, location, height, width, pitch, zoom, _3D, BRBot, setLoading, userArr }) => {
+const MapBox = ({ user, setUser, geojson, location, height, width, pitch, zoom, _3D, BRBot, setLoading, userArr, setUserArr, history }) => {
   const mapContainer = useRef(null)
   const map = useRef(null)
   const [lng, setLng] = useState(location ? location.longitude : -70.9)
@@ -68,23 +69,36 @@ const MapBox = ({ geojson, location, height, width, pitch, zoom, _3D, BRBot, set
           }
         })
       } else if (userArr) {
-        userArr.forEach(user => {
+        const markers = [user, ...userArr]
+
+        markers.forEach(u => {
           const pp = document.createElement('div')
           pp.className = 'map-box-marker'
+          pp.setAttribute('id', u._id)
 
-          if (user.icon) {
-            pp.style.backgroundImage = `url(${user.icon})`
+          if (user._id !== u._id) {
+            pp.style.cursor = 'pointer'
+          }
+
+          if (u.icon) {
+            pp.style.backgroundImage = `url(${u.icon})`
           } else {
             const p = document.createElement('p')
-            const text = document.createTextNode(`${getInitials(user)}`)
+            const text = document.createTextNode(`${getInitials(u)}`)
             pp.appendChild(p.appendChild(text))
           }
 
           pp.addEventListener('click', () => {
-            window.alert(user.name)
+            if (user._id !== u._id) {
+              document.getElementById(u._id).remove()
+              const newUserArr = userArr.filter(f => f._id !== u._id)
+              updateFollowing(user, setUser, u._id, history)
+              setUserArr(newUserArr)
+              userArr = newUserArr // eslint-disable-line react-hooks/exhaustive-deps
+            }
           })
 
-          new mapboxgl.Marker(pp).setLngLat([user.location.longitude, user.location.latitude]).addTo(map.current)
+          new mapboxgl.Marker(pp).setLngLat([u.location.longitude, u.location.latitude]).addTo(map.current)
         })
       }
     }

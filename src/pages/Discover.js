@@ -26,7 +26,10 @@ const Discover = ({ history }) => {
       <div className="page-right">
         <UserProxMapCard
           user={user}
+          setUser={setUser}
           userArr={userArr}
+          setUserArr={setUserArr}
+          history={history}
         />
       </div>
     </>

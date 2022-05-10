@@ -10,7 +10,11 @@ const UserList = ({ user, setUser, userArr, setUserArr, header, empty, style, hi
   
   const userClickedHandler = u => {
     updateFollowing(user, setUser, u._id, history)
-    setUserArr && setUserArr(userArr.filter(f => f._id !== u._id))
+
+    if (setUserArr) {
+      setUserArr(userArr.filter(f => f._id !== u._id))
+      document.getElementById(u._id).remove()
+    }
   }
 
   return (
