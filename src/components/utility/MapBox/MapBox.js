@@ -76,10 +76,6 @@ const MapBox = ({ user, setUser, geojson, location, height, width, pitch, zoom, 
           pp.className = 'map-box-marker'
           pp.setAttribute('id', u._id)
 
-          if (user._id !== u._id) {
-            pp.style.cursor = 'pointer'
-          }
-
           if (u.icon) {
             pp.style.backgroundImage = `url(${u.icon})`
           } else {
@@ -88,15 +84,17 @@ const MapBox = ({ user, setUser, geojson, location, height, width, pitch, zoom, 
             pp.appendChild(p.appendChild(text))
           }
 
-          pp.addEventListener('click', () => {
-            if (user._id !== u._id) {
+          if (user._id !== u._id) {
+            pp.style.cursor = 'pointer'
+
+            pp.addEventListener('click', () => {
               document.getElementById(u._id).remove()
               const newUserArr = userArr.filter(f => f._id !== u._id)
               updateFollowing(user, setUser, u._id, history)
               setUserArr(newUserArr)
               userArr = newUserArr // eslint-disable-line react-hooks/exhaustive-deps
-            }
-          })
+            })
+          }
 
           new mapboxgl.Marker(pp).setLngLat([u.location.longitude, u.location.latitude]).addTo(map.current)
         })
